@@ -147,7 +147,7 @@ export default function Home() {
         {/* Why Section */}
         <section id="why" className="py-20 section-border">
           <div className="max-w-4xl mx-auto px-6 text-center fade-in-trigger">
-            <h2 className="font-serif text-3xl mb-2" data-testid="text-why-title">Why I do this</h2>
+            <h2 className="font-serif text-3xl mb-2" data-testid="text-why-title">Why we do this</h2>
             <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
               After a decade crafting TVCs and brand films, we moved into weddings
               to make something quieter—and truer. We work calmly on the day, we listen,
