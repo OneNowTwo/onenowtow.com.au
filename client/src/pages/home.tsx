@@ -199,7 +199,7 @@ ${formData.name}
 
 
         {/* Why Section */}
-        <section className="py-20 section-border">
+        <section id="why" className="py-20 section-border">
           <div className="max-w-4xl mx-auto px-6 text-center fade-in-trigger">
             <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
               After a decade crafting TVCs and brand films, we moved into weddings
