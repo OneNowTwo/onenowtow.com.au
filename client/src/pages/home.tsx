@@ -85,7 +85,7 @@ export default function Home() {
               <img 
                 src={logoUrl} 
                 alt="One Now Two Logo" 
-                className="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+                className="h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
               />
             </a>
             <a 
