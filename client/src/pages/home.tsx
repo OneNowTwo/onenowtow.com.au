@@ -151,18 +151,11 @@ ${formData.name}
       <main id="top">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
-          {/* Fallback image for when video fails */}
-          {(!videoLoaded || videoError) && (
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
-              }}
-            />
-          )}
+          {/* Always present fallback background */}
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900" />
           
           <video
-            className={`absolute inset-0 w-full h-full object-cover hero-video transition-opacity duration-1000 ${videoLoaded && !videoError ? 'opacity-100' : 'opacity-0'}`}
+            className="absolute inset-0 w-full h-full object-cover hero-video"
             autoPlay
             muted
             loop
@@ -170,20 +163,13 @@ ${formData.name}
             preload="metadata"
             webkit-playsinline="true"
             data-testid="video-hero"
-            onLoadedData={() => setVideoLoaded(true)}
-            onError={() => setVideoError(true)}
-            onCanPlay={(e) => {
-              const video = e.target as HTMLVideoElement;
-              video.play().catch(() => {
-                setVideoError(true);
-              });
-            }}
+            style={{ zIndex: 1 }}
           >
             <source src={weddingVideo} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 hero-veil"></div>
+          <div className="absolute inset-0 hero-veil" style={{ zIndex: 2 }}></div>
           
-          <div className="relative text-center px-6 fade-in">
+          <div className="relative text-center px-6 fade-in" style={{ zIndex: 3 }}>
             <div className="font-display font-semibold text-xl tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
               One Now Two
             </div>
