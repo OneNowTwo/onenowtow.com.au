@@ -155,7 +155,17 @@ ${formData.name}
             muted
             loop
             playsInline
+            preload="auto"
+            webkit-playsinline="true"
             data-testid="video-hero"
+            onCanPlay={(e) => {
+              // Ensure video plays on mobile devices
+              const video = e.target as HTMLVideoElement;
+              video.play().catch(() => {
+                // Fallback: if autoplay fails, just show static frame
+                console.log('Autoplay prevented by browser');
+              });
+            }}
           >
             <source src={weddingVideo} type="video/mp4" />
             Your browser does not support the video tag.
