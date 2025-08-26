@@ -336,16 +336,18 @@ ${formData.name}
                     data-testid="input-email"
                   />
                   
-                  <input
-                    type="date"
-                    name="weddingDate"
-                    placeholder="Save the Date"
-                    value={formData.weddingDate}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-wedding-date"
-                  />
+                  <div>
+                    <label className="block text-sm text-[var(--muted-grey)] mb-2">Save the Date</label>
+                    <input
+                      type="date"
+                      name="weddingDate"
+                      value={formData.weddingDate}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                      data-testid="input-wedding-date"
+                    />
+                  </div>
 
                   <button
                     type="submit"
