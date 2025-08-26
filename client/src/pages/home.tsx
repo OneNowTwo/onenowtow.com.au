@@ -120,7 +120,7 @@ export default function Home() {
               One Now Two
             </div>
             <h1 className="font-serif text-5xl md:text-6xl leading-tight mb-3" data-testid="text-hero-title">
-              We capture what surrounds the vows
+              We capture what surrounds the vows.
             </h1>
             <div className="text-sm text-soft-grey tracking-wider uppercase mb-6" data-testid="text-hero-location">
               Sydney • New South Wales • Australia
