@@ -144,7 +144,7 @@ export default function Home() {
             <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
               After a decade crafting TVCs and brand films, we moved into weddings
               to make something quieter—and truer. We work calmly on the day, we listen,
-              and cut with restraint so your film feels timeless next year and in twenty.
+              and cut with restraint so your film holds, long after the day.
             </p>
           </div>
         </section>
