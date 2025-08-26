@@ -102,17 +102,14 @@ export default function Home() {
       <main id="top">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
-          <video 
-            className="absolute inset-0 w-full h-full object-cover hero-video" 
-            autoPlay 
-            muted 
-            loop 
-            playsInline 
-            poster="https://images.unsplash.com/photo-1508898578281-774ac4893bd0?q=80&w=1920&auto=format&fit=crop"
+          <iframe
+            className="absolute inset-0 w-full h-full object-cover hero-video"
+            src="https://player.vimeo.com/video/318097471?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
             data-testid="video-hero"
-          >
-            <source src="https://cdn.coverr.co/videos/coverr-bride-and-groom-walking-1528/1080p.mp4" type="video/mp4" />
-          </video>
+          ></iframe>
           <div className="absolute inset-0 hero-veil"></div>
           
           <div className="relative text-center px-6 fade-in">
