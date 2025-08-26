@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -34,6 +34,7 @@
   
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', serif;
   --radius: 1.3rem;
 }
 
@@ -90,6 +91,10 @@
 
   p, small, a, li, button, figcaption {
     font-family: var(--font-sans);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 }
 

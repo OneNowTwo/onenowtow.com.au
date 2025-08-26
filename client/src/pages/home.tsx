@@ -103,7 +103,7 @@ export default function Home() {
           <div className="absolute inset-0 hero-veil"></div>
           
           <div className="relative text-center px-6 fade-in">
-            <div className="font-semibold text-sm tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
+            <div className="font-display font-semibold text-sm tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
               One Now Two
             </div>
             <h1 className="font-serif text-5xl md:text-6xl leading-tight mb-3" data-testid="text-hero-title">
@@ -136,17 +136,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Why Section */}
-        <section id="why" className="py-20 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center fade-in-trigger">
-            <h2 className="font-serif text-3xl mb-2" data-testid="text-why-title">Why we do this</h2>
-            <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
-              After a decade crafting TVCs and brand films, we moved into weddings
-              to make something quieter—and truer. We work calmly on the day, we listen,
-              and cut with restraint so your film feels timeless next year and in twenty.
-            </p>
-          </div>
-        </section>
+
 
         {/* Selected Works Section */}
         <section id="works" className="py-20 section-border">
@@ -183,31 +173,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Ethos Section */}
-        <section id="ethos" className="py-20 section-border">
-          <div className="max-w-3xl mx-auto px-6 text-center fade-in-trigger">
-            <h2 className="font-serif text-3xl mb-6" data-testid="text-ethos-title">An ethos of restraint</h2>
-            <div className="space-y-3">
-              <p className="text-soft-grey text-lg" data-testid="text-ethos-1">Observe quietly.</p>
-              <p className="text-soft-grey text-lg" data-testid="text-ethos-2">Edit honestly.</p>
-              <p className="text-soft-grey text-lg" data-testid="text-ethos-3">Leave space for feeling.</p>
-            </div>
-          </div>
-        </section>
+
 
         {/* Contact Section */}
         <section id="enquire" className="py-20 section-border">
           <div className="max-w-2xl mx-auto px-6 text-center fade-in-trigger">
-            <h2 className="font-serif text-3xl mb-6" data-testid="text-contact-title">Dates are limited.</h2>
+            <h2 className="font-serif text-3xl mb-6" data-testid="text-contact-title">We will call you back</h2>
+            <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
+              Add your number in the email and I'll ring you back.
+            </p>
             <a 
               href="mailto:hello@onenowtwo.com.au?subject=Wedding Enquiry — One Now Two" 
               className="inline-block btn-outline mb-3"
               data-testid="button-enquire-email"
             >
-              Enquire by email
+              Enquire
             </a>
             <p className="text-soft-grey text-sm" data-testid="text-contact-note">
-              Prefer a call? Add your number in the email and I'll ring you back.
+              (+61) 0400 123 456
             </p>
           </div>
         </section>
