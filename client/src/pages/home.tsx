@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import logoUrl from "../assets/logo.png";
-import weddingVideo from "../assets/videos/wedding-reel-mobile.mp4";
 
 const portfolioWorks = [
   {
@@ -167,8 +166,8 @@ ${formData.name}
               });
             }}
           >
-            <source src={weddingVideo} type="video/mp4" />
-            <source src={weddingVideo} type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" />
+            <source src="/videos/wedding-reel-mobile.mp4" type="video/mp4" />
+            <source src="/videos/wedding-reel-mobile.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" />
           </video>
           <div className="absolute inset-0 hero-veil"></div>
           
