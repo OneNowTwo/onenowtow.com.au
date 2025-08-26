@@ -6,6 +6,9 @@ One Now Two is a cinematic wedding videography website featuring a minimalist, m
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Issues Resolved
+- **Mobile Video Playback**: Banner hero video was not playing on mobile devices. Implemented aggressive mobile video playback approach with `x5-playsinline`, `preload="auto"`, and forced play attempts with retries. Removed fallback solutions as user specifically wants the actual video to work, not alternatives.
+
 # System Architecture
 
 ## Frontend Architecture

@@ -44,8 +44,6 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoError, setVideoError] = useState(false);
 
   const getEmbedUrl = (url: string) => {
     if (url.includes('vimeo.com')) {
@@ -151,25 +149,31 @@ ${formData.name}
       <main id="top">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
-          {/* Always present fallback background */}
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900" />
-          
           <video
             className="absolute inset-0 w-full h-full object-cover hero-video"
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
+            controls={false}
             webkit-playsinline="true"
+            x5-playsinline="true"
             data-testid="video-hero"
-            style={{ zIndex: 1 }}
+            ref={(video) => {
+              if (video) {
+                video.play().catch(() => {
+                  // Force play attempt
+                  setTimeout(() => video.play(), 100);
+                });
+              }
+            }}
           >
             <source src={weddingVideo} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 hero-veil" style={{ zIndex: 2 }}></div>
+          <div className="absolute inset-0 hero-veil"></div>
           
-          <div className="relative text-center px-6 fade-in" style={{ zIndex: 3 }}>
+          <div className="relative text-center px-6 fade-in">
             <div className="font-display font-semibold text-xl tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
               One Now Two
             </div>
