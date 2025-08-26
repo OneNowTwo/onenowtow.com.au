@@ -6,7 +6,7 @@ const portfolioWorks = [
   {
     id: 1,
     title: "Tanya X Tommy",
-    image: "https://i.vimeocdn.com/video/625826904-9d57a65c82ebef4c531273c6e65caf060d136724535c56939018dca5a80d1a94-d_1280?region=us",
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop",
     link: "https://vimeo.com/177524264",
     alt: "Tanya X Tommy wedding film"
   },
@@ -20,7 +20,7 @@ const portfolioWorks = [
   {
     id: 3,
     title: "The Day Before",
-    image: "https://i.vimeocdn.com/video/785629459-9d57a65c82ebef4c531273c6e65caf060d136724535c56939018dca5a80d1a94-d_1280?region=us",
+    image: "https://images.unsplash.com/photo-1521316730702-829a8e30dfdf?q=80&w=1200&auto=format&fit=crop",
     link: "https://vimeo.com/345569949",
     alt: "The Day Before wedding film"
   },
