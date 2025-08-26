@@ -149,8 +149,8 @@ export default function Home() {
           <div className="max-w-4xl mx-auto px-6 text-center fade-in-trigger">
             <h2 className="font-serif text-3xl mb-2" data-testid="text-why-title">Why I do this</h2>
             <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
-              After a decade crafting TVCs and brand films at Young Buck Media, I moved into weddings
-              to make something quieter—and truer. I work calmly on the day, listen more than I speak,
+              After a decade crafting TVCs and brand films, we moved into weddings
+              to make something quieter—and truer. We work calmly on the day, we listen,
               and cut with restraint so your film feels timeless next year and in twenty.
             </p>
           </div>
