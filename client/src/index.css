@@ -106,7 +106,7 @@
 
   /* Hero */
   .hero-video {
-    filter: grayscale(100%) contrast(1.05) brightness(0.85);
+    filter: contrast(1.05) brightness(0.85);
   }
 
   .hero-veil {
