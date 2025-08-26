@@ -103,7 +103,7 @@ export default function Home() {
           <div className="absolute inset-0 hero-veil"></div>
           
           <div className="relative text-center px-6 fade-in">
-            <div className="font-display font-semibold text-sm tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
+            <div className="font-display font-semibold text-xl tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
               One Now Two
             </div>
             <h1 className="font-serif text-5xl md:text-6xl leading-tight mb-3" data-testid="text-hero-title">
@@ -200,20 +200,16 @@ export default function Home() {
         {/* Contact Section */}
         <section id="enquire" className="py-20 section-border">
           <div className="max-w-2xl mx-auto px-6 text-center fade-in-trigger">
-            <h2 className="font-serif text-3xl mb-6" data-testid="text-contact-title">We will call you back</h2>
             <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
-              Add your number in the email and I'll ring you back.
+              Tell us about your day
             </p>
             <a 
               href="mailto:hello@onenowtwo.com.au?subject=Wedding Enquiry — One Now Two" 
-              className="inline-block btn-outline mb-3"
+              className="inline-block btn-outline"
               data-testid="button-enquire-email"
             >
               Enquire
             </a>
-            <p className="text-soft-grey text-sm" data-testid="text-contact-note">
-              (+61) 0400 123 456
-            </p>
           </div>
         </section>
       </main>
