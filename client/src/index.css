@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8431%);
+  --card: hsl(180, 6.6667%, 97.0588%);
+  --card-foreground: hsl(210, 25%, 7.8431%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8431%);
+  --primary: hsl(203.8863, 88.2845%, 53.1373%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 25%, 7.8431%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 1.9608%, 90%);
+  --muted-foreground: hsl(210, 25%, 7.8431%);
+  --accent: hsl(211.5789, 51.3514%, 92.7451%);
+  --accent-foreground: hsl(203.8863, 88.2845%, 53.1373%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(201.4286, 30.4348%, 90.9804%);
+  --input: hsl(200, 23.0769%, 97.4510%);
+  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+  
+  /* One Now Two Custom Colors */
+  --bg: hsl(240, 9%, 6%);
+  --ink: hsl(240, 9%, 96%);
+  --muted-grey: hsl(240, 5%, 65%);
+  --hairline: hsl(240, 8%, 11%);
+  --light-accent: hsl(240, 2%, 90%);
+  
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --radius: 1.3rem;
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(200, 6.6667%, 91.1765%);
+  --card: hsl(228, 9.8039%, 10%);
+  --card-foreground: hsl(0, 0%, 85.0980%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(200, 6.6667%, 91.1765%);
+  --primary: hsl(203.7736, 87.6033%, 52.5490%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(195.0000, 15.3846%, 94.9020%);
+  --secondary-foreground: hsl(210, 25%, 7.8431%);
+  --muted: hsl(0, 0%, 9.4118%);
+  --muted-foreground: hsl(210, 3.3898%, 46.2745%);
+  --accent: hsl(205.7143, 70%, 7.8431%);
+  --accent-foreground: hsl(203.7736, 87.6033%, 52.5490%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(210, 5.2632%, 14.9020%);
+  --input: hsl(207.6923, 27.6596%, 18.4314%);
+  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    height: 100%;
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    letter-spacing: 0.2px;
+  }
+
+  p, small, a, li, button, figcaption {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  /* Navigation */
+  .nav-backdrop {
+    background: linear-gradient(to bottom, rgba(15,15,16,0.85), rgba(15,15,16,0));
+  }
+
+  /* Buttons */
+  .btn-outline {
+    @apply border border-[var(--light-accent)] text-[var(--ink)] no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 hover:bg-white/5 transition-all;
+  }
+
+  /* Hero */
+  .hero-video {
+    filter: grayscale(100%) contrast(1.05) brightness(0.85);
+  }
+
+  .hero-veil {
+    background: radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,0.15), rgba(0,0,0,0.55));
+  }
+
+  /* Portfolio */
+  .portfolio-figure {
+    @apply bg-zinc-950 border border-[var(--hairline)] rounded-xl overflow-hidden relative;
+  }
+
+  .portfolio-thumb {
+    @apply w-full aspect-video object-cover transition-all duration-500 ease-out;
+    filter: grayscale(100%);
+    transform: scale(1.02);
+  }
+
+  .portfolio-thumb:hover {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+  }
+
+  .portfolio-caption {
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(4px);
+    @apply absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200;
+  }
+
+  /* Animations */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 0.9s ease 0.2s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Sections */
+  .section-border {
+    @apply border-t border-[var(--hairline)];
+  }
+}
