@@ -77,14 +77,15 @@ export default function Home() {
           <nav className="flex justify-between items-center py-4">
             <a 
               href="#top" 
-              className="flex items-center gap-3 text-off-white no-underline" 
+              className="flex items-center text-off-white no-underline" 
               aria-label="One Now Two"
               data-testid="link-logo"
             >
-              <div className="h-8 w-8 rounded-lg bg-gray-900 border border-hairline flex items-center justify-center">
-                <span className="font-semibold text-xs tracking-wider">ON</span>
-              </div>
-              <div className="font-semibold text-sm tracking-wider uppercase opacity-90">One Now Two</div>
+              <img 
+                src="/attached_assets/One_1756178998825.png" 
+                alt="One Now Two Logo" 
+                className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              />
             </a>
             <a 
               href="#enquire" 
@@ -114,6 +115,9 @@ export default function Home() {
           <div className="absolute inset-0 hero-veil"></div>
           
           <div className="relative text-center px-6 fade-in">
+            <div className="font-semibold text-sm tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
+              One Now Two
+            </div>
             <h1 className="font-serif text-5xl md:text-6xl leading-tight mb-3" data-testid="text-hero-title">
               Cinematic wedding films that feel like you.
             </h1>
