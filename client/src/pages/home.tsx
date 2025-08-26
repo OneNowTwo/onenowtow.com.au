@@ -1,66 +1,19 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import logoUrl from "../assets/logo.png";
 
 function HeroSection() {
-  const vidRef = useRef<HTMLVideoElement>(null);
-  const [needsPlay, setNeedsPlay] = useState(false);
-
-  useEffect(() => {
-    const v = vidRef.current;
-    if (!v) return;
-
-    // iOS/Safari sometimes need both attributes + explicit play attempt
-    v.muted = true;
-    v.setAttribute("playsinline", "");
-    v.setAttribute("webkit-playsinline", "");
-
-    const tryPlay = async () => {
-      try {
-        await v.play();
-        setNeedsPlay(false);
-      } catch {
-        // Autoplay blocked (Low Power Mode / data saver / some Androids)
-        setNeedsPlay(true);
-      }
-    };
-
-    // Start when visible
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) tryPlay();
-    }, { threshold: 0.25 });
-
-    io.observe(v);
-    return () => io.disconnect();
-  }, []);
-
-  const manualPlay = async () => {
-    const v = vidRef.current;
-    if (!v) return;
-    try {
-      await v.play();
-      setNeedsPlay(false);
-    } catch {
-      // show controls as last resort
-      v.setAttribute("controls", "controls");
-    }
-  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center">
-      <video
-        ref={vidRef}
-        className="absolute inset-0 w-full h-full object-cover hero-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="/media/hero/hero-poster.jpg"
+      <iframe
+        src="https://player.vimeo.com/video/1113411900?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&controls=0&muted=1"
+        className="absolute inset-0 w-full h-full"
+        style={{ width: '100%', height: '100%', border: 'none' }}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+        title="One Now Two Hero Video"
         data-testid="video-hero"
-      >
-        <source src="/media/hero/hero-web.webm" type="video/webm" />
-        <source src="/media/hero/hero-web.mp4" type="video/mp4" />
-      </video>
+      />
       <div className="absolute inset-0 hero-veil"></div>
       
       <div className="relative text-center px-6 fade-in">
@@ -73,15 +26,7 @@ function HeroSection() {
         <div className="text-sm text-soft-grey tracking-wider uppercase mb-6" data-testid="text-hero-location">
           Sydney • New South Wales • Australia
         </div>
-        {needsPlay && (
-          <button 
-            className="mt-4 border border-white/20 bg-white/5 text-white rounded-full px-6 py-3 hover:bg-white/10 transition-colors"
-            onClick={manualPlay}
-            data-testid="button-play-video"
-          >
-            Play Video
-          </button>
-        )}
+
         <div className="flex justify-center mt-8">
           <a 
             href="#why" 
