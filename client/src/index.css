@@ -156,42 +156,64 @@
   }
 
   /* Date input custom styling */
+  .date-input {
+    position: relative;
+  }
+  
   .date-input::-webkit-datetime-edit {
-    color: var(--muted-grey);
+    color: transparent;
   }
   
   .date-input::-webkit-datetime-edit-text {
-    color: var(--muted-grey);
+    color: transparent;
   }
   
   .date-input::-webkit-datetime-edit-month-field,
   .date-input::-webkit-datetime-edit-day-field,
   .date-input::-webkit-datetime-edit-year-field {
-    color: var(--muted-grey);
+    color: transparent;
   }
   
   .date-input::-webkit-calendar-picker-indicator {
     color: var(--muted-grey);
     opacity: 0.7;
+    position: absolute;
+    right: 12px;
   }
   
   .date-input::-webkit-calendar-picker-indicator:hover {
     opacity: 1;
   }
   
-  /* Custom placeholder for empty date input */
-  .date-input:invalid {
-    color: var(--muted-grey);
+  /* Show actual date when valid */
+  .date-input:valid::-webkit-datetime-edit {
+    color: var(--ink);
   }
   
-  .date-input:invalid::-webkit-datetime-edit {
-    color: transparent;
+  .date-input:valid::-webkit-datetime-edit-text {
+    color: var(--ink);
   }
   
-  .date-input:invalid::before {
+  .date-input:valid::-webkit-datetime-edit-month-field,
+  .date-input:valid::-webkit-datetime-edit-day-field,
+  .date-input:valid::-webkit-datetime-edit-year-field {
+    color: var(--ink);
+  }
+  
+  /* Custom placeholder overlay */
+  .date-input::before {
     content: "Save the Date";
     color: var(--muted-grey);
     position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     pointer-events: none;
+    z-index: 1;
+  }
+  
+  .date-input:valid::before,
+  .date-input:focus::before {
+    display: none;
   }
 }
