@@ -35,6 +35,14 @@ const portfolioWorks = [
 
 export default function Home() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioWorks[0] | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    weddingDate: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const getEmbedUrl = (url: string) => {
     if (url.includes('vimeo.com')) {
@@ -45,6 +53,45 @@ export default function Home() {
       return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0`;
     }
     return url;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      // Create mailto link with form data
+      const subject = encodeURIComponent('Wedding Enquiry — One Now Two');
+      const body = encodeURIComponent(`
+Name: ${formData.name}
+Phone: ${formData.phone}
+Email: ${formData.email}
+Wedding Date: ${formData.weddingDate}
+
+Hello, I'd like to enquire about your wedding videography services for my upcoming wedding.
+
+Best regards,
+${formData.name}
+      `.trim());
+      
+      const mailtoLink = `mailto:hello@onenowtwo.com.au?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
+      
+      setSubmitMessage('Opening your email client...');
+      setFormData({ name: '', phone: '', email: '', weddingDate: '' });
+    } catch (error) {
+      setSubmitMessage('Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -210,17 +257,85 @@ export default function Home() {
 
         {/* Contact Section */}
         <section id="enquire" className="py-20 section-border">
-          <div className="max-w-2xl mx-auto px-6 text-center fade-in-trigger">
-            <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
-              Tell us about your day.
-            </p>
-            <a 
-              href="mailto:hello@onenowtwo.com.au?subject=Wedding Enquiry — One Now Two" 
-              className="inline-block btn-outline"
-              data-testid="button-enquire-email"
-            >
-              Enquire
-            </a>
+          <div className="max-w-2xl mx-auto px-6 fade-in-trigger">
+            <div className="text-center mb-8">
+              <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
+                Tell us about your day.
+              </p>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-name"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-phone"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-email"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="date"
+                    name="weddingDate"
+                    placeholder="Wedding Date"
+                    value={formData.weddingDate}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-wedding-date"
+                  />
+                </div>
+              </div>
+
+              <div className="text-center">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-outline px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  data-testid="button-submit-enquiry"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Enquiry'}
+                </button>
+                
+                {submitMessage && (
+                  <p className="mt-4 text-sm text-[var(--muted-grey)]" data-testid="text-submit-message">
+                    {submitMessage}
+                  </p>
+                )}
+              </div>
+            </form>
           </div>
         </section>
       </main>
