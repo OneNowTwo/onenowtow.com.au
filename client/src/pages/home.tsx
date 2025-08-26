@@ -5,45 +5,31 @@ import weddingVideo from "../assets/videos/wedding-reel.mp4";
 const portfolioWorks = [
   {
     id: 1,
-    title: "A & J — Kangaroo Valley — 2025",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop",
-    link: "https://vimeo.com/76979871",
-    alt: "Elegant outdoor wedding ceremony in Kangaroo Valley"
-  },
-  {
-    id: 2,
-    title: "S & M — Sydney CBD — 2024",
-    image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop",
-    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    alt: "Modern city wedding with Sydney CBD skyline backdrop"
-  },
-  {
-    id: 3,
-    title: "L & T — Hunter Valley — 2025",
-    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop",
-    link: "https://vimeo.com/318097471",
-    alt: "Romantic vineyard wedding ceremony in Hunter Valley wine country"
-  },
-  {
-    id: 4,
     title: "E & R — South Coast — 2024",
     image: "https://images.unsplash.com/photo-1503863937795-62954a3c0f05?q=80&w=1200&auto=format&fit=crop",
     link: "https://vimeo.com/177524264",
     alt: "Beautiful coastal wedding ceremony overlooking the South Coast beaches"
   },
   {
-    id: 5,
-    title: "C & P — Blue Mountains — 2023",
+    id: 2,
+    title: "L & T — Hunter Valley — 2025",
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop",
+    link: "https://vimeo.com/318097471",
+    alt: "Romantic vineyard wedding ceremony in Hunter Valley wine country"
+  },
+  {
+    id: 3,
+    title: "M & D — Blue Mountains — 2024",
     image: "https://images.unsplash.com/photo-1521316730702-829a8e30dfdf?q=80&w=1200&auto=format&fit=crop",
-    link: "#",
+    link: "https://vimeo.com/345569949",
     alt: "Scenic mountain wedding ceremony in the Blue Mountains wilderness"
   },
   {
-    id: 6,
-    title: "N & H — Byron Bay — 2025",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop",
-    link: "#",
-    alt: "Dreamy beachfront wedding ceremony at sunset in Byron Bay"
+    id: 4,
+    title: "A & J — Sydney — 2025",
+    image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop",
+    link: "https://youtu.be/Ek8lNOt6gM8",
+    alt: "Modern Sydney wedding with elegant city backdrop"
   }
 ];
 
