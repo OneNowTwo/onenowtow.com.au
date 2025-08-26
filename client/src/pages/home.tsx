@@ -102,14 +102,19 @@ export default function Home() {
       <main id="top">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
-          <iframe
+          <video
             className="absolute inset-0 w-full h-full object-cover hero-video"
-            src="https://www.youtube.com/embed/JcPM9KQfz3w?autoplay=1&mute=1&loop=1&playlist=JcPM9KQfz3w&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
+            autoPlay
+            muted
+            loop
+            playsInline
             data-testid="video-hero"
-          ></iframe>
+          >
+            {/* Replace 'your-video.mp4' with your actual video filename once uploaded */}
+            <source src="/src/assets/videos/your-video.mp4" type="video/mp4" />
+            {/* Fallback to YouTube if video file doesn't load */}
+            Your browser does not support the video tag.
+          </video>
           <div className="absolute inset-0 hero-veil"></div>
           
           <div className="relative text-center px-6 fade-in">
