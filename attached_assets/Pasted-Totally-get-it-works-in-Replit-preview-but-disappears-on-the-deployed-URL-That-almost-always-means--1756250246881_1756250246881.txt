@@ -1,0 +1,90 @@
+Totally get it—works in Replit preview but disappears on the deployed URL. That almost always means the built file path for the video isn’t where your code expects it after deployment.
+
+Here’s a fast, surgical way to fix it.
+
+What’s happening
+
+From your logs you ran, the build put your video here:
+
+dist/public/media/hero/hero-1080.mp4
+
+
+…but your JSX likely points to:
+
+/media/hero/hero-1080.mp4
+
+
+On a static deploy that serves dist/ as the web root, anything under dist/public/... ends up reachable at:
+
+/public/media/hero/hero-1080.mp4
+
+
+So /media/... 404s on the deployed site, while Replit’s preview (dev server) masks it.
+
+Quick fixes (pick one)
+Option A — Change the URLs (fastest)
+
+In your hero <video> and poster, change paths from /media/... to /public/media/...:
+
+<video
+  className="reel"
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  poster="/public/media/hero/hero-poster.jpg"
+>
+  <source src="/public/media/hero/hero-1080.webm" type="video/webm" />
+  <source src="/public/media/hero/hero-1080.mp4"  type="video/mp4" />
+</video>
+
+
+Redeploy → test again.
+
+Option B — Put assets at the real web root (cleaner)
+
+Move the files so they build to dist/media/... (not dist/public/media/...):
+
+In your repo, place the files under the client’s public/media/hero/ (Vite’s public/ should be at the client app root, not nested inside the final dist/):
+
+client/
+  public/
+    media/hero/hero-1080.mp4
+    media/hero/hero-1080.webm
+    media/hero/hero-poster.jpg
+  src/...
+
+
+Make sure your Replit Deploy “Output directory” is the app’s build dir (e.g. client/dist), not the server’s dist or a nested dist/public.
+
+Keep your JSX using /media/...:
+
+poster="/media/hero/hero-poster.jpg"
+<source src="/media/hero/hero-1080.webm" type="video/webm" />
+<source src="/media/hero/hero-1080.mp4"  type="video/mp4" />
+
+
+Redeploy.
+
+Option C — Import assets (bulletproof)
+
+If you prefer everything bundled (no guessing paths):
+
+import heroMp4 from "./assets/hero-1080.mp4";
+import heroWebm from "./assets/hero-1080.webm";
+import heroPoster from "./assets/hero-poster.jpg";
+
+<video ... poster={heroPoster}>
+  <source src={heroWebm} type="video/webm" />
+  <source src={heroMp4}  type="video/mp4" />
+</video>
+
+
+Vite will fingerprint and place them correctly; your deploy will just work.
+
+Don’t forget these two
+
+Autoplay on mobile: keep muted playsInline on the <video> (you already do).
+
+HTTPS: ensure you’re not pulling any http:// assets (mixed content blocks playback).
