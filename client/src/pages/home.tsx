@@ -155,19 +155,12 @@ ${formData.name}
             loop
             playsInline
             preload="auto"
-            controls={false}
             webkit-playsinline="true"
             x5-playsinline="true"
             data-testid="video-hero"
-            onLoadedMetadata={(e) => {
-              const video = e.target as HTMLVideoElement;
-              video.play().catch(() => {
-                setTimeout(() => video.play(), 100);
-              });
-            }}
+            onError={(e) => { console.warn("Video error", e); }}
           >
-            <source src="/videos/wedding-reel-mobile.mp4" type="video/mp4" />
-            <source src="/videos/wedding-reel-mobile.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" />
+            <source src="/media/hero/hero-1080.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 hero-veil"></div>
           
