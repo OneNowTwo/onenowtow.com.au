@@ -126,20 +126,25 @@ export default function Home() {
             <div className="text-sm text-soft-grey tracking-wider uppercase mb-6" data-testid="text-hero-location">
               Sydney • New South Wales • Australia
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a 
-                href="#works" 
-                className="btn-outline"
-                data-testid="button-selected-works"
-              >
-                Selected works
-              </a>
+            <div className="flex justify-center mt-8">
               <a 
                 href="#why" 
-                className="btn-outline"
-                data-testid="button-why-weddings"
+                className="text-off-white opacity-70 hover:opacity-100 transition-opacity"
+                data-testid="button-scroll-down"
+                aria-label="Scroll down"
               >
-                Why I film weddings
+                <svg 
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
               </a>
             </div>
           </div>
