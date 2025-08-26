@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import logoUrl from "../assets/logo.png";
 
 const portfolioWorks = [
   {
@@ -82,7 +83,7 @@ export default function Home() {
               data-testid="link-logo"
             >
               <img 
-                src="/attached_assets/One_1756178998825.png" 
+                src={logoUrl} 
                 alt="One Now Two Logo" 
                 className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity"
               />
