@@ -5,31 +5,31 @@ import weddingVideo from "../assets/videos/wedding-reel.mp4";
 const portfolioWorks = [
   {
     id: 1,
-    title: "E & R — South Coast — 2024",
-    image: "https://images.unsplash.com/photo-1503863937795-62954a3c0f05?q=80&w=1200&auto=format&fit=crop",
+    title: "Tanya X Tommy",
+    image: "https://i.vimeocdn.com/video/625826904-9d57a65c82ebef4c531273c6e65caf060d136724535c56939018dca5a80d1a94-d_1280?region=us",
     link: "https://vimeo.com/177524264",
-    alt: "Beautiful coastal wedding ceremony overlooking the South Coast beaches"
+    alt: "Tanya X Tommy wedding film"
   },
   {
     id: 2,
-    title: "L & T — Hunter Valley — 2025",
-    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop",
+    title: "A Collection",
+    image: "https://i.vimeocdn.com/video/760427384-9d57a65c82ebef4c531273c6e65caf060d136724535c56939018dca5a80d1a94-d_1280?region=us",
     link: "https://vimeo.com/318097471",
-    alt: "Romantic vineyard wedding ceremony in Hunter Valley wine country"
+    alt: "A Collection wedding film"
   },
   {
     id: 3,
-    title: "M & D — Blue Mountains — 2024",
-    image: "https://images.unsplash.com/photo-1521316730702-829a8e30dfdf?q=80&w=1200&auto=format&fit=crop",
+    title: "The Day Before",
+    image: "https://i.vimeocdn.com/video/785629459-9d57a65c82ebef4c531273c6e65caf060d136724535c56939018dca5a80d1a94-d_1280?region=us",
     link: "https://vimeo.com/345569949",
-    alt: "Scenic mountain wedding ceremony in the Blue Mountains wilderness"
+    alt: "The Day Before wedding film"
   },
   {
     id: 4,
-    title: "A & J — Sydney — 2025",
-    image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop",
+    title: "Venue Scouting",
+    image: "https://i.ytimg.com/vi/Ek8lNOt6gM8/maxresdefault.jpg",
     link: "https://youtu.be/Ek8lNOt6gM8",
-    alt: "Modern Sydney wedding with elegant city backdrop"
+    alt: "Venue Scouting wedding film"
   }
 ];
 
@@ -156,7 +156,7 @@ export default function Home() {
               <p className="text-soft-grey" data-testid="text-works-subtitle">A handful only. The rest—by request.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 fade-in-trigger">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 fade-in-trigger max-w-6xl mx-auto">
               {portfolioWorks.map((work) => (
                 <a 
                   key={work.id}
