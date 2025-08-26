@@ -5,17 +5,17 @@ import weddingVideo from "../assets/videos/wedding-reel.mp4";
 const portfolioWorks = [
   {
     id: 1,
-    title: "Tanya X Tommy",
-    image: "https://i.vimeocdn.com/video/2048647170-ab113728b074d7220e87a33f8142ba95f0aba490ad226a3ed36947cf89156b0e-d_640?region=us",
-    link: "https://vimeo.com/177341669",
-    alt: "Tanya X Tommy wedding film"
-  },
-  {
-    id: 2,
     title: "A Collection",
     image: "https://i.vimeocdn.com/video/760427384-9d57a65c82ebef4c531273c6e65caf060d136724535c56939018dca5a80d1a94-d_1280?region=us",
     link: "https://vimeo.com/318097471",
     alt: "A Collection wedding film"
+  },
+  {
+    id: 2,
+    title: "Venue Scouting",
+    image: "https://i.ytimg.com/vi/Ek8lNOt6gM8/maxresdefault.jpg",
+    link: "https://youtu.be/Ek8lNOt6gM8",
+    alt: "Venue Scouting wedding film"
   },
   {
     id: 3,
@@ -26,10 +26,10 @@ const portfolioWorks = [
   },
   {
     id: 4,
-    title: "Venue Scouting",
-    image: "https://i.ytimg.com/vi/Ek8lNOt6gM8/maxresdefault.jpg",
-    link: "https://youtu.be/Ek8lNOt6gM8",
-    alt: "Venue Scouting wedding film"
+    title: "Tanya X Tommy",
+    image: "https://i.vimeocdn.com/video/2048647170-ab113728b074d7220e87a33f8142ba95f0aba490ad226a3ed36947cf89156b0e-d_640?region=us",
+    link: "https://vimeo.com/177341669",
+    alt: "Tanya X Tommy wedding film"
   }
 ];
 
