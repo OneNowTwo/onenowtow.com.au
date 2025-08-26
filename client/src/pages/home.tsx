@@ -35,6 +35,7 @@ const portfolioWorks = [
 
 export default function Home() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioWorks[0] | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -42,7 +43,7 @@ export default function Home() {
     weddingDate: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const getEmbedUrl = (url: string) => {
     if (url.includes('vimeo.com')) {
@@ -65,7 +66,6 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitMessage('');
 
     try {
       // Create mailto link with form data
@@ -85,10 +85,10 @@ ${formData.name}
       const mailtoLink = `mailto:hello@onenowtwo.com.au?subject=${subject}&body=${body}`;
       window.location.href = mailtoLink;
       
-      setSubmitMessage('Opening your email client...');
+      setFormSubmitted(true);
       setFormData({ name: '', phone: '', email: '', weddingDate: '' });
     } catch (error) {
-      setSubmitMessage('Please try again or contact us directly.');
+      // Handle error silently for mailto
     } finally {
       setIsSubmitting(false);
     }
@@ -257,85 +257,17 @@ ${formData.name}
 
         {/* Contact Section */}
         <section id="enquire" className="py-20 section-border">
-          <div className="max-w-2xl mx-auto px-6 fade-in-trigger">
-            <div className="text-center mb-8">
-              <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
-                Tell us about your day.
-              </p>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-name"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-phone"
-                  />
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-email"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="date"
-                    name="weddingDate"
-                    placeholder="Wedding Date"
-                    value={formData.weddingDate}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-wedding-date"
-                  />
-                </div>
-              </div>
-
-              <div className="text-center">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-outline px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                  data-testid="button-submit-enquiry"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Enquiry'}
-                </button>
-                
-                {submitMessage && (
-                  <p className="mt-4 text-sm text-[var(--muted-grey)]" data-testid="text-submit-message">
-                    {submitMessage}
-                  </p>
-                )}
-              </div>
-            </form>
+          <div className="max-w-2xl mx-auto px-6 text-center fade-in-trigger">
+            <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
+              Tell us about your day.
+            </p>
+            <button 
+              onClick={() => setShowForm(true)}
+              className="inline-block btn-outline"
+              data-testid="button-enquire-open"
+            >
+              Enquire
+            </button>
           </div>
         </section>
       </main>
@@ -346,6 +278,104 @@ ${formData.name}
           © {new Date().getFullYear()} One Now Two — Sydney, NSW
         </div>
       </footer>
+
+      {/* Enquiry Form Modal */}
+      {showForm && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => !formSubmitted && setShowForm(false)}
+          data-testid="modal-form-overlay"
+        >
+          <div 
+            className="relative w-full max-w-md bg-[var(--bg)] border border-[var(--hairline)] rounded-lg p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {!formSubmitted ? (
+              <>
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="absolute top-4 right-4 text-[var(--muted-grey)] hover:text-[var(--ink)] text-xl"
+                  data-testid="button-close-form"
+                >
+                  ×
+                </button>
+                
+                <h3 className="font-serif text-2xl mb-6 text-center">Tell us about your day</h3>
+                
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-name"
+                  />
+                  
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-phone"
+                  />
+                  
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-email"
+                  />
+                  
+                  <input
+                    type="date"
+                    name="weddingDate"
+                    placeholder="Wedding Date"
+                    value={formData.weddingDate}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                    data-testid="input-wedding-date"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full btn-outline py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-testid="button-submit-enquiry"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Enquiry'}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="text-center py-8">
+                <h3 className="font-serif text-2xl mb-4">Thanks.</h3>
+                <p className="text-[var(--muted-grey)] mb-6">We'll come back to you shortly.</p>
+                <button
+                  onClick={() => {
+                    setShowForm(false);
+                    setFormSubmitted(false);
+                  }}
+                  className="btn-outline"
+                  data-testid="button-close-thanks"
+                >
+                  Close
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Video Modal */}
       {selectedVideo && (
