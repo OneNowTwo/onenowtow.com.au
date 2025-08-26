@@ -104,7 +104,7 @@ export default function Home() {
         <section className="relative min-h-screen flex items-center justify-center">
           <iframe
             className="absolute inset-0 w-full h-full object-cover hero-video"
-            src="https://player.vimeo.com/video/318097471?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1"
+            src="https://www.youtube.com/embed/JcPM9KQfz3w?autoplay=1&mute=1&loop=1&playlist=JcPM9KQfz3w&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
