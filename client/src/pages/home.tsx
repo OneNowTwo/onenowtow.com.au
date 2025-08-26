@@ -6,7 +6,7 @@ const portfolioWorks = [
   {
     id: 1,
     title: "Tanya X Tommy",
-    image: "https://i.vimeocdn.com/video/625826904-d36b09e8064b8e72c47ecf3c4b66b5fb88bdaceed4ae84f2bbfb83c6b8a29eae-d_1280",
+    image: "https://vumbnail.com/177524264.jpg",
     link: "https://vimeo.com/177524264",
     alt: "Tanya X Tommy wedding film"
   },
