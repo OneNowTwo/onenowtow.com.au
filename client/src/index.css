@@ -154,4 +154,44 @@
   .section-border {
     @apply border-t border-[var(--hairline)];
   }
+
+  /* Date input custom styling */
+  .date-input::-webkit-datetime-edit {
+    color: var(--muted-grey);
+  }
+  
+  .date-input::-webkit-datetime-edit-text {
+    color: var(--muted-grey);
+  }
+  
+  .date-input::-webkit-datetime-edit-month-field,
+  .date-input::-webkit-datetime-edit-day-field,
+  .date-input::-webkit-datetime-edit-year-field {
+    color: var(--muted-grey);
+  }
+  
+  .date-input::-webkit-calendar-picker-indicator {
+    color: var(--muted-grey);
+    opacity: 0.7;
+  }
+  
+  .date-input::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+  
+  /* Custom placeholder for empty date input */
+  .date-input:invalid {
+    color: var(--muted-grey);
+  }
+  
+  .date-input:invalid::-webkit-datetime-edit {
+    color: transparent;
+  }
+  
+  .date-input:invalid::before {
+    content: "Save the Date";
+    color: var(--muted-grey);
+    position: absolute;
+    pointer-events: none;
+  }
 }
