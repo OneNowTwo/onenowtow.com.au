@@ -155,12 +155,19 @@ ${formData.name}
             loop
             playsInline
             preload="auto"
+            poster="/media/hero/hero-poster.jpg"
             webkit-playsinline="true"
             x5-playsinline="true"
             data-testid="video-hero"
             onError={(e) => { console.warn("Video error", e); }}
+            onCanPlay={(e) => {
+              const video = e.target as HTMLVideoElement;
+              video.play().catch(() => {
+                console.log("Autoplay blocked, showing poster");
+              });
+            }}
           >
-            <source src="/media/hero/hero-1080.mp4" type="video/mp4" />
+            <source src="/media/hero/hero-web.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 hero-veil"></div>
           
