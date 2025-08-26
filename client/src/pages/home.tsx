@@ -138,6 +138,17 @@ export default function Home() {
 
 
 
+        {/* Why Section */}
+        <section className="py-20 section-border">
+          <div className="max-w-4xl mx-auto px-6 text-center fade-in-trigger">
+            <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
+              After a decade crafting TVCs and brand films, we moved into weddings
+              to make something quieter—and truer. We work calmly on the day, we listen,
+              and cut with restraint so your film feels timeless next year and in twenty.
+            </p>
+          </div>
+        </section>
+
         {/* Selected Works Section */}
         <section id="works" className="py-20 section-border">
           <div className="max-w-7xl mx-auto px-6">
@@ -174,6 +185,17 @@ export default function Home() {
         </section>
 
 
+
+        {/* Ethos Section */}
+        <section className="py-20 section-border">
+          <div className="max-w-3xl mx-auto px-6 text-center fade-in-trigger">
+            <div className="space-y-3">
+              <p className="text-soft-grey text-lg" data-testid="text-ethos-1">Observe quietly.</p>
+              <p className="text-soft-grey text-lg" data-testid="text-ethos-2">Edit honestly.</p>
+              <p className="text-soft-grey text-lg" data-testid="text-ethos-3">Leave space for feeling.</p>
+            </div>
+          </div>
+        </section>
 
         {/* Contact Section */}
         <section id="enquire" className="py-20 section-border">
