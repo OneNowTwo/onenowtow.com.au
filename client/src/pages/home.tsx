@@ -44,6 +44,8 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const getEmbedUrl = (url: string) => {
     if (url.includes('vimeo.com')) {
@@ -149,26 +151,35 @@ ${formData.name}
       <main id="top">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
+          {/* Fallback image for when video fails */}
+          {(!videoLoaded || videoError) && (
+            <div 
+              className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
+              }}
+            />
+          )}
+          
           <video
-            className="absolute inset-0 w-full h-full object-cover hero-video"
+            className={`absolute inset-0 w-full h-full object-cover hero-video transition-opacity duration-1000 ${videoLoaded && !videoError ? 'opacity-100' : 'opacity-0'}`}
             autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             webkit-playsinline="true"
             data-testid="video-hero"
+            onLoadedData={() => setVideoLoaded(true)}
+            onError={() => setVideoError(true)}
             onCanPlay={(e) => {
-              // Ensure video plays on mobile devices
               const video = e.target as HTMLVideoElement;
               video.play().catch(() => {
-                // Fallback: if autoplay fails, just show static frame
-                console.log('Autoplay prevented by browser');
+                setVideoError(true);
               });
             }}
           >
             <source src={weddingVideo} type="video/mp4" />
-            Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 hero-veil"></div>
           
