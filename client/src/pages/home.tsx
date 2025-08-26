@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import logoUrl from "../assets/logo.png";
 import weddingVideo from "../assets/videos/wedding-reel.mp4";
 
@@ -34,6 +34,19 @@ const portfolioWorks = [
 ];
 
 export default function Home() {
+  const [selectedVideo, setSelectedVideo] = useState<typeof portfolioWorks[0] | null>(null);
+
+  const getEmbedUrl = (url: string) => {
+    if (url.includes('vimeo.com')) {
+      const videoId = url.split('/').pop();
+      return `https://player.vimeo.com/video/${videoId}?autoplay=1&color=ffffff&title=0&byline=0&portrait=0`;
+    } else if (url.includes('youtu.be') || url.includes('youtube.com')) {
+      const videoId = url.includes('youtu.be') ? url.split('/').pop() : url.split('v=')[1]?.split('&')[0];
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0`;
+    }
+    return url;
+  };
+
   useEffect(() => {
     // Simple fade-in animation trigger using Intersection Observer
     const observerOptions = {
@@ -159,13 +172,11 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 fade-in-trigger max-w-6xl mx-auto">
               {portfolioWorks.map((work) => (
-                <a 
+                <button 
                   key={work.id}
-                  href={work.link}
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="block"
-                  data-testid={`link-portfolio-${work.id}`}
+                  onClick={() => setSelectedVideo(work)}
+                  className="block w-full text-left cursor-pointer"
+                  data-testid={`button-portfolio-${work.id}`}
                 >
                   <figure className="portfolio-figure m-0">
                     <img 
@@ -178,7 +189,7 @@ export default function Home() {
                       {work.title}
                     </figcaption>
                   </figure>
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -220,6 +231,36 @@ export default function Home() {
           © {new Date().getFullYear()} One Now Two — Sydney, NSW
         </div>
       </footer>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedVideo(null)}
+          data-testid="modal-video-overlay"
+        >
+          <div 
+            className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedVideo(null)}
+              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white text-2xl w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-all"
+              data-testid="button-close-modal"
+            >
+              ×
+            </button>
+            <iframe
+              src={getEmbedUrl(selectedVideo.link)}
+              className="w-full h-full"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              data-testid="iframe-video-player"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
