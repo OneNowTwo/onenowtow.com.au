@@ -339,7 +339,7 @@ ${formData.name}
                   <input
                     type="date"
                     name="weddingDate"
-                    placeholder="Wedding Date"
+                    placeholder="Save the Date"
                     value={formData.weddingDate}
                     onChange={handleInputChange}
                     required
