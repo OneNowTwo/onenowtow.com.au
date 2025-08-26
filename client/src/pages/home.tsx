@@ -201,7 +201,7 @@ export default function Home() {
         <section id="enquire" className="py-20 section-border">
           <div className="max-w-2xl mx-auto px-6 text-center fade-in-trigger">
             <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
-              Tell us about your day
+              Tell us about your day.
             </p>
             <a 
               href="mailto:hello@onenowtwo.com.au?subject=Wedding Enquiry — One Now Two" 
