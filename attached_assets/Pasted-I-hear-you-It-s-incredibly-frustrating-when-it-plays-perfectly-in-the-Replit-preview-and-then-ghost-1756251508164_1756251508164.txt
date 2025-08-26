@@ -1,0 +1,174 @@
+I hear you. It’s incredibly frustrating when it plays perfectly in the Replit preview and then ghosts on the deployed site. Let’s fix it, no fluff—here’s a tight, battle-tested way to make the hero video show everywhere (iOS/Android/desktop) and prove where the break actually is.
+
+1) Prove the file is reachable on the live domain
+
+On your deployed site, go straight to the video URL in the browser address bar (not the Replit dev URL):
+
+https://onenowtwo.com.au/media/hero/hero-web.mp4
+
+
+If it downloads/plays: the file is fine → it’s a playback/JS/autoplay issue.
+
+If it 404s: path/build/output dir is wrong → fix paths (Section 3).
+
+2) Drop in a rock-solid hero component (copy/paste)
+
+This handles iOS autoplay rules, fallback to user-gesture, and shows a big Play button if the browser refuses to auto-start.
+
+import { useEffect, useRef, useState } from "react";
+
+export default function Hero() {
+  const vidRef = useRef(null);
+  const [needsPlay, setNeedsPlay] = useState(false);
+
+  useEffect(() => {
+    const v = vidRef.current;
+    if (!v) return;
+
+    // iOS/Safari sometimes need both attributes + explicit play attempt
+    v.muted = true;
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+
+    const tryPlay = async () => {
+      try {
+        await v.play();
+        setNeedsPlay(false);
+      } catch {
+        // Autoplay blocked (Low Power Mode / data saver / some Androids)
+        setNeedsPlay(true);
+      }
+    };
+
+    // Start when visible
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) tryPlay();
+    }, { threshold: 0.25 });
+
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  const manualPlay = async () => {
+    const v = vidRef.current;
+    if (!v) return;
+    try {
+      await v.play();
+      setNeedsPlay(false);
+    } catch {
+      // show controls as last resort
+      v.setAttribute("controls", "controls");
+    }
+  };
+
+  return (
+    <section className="hero">
+      <video
+        ref={vidRef}
+        className="reel"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/media/hero/hero-poster.jpg"
+      >
+        <source src="/media/hero/hero-web.webm" type="video/webm" />
+        <source src="/media/hero/hero-web.mp4"  type="video/mp4" />
+      </video>
+
+      <div className="veil" />
+      <div className="heroCopy">
+        <h1 className="heroTitle">We preserve the in-between.</h1>
+        <div className="heroSub">Sydney • New South Wales • Australia</div>
+        {needsPlay && (
+          <button className="playBtn" onClick={manualPlay}>Play</button>
+        )}
+      </div>
+
+      <style>{`
+        .hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;isolation:isolate}
+        .reel{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.05) brightness(.9)}
+        .veil{position:absolute;inset:0;background:radial-gradient(85% 60% at 50% 50%, rgba(0,0,0,.15), rgba(0,0,0,.55))}
+        .heroCopy{position:relative;text-align:center;padding:0 24px;color:#f5f5f5}
+        .heroTitle{font-size:56px;line-height:1.05;margin:0 0 10px}
+        .heroSub{opacity:.8;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+        .playBtn{margin-top:16px;border:1px solid #e5e5e5;background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:10px 18px}
+        @media(max-width:640px){ .heroTitle{font-size:36px} }
+        @media (prefers-reduced-motion: reduce) {
+          .reel{display:none}
+          .hero{background:#000 url('/media/hero/hero-poster.jpg') center/cover no-repeat;}
+        }
+      `}</style>
+    </section>
+  );
+}
+
+
+Important details baked in:
+
+muted playsInline webkit-playsinline → required for iOS autoplay.
+
+Explicit video.play() with catch → shows a Play button if blocked.
+
+poster → graceful fallback if the video can’t load.
+
+WebM + MP4 sources → broadest compatibility.
+
+3) Make sure the path matches your deploy output
+
+Where are the actual files?
+
+Correct place (for React/Vite):
+
+public/media/hero/hero-web.mp4
+public/media/hero/hero-web.webm
+public/media/hero/hero-poster.jpg
+
+
+Then reference them with /media/... (no /public in the URL).
+
+If your deploy output is a nested folder, ensure your Replit Deploy “Output directory” points to the client build (e.g. client/dist). If you accidentally deploy the server’s dist where your files ended up under dist/public/..., your URLs must start with /public/media/... (not ideal—point deploy to the right dist instead).
+
+4) Avoid these two silent killers
+
+Mixed content: every asset must be https:// (no http:// thumbnails or sources).
+
+Giant files: you already created a ~1–2 MB web-optimized hero: keep using that. .mov or HEVC will break on a lot of devices—stick to H.264 MP4 (baseline/high) + optional WebM.
+
+5) Quick isolation test (guaranteed clarity)
+
+Add this file to public/video-test.html and redeploy. Then visit https://onenowtwo.com.au/video-test.html.
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Video Test</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    body{margin:0;background:#000;color:#fff;font:16px/1.5 system-ui}
+    .wrap{min-height:100vh;display:grid;place-items:center}
+    video{width:90vw;max-width:1200px;height:auto}
+    button{margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <video id="v" muted playsinline autoplay loop controls poster="/media/hero/hero-poster.jpg">
+        <source src="/media/hero/hero-web.webm" type="video/webm">
+        <source src="/media/hero/hero-web.mp4"  type="video/mp4">
+      </video>
+      <div style="text-align:center">
+        <button onclick="document.getElementById('v').play()">Play (fallback)</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+If this test page plays: paths/codecs are fine → the problem is your main page logic (overlay, z-index, CSS, or JS).
+
+If this doesn’t play: it’s still a path/codec/HTTPS issue.

@@ -1,5 +1,112 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import logoUrl from "../assets/logo.png";
+
+function HeroSection() {
+  const vidRef = useRef<HTMLVideoElement>(null);
+  const [needsPlay, setNeedsPlay] = useState(false);
+
+  useEffect(() => {
+    const v = vidRef.current;
+    if (!v) return;
+
+    // iOS/Safari sometimes need both attributes + explicit play attempt
+    v.muted = true;
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+
+    const tryPlay = async () => {
+      try {
+        await v.play();
+        setNeedsPlay(false);
+      } catch {
+        // Autoplay blocked (Low Power Mode / data saver / some Androids)
+        setNeedsPlay(true);
+      }
+    };
+
+    // Start when visible
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) tryPlay();
+    }, { threshold: 0.25 });
+
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  const manualPlay = async () => {
+    const v = vidRef.current;
+    if (!v) return;
+    try {
+      await v.play();
+      setNeedsPlay(false);
+    } catch {
+      // show controls as last resort
+      v.setAttribute("controls", "controls");
+    }
+  };
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center">
+      <video
+        ref={vidRef}
+        className="absolute inset-0 w-full h-full object-cover hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/media/hero/hero-poster.jpg"
+        data-testid="video-hero"
+      >
+        <source src="/media/hero/hero-web.webm" type="video/webm" />
+        <source src="/media/hero/hero-web.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 hero-veil"></div>
+      
+      <div className="relative text-center px-6 fade-in">
+        <div className="font-display font-semibold text-xl tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
+          One Now Two
+        </div>
+        <h1 className="font-serif text-5xl md:text-6xl leading-tight mb-3" data-testid="text-hero-title">
+          We capture what surrounds the vows.
+        </h1>
+        <div className="text-sm text-soft-grey tracking-wider uppercase mb-6" data-testid="text-hero-location">
+          Sydney • New South Wales • Australia
+        </div>
+        {needsPlay && (
+          <button 
+            className="mt-4 border border-white/20 bg-white/5 text-white rounded-full px-6 py-3 hover:bg-white/10 transition-colors"
+            onClick={manualPlay}
+            data-testid="button-play-video"
+          >
+            Play Video
+          </button>
+        )}
+        <div className="flex justify-center mt-8">
+          <a 
+            href="#why" 
+            className="text-off-white opacity-70 hover:opacity-100 transition-opacity"
+            data-testid="button-scroll-down"
+            aria-label="Scroll down"
+          >
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <polyline points="6,9 12,15 18,9"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const portfolioWorks = [
   {
@@ -31,6 +138,8 @@ const portfolioWorks = [
     alt: "Tanya X Tommy wedding film"
   }
 ];
+
+
 
 export default function Home() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioWorks[0] | null>(null);
@@ -147,63 +256,7 @@ ${formData.name}
 
       <main id="top">
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center">
-          <video
-            className="absolute inset-0 w-full h-full object-cover hero-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/media/hero/hero-poster.jpg"
-            webkit-playsinline="true"
-            x5-playsinline="true"
-            data-testid="video-hero"
-            onError={(e) => { console.warn("Video error", e); }}
-            onCanPlay={(e) => {
-              const video = e.target as HTMLVideoElement;
-              video.play().catch(() => {
-                console.log("Autoplay blocked, showing poster");
-              });
-            }}
-          >
-            <source src="/media/hero/hero-web.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 hero-veil"></div>
-          
-          <div className="relative text-center px-6 fade-in">
-            <div className="font-display font-semibold text-xl tracking-wider uppercase opacity-80 mb-4" data-testid="text-hero-brand">
-              One Now Two
-            </div>
-            <h1 className="font-serif text-5xl md:text-6xl leading-tight mb-3" data-testid="text-hero-title">
-              We capture what surrounds the vows.
-            </h1>
-            <div className="text-sm text-soft-grey tracking-wider uppercase mb-6" data-testid="text-hero-location">
-              Sydney • New South Wales • Australia
-            </div>
-            <div className="flex justify-center mt-8">
-              <a 
-                href="#why" 
-                className="text-off-white opacity-70 hover:opacity-100 transition-opacity"
-                data-testid="button-scroll-down"
-                aria-label="Scroll down"
-              >
-                <svg 
-                  width="24" 
-                  height="24" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6,9 12,15 18,9"></polyline>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </section>
+        <HeroSection />
 
 
 
