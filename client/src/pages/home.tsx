@@ -6,13 +6,14 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center">
       <iframe
-        src="https://player.vimeo.com/video/1113411900?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&controls=0&muted=1"
+        src="https://player.vimeo.com/video/1113411900?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&controls=0&muted=1&autopause=0"
         className="absolute inset-0 w-full h-full"
         style={{ width: '100%', height: '100%', border: 'none' }}
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         title="One Now Two Hero Video"
         data-testid="video-hero"
+        id="hero-video-iframe"
       />
       <div className="absolute inset-0 hero-veil"></div>
       
@@ -101,7 +102,7 @@ export default function Home() {
   const getEmbedUrl = (url: string) => {
     if (url.includes('vimeo.com')) {
       const videoId = url.split('/').pop();
-      return `https://player.vimeo.com/video/${videoId}?autoplay=1&color=ffffff&title=0&byline=0&portrait=0`;
+      return `https://player.vimeo.com/video/${videoId}?autoplay=1&color=ffffff&title=0&byline=0&portrait=0&autopause=0`;
     } else if (url.includes('youtu.be') || url.includes('youtube.com')) {
       const videoId = url.includes('youtu.be') ? url.split('/').pop() : url.split('v=')[1]?.split('&')[0];
       return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0`;
@@ -366,7 +367,7 @@ ${formData.name}
       {/* Video Modal */}
       {selectedVideo && (
         <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedVideo(null)}
           data-testid="modal-video-overlay"
         >
@@ -388,6 +389,7 @@ ${formData.name}
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               data-testid="iframe-video-player"
+              id="modal-video-iframe"
             />
           </div>
         </div>
