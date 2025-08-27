@@ -147,32 +147,7 @@ ${formData.name}
     }
   };
 
-  useEffect(() => {
-    // Smooth fade-in animation using Intersection Observer
-    const observerOptions = {
-      threshold: 0.2,
-      rootMargin: '0px 0px -80px 0px'
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Add a small delay to prevent flickering
-          requestAnimationFrame(() => {
-            entry.target.classList.add('fade-in');
-          });
-        }
-      });
-    }, observerOptions);
-
-    // Observe all elements with fade-in-trigger class
-    const elements = document.querySelectorAll('.fade-in-trigger');
-    elements.forEach(el => {
-      observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <div className="min-h-screen w-full">
@@ -211,7 +186,7 @@ ${formData.name}
 
         {/* Why Section */}
         <section id="why" className="py-20 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center fade-in-trigger">
+          <div className="max-w-4xl mx-auto px-6 text-center">
             <p className="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto" data-testid="text-why-description">
               After a decade crafting TVCs and brand films, we moved into weddings
               to make something quieter—and truer. We work calmly on the day, we listen,
@@ -223,12 +198,12 @@ ${formData.name}
         {/* Selected Works Section */}
         <section id="works" className="py-20 section-border">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-8 fade-in-trigger">
+            <div className="text-center mb-8">
               <h2 className="font-serif text-3xl mb-2" data-testid="text-works-title">Selected Works</h2>
               <p className="text-soft-grey" data-testid="text-works-subtitle">A handful only. The rest—by request.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 fade-in-trigger max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {portfolioWorks.map((work) => (
                 <button 
                   key={work.id}

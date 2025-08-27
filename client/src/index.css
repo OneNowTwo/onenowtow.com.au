@@ -140,17 +140,7 @@
     @apply absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200;
   }
 
-  /* Animations */
-  .fade-in-trigger {
-    opacity: 1;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .fade-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  /* Remove all animations to prevent flickering */
 
   /* Sections */
   .section-border {
