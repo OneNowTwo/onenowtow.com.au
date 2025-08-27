@@ -141,13 +141,15 @@
   }
 
   /* Animations */
-  .fade-in {
-    opacity: 0;
-    animation: fadeIn 0.9s ease 0.2s forwards;
+  .fade-in-trigger {
+    opacity: 1;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  @keyframes fadeIn {
-    to { opacity: 1; }
+  .fade-in {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Sections */

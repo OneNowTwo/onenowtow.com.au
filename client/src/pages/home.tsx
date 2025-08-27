@@ -148,22 +148,26 @@ ${formData.name}
   };
 
   useEffect(() => {
-    // Simple fade-in animation trigger using Intersection Observer
+    // Smooth fade-in animation using Intersection Observer
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.2,
+      rootMargin: '0px 0px -80px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
+          // Add a small delay to prevent flickering
+          requestAnimationFrame(() => {
+            entry.target.classList.add('fade-in');
+          });
         }
       });
     }, observerOptions);
 
     // Observe all elements with fade-in-trigger class
-    document.querySelectorAll('.fade-in-trigger').forEach(el => {
+    const elements = document.querySelectorAll('.fade-in-trigger');
+    elements.forEach(el => {
       observer.observe(el);
     });
 
