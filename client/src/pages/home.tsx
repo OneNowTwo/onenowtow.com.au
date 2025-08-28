@@ -2,18 +2,52 @@ import { useEffect, useState } from "react";
 import logoUrl from "../assets/logo.png";
 
 function HeroSection() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Poster image for immediate loading */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/media/hero/hero-poster.jpg')`,
+          filter: 'grayscale(100%) contrast(1.05) brightness(0.85)',
+          opacity: videoLoaded ? 0 : 1,
+          transition: 'opacity 1s ease-in-out'
+        }}
+      />
+      
+      {/* Optimized video with better mobile handling */}
       <iframe
-        src="https://player.vimeo.com/video/1113411900?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&controls=0&muted=1&autopause=0"
-        className="absolute inset-0 w-full h-full"
-        style={{ width: '100%', height: '100%', border: 'none' }}
+        src={`https://player.vimeo.com/video/1113411900?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&controls=0&muted=1&autopause=0${isMobile ? '&quality=720p' : '&quality=1080p'}`}
+        className="absolute inset-0 w-full h-full hero-iframe"
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          border: 'none',
+          opacity: videoLoaded ? 1 : 0,
+          transition: 'opacity 1s ease-in-out'
+        }}
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         title="One Now Two Hero Video"
         data-testid="video-hero"
         id="hero-video-iframe"
+        onLoad={() => {
+          // Give video a moment to start playing before showing
+          setTimeout(() => setVideoLoaded(true), 800);
+        }}
       />
       <div className="absolute inset-0 hero-veil"></div>
       

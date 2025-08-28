@@ -110,12 +110,21 @@
   }
 
   /* Hero */
-  .hero-video {
+  .hero-iframe {
     filter: contrast(1.05) brightness(0.85);
+    transform: scale(1.02); /* Slightly oversized to prevent mobile edge gaps */
   }
 
   .hero-veil {
     background: radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,0.15), rgba(0,0,0,0.55));
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .hero-iframe {
+      transform: scale(1.05); /* More oversized on mobile to prevent gaps */
+      object-position: center;
+    }
   }
 
   /* Portfolio */
