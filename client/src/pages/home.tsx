@@ -203,7 +203,7 @@ ${formData.name}
               />
             </a>
             <a 
-              href="#enquire" 
+              href="/enquire" 
               className="btn-outline"
               data-testid="button-enquire-header"
             >
@@ -282,13 +282,13 @@ ${formData.name}
             <p className="text-soft-grey text-lg mb-6" data-testid="text-contact-description">
               Tell us about your day.
             </p>
-            <button 
-              onClick={() => setShowForm(true)}
+            <a 
+              href="/enquire"
               className="inline-block btn-outline"
               data-testid="button-enquire-open"
             >
               Enquire
-            </button>
+            </a>
           </div>
         </section>
       </main>
