@@ -44,7 +44,7 @@ export default function Enquire() {
           </div>
 
           <div className="bg-[var(--bg)] border border-[var(--hairline)] rounded-lg p-8">
-            <form action="https://formspree.io/f/meorqnr" method="POST" className="space-y-6">
+            <form action="https://formspree.io/f/meorqnnr" method="POST" className="space-y-6">
               <input type="hidden" name="_next" value={`${window.location.origin}/thanks`} />
               <input type="hidden" name="_subject" value="New Wedding Enquiry — One Now Two" />
               
