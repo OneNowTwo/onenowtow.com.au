@@ -1,58 +1,7 @@
 
-import { useState } from "react";
 import logoUrl from "../assets/logo.png";
 
 export default function Enquire() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    weddingDate: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Create FormData object
-      const formDataObj = new FormData();
-      formDataObj.append('name', formData.name);
-      formDataObj.append('phone', formData.phone);
-      formDataObj.append('email', formData.email);
-      formDataObj.append('wedding_date', formData.weddingDate);
-      formDataObj.append('_subject', 'New Wedding Enquiry — One Now Two');
-
-      // Submit to Formspree
-      const response = await fetch('https://formspree.io/f/meorqnr', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json'
-        },
-        body: formDataObj
-      });
-
-      if (response.ok) {
-        // Redirect to thanks page for conversion tracking
-        window.location.href = '/thanks';
-      } else {
-        alert('Sorry, something went wrong. Please try again.');
-      }
-    } catch (error) {
-      alert('Sorry, something went wrong. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
@@ -94,101 +43,80 @@ export default function Enquire() {
             </p>
           </div>
 
-          {!formSubmitted ? (
-            <div className="bg-[var(--bg)] border border-[var(--hairline)] rounded-lg p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Your full name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-name"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder="Your phone number"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-phone"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Your email address"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
-                    data-testid="input-email"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="weddingDate" className="block text-sm font-medium mb-2">
-                    Wedding Date
-                  </label>
-                  <input
-                    type="date"
-                    id="weddingDate"
-                    name="weddingDate"
-                    value={formData.weddingDate}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors date-input"
-                    data-testid="input-wedding-date"
-                  />
-                </div>
+          <div className="bg-[var(--bg)] border border-[var(--hairline)] rounded-lg p-8">
+            <form action="https://formspree.io/f/meorqnr" method="POST" className="space-y-6">
+              <input type="hidden" name="_next" value={`${window.location.origin}/thanks`} />
+              <input type="hidden" name="_subject" value="New Wedding Enquiry — One Now Two" />
+              
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                  data-testid="input-name"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Your phone number"
+                  required
+                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                  data-testid="input-phone"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your email address"
+                  required
+                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                  data-testid="input-email"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="wedding_date" className="block text-sm font-medium mb-2">
+                  Wedding Date
+                </label>
+                <input
+                  type="date"
+                  id="wedding_date"
+                  name="wedding_date"
+                  required
+                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors date-input"
+                  data-testid="input-wedding-date"
+                />
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full btn-outline py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                  data-testid="button-submit-enquiry"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Enquiry'}
-                </button>
-              </form>
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <h2 className="font-serif text-3xl mb-4">Thanks.</h2>
-              <p className="text-[var(--muted-grey)] mb-8 text-lg">
-                We'll come back to you shortly.
-              </p>
-              <a
-                href="/"
-                className="btn-outline inline-block"
-                data-testid="button-return-home"
+              <button
+                type="submit"
+                className="w-full btn-outline py-4 text-lg"
+                data-testid="button-submit-enquiry"
               >
-                Return Home
-              </a>
-            </div>
-          )}
+                Send Enquiry
+              </button>
+            </form>
+          </div>
+          
         </div>
       </main>
 
