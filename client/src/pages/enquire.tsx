@@ -24,29 +24,31 @@ export default function Enquire() {
     setIsSubmitting(true);
 
     try {
-      // Create mailto link with form data
-      const subject = encodeURIComponent('Wedding Enquiry — One Now Two');
-      const body = encodeURIComponent(`
-Name: ${formData.name}
-Phone: ${formData.phone}
-Email: ${formData.email}
-Wedding Date: ${formData.weddingDate}
+      // Create FormData object
+      const formDataObj = new FormData();
+      formDataObj.append('name', formData.name);
+      formDataObj.append('phone', formData.phone);
+      formDataObj.append('email', formData.email);
+      formDataObj.append('wedding_date', formData.weddingDate);
+      formDataObj.append('_subject', 'New Wedding Enquiry — One Now Two');
 
-Hello, I'd like to enquire about your wedding videography services for my upcoming wedding.
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/meorqnnr', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formDataObj
+      });
 
-Best regards,
-${formData.name}
-      `.trim());
-      
-      const mailtoLink = `mailto:hello@onenowtwo.com.au?subject=${subject}&body=${body}`;
-      window.location.href = mailtoLink;
-      
-      // Redirect to thanks page for conversion tracking
-      setTimeout(() => {
+      if (response.ok) {
+        // Redirect to thanks page for conversion tracking
         window.location.href = '/thanks';
-      }, 1000);
+      } else {
+        alert('Sorry, something went wrong. Please try again.');
+      }
     } catch (error) {
-      // Handle error silently for mailto
+      alert('Sorry, something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
