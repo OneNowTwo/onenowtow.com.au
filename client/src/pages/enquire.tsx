@@ -1,7 +1,54 @@
 
+import { useState } from "react";
 import logoUrl from "../assets/logo.png";
 
 export default function Enquire() {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    weddingDate: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const formDataObj = new FormData();
+      formDataObj.append('name', formData.name);
+      formDataObj.append('phone', formData.phone);
+      formDataObj.append('email', formData.email);
+      formDataObj.append('wedding_date', formData.weddingDate);
+      formDataObj.append('_subject', 'New Wedding Enquiry — One Now Two');
+
+      const response = await fetch('https://formspree.io/f/meorqnnr', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formDataObj
+      });
+
+      if (response.ok) {
+        window.location.href = '/thanks';
+      } else {
+        alert('Sorry, something went wrong. Please try again.');
+      }
+    } catch (error) {
+      alert('Sorry, something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
@@ -44,10 +91,7 @@ export default function Enquire() {
           </div>
 
           <div className="bg-[var(--bg)] border border-[var(--hairline)] rounded-lg p-8">
-            <form action="https://formspree.io/f/meorqnnr" method="POST" className="space-y-6">
-              <input type="hidden" name="_redirect" value="https://onenowtwo-58bea5.replit.app/thanks" />
-              <input type="hidden" name="_subject" value="New Wedding Enquiry — One Now Two" />
-              
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Name
@@ -57,6 +101,8 @@ export default function Enquire() {
                   id="name"
                   name="name"
                   placeholder="Your full name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
                   data-testid="input-name"
@@ -72,6 +118,8 @@ export default function Enquire() {
                   id="phone"
                   name="phone"
                   placeholder="Your phone number"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
                   data-testid="input-phone"
@@ -87,6 +135,8 @@ export default function Enquire() {
                   id="email"
                   name="email"
                   placeholder="Your email address"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
                   data-testid="input-email"
@@ -94,13 +144,15 @@ export default function Enquire() {
               </div>
               
               <div>
-                <label htmlFor="wedding_date" className="block text-sm font-medium mb-2">
+                <label htmlFor="weddingDate" className="block text-sm font-medium mb-2">
                   Wedding Date
                 </label>
                 <input
                   type="date"
-                  id="wedding_date"
-                  name="wedding_date"
+                  id="weddingDate"
+                  name="weddingDate"
+                  value={formData.weddingDate}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors date-input"
                   data-testid="input-wedding-date"
@@ -109,10 +161,11 @@ export default function Enquire() {
 
               <button
                 type="submit"
-                className="w-full btn-outline py-4 text-lg"
+                disabled={isSubmitting}
+                className="w-full btn-outline py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 data-testid="button-submit-enquiry"
               >
-                Send Enquiry
+                {isSubmitting ? 'Sending...' : 'Send Enquiry'}
               </button>
             </form>
           </div>
