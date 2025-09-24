@@ -11,6 +11,7 @@ export default function Thanks() {
       });
     }
   }, []);
+
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       {/* Header */}
@@ -21,7 +22,6 @@ export default function Thanks() {
               href="/" 
               className="flex items-center text-off-white no-underline" 
               aria-label="One Now Two"
-              data-testid="link-logo"
             >
               <img 
                 src={logoUrl} 
@@ -32,7 +32,6 @@ export default function Thanks() {
             <a 
               href="/" 
               className="btn-outline"
-              data-testid="button-home-header"
             >
               Home
             </a>
@@ -42,25 +41,26 @@ export default function Thanks() {
 
       <main className="pt-32 pb-20">
         <div className="max-w-2xl mx-auto px-6 text-center">
-          <h1 className="font-serif text-4xl md:text-5xl mb-4" data-testid="text-thanks-title">
-            Thank you for your enquiry
-          </h1>
-          <p className="text-soft-grey text-lg mb-8" data-testid="text-thanks-description">
-            We'll be in touch very soon.
-          </p>
-          <a 
-            href="/"
-            className="btn-outline inline-block"
-            data-testid="button-return-home"
-          >
-            Back to Home
-          </a>
+          <div className="fade-in">
+            <h1 className="font-serif text-4xl md:text-5xl mb-6">
+              Thank you.
+            </h1>
+            <p className="text-soft-grey text-lg mb-8 max-w-lg mx-auto leading-relaxed">
+              We've received your enquiry and will be in touch soon to discuss your wedding day.
+            </p>
+            <a 
+              href="/"
+              className="inline-block btn-outline"
+            >
+              Return Home
+            </a>
+          </div>
         </div>
       </main>
 
       {/* Footer */}
       <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6" data-testid="text-footer-copyright">
+        <div className="max-w-7xl mx-auto px-6">
           © {new Date().getFullYear()} One Now Two — Sydney, NSW
         </div>
       </footer>
