@@ -45,7 +45,7 @@ export default function Enquire() {
 
           <div className="bg-[var(--bg)] border border-[var(--hairline)] rounded-lg p-8">
             <form action="https://formspree.io/f/meorqnnr" method="POST" className="space-y-6">
-              <input type="hidden" name="_redirect" value="https://onenowtwo-58bea5.replit.app/thanks" />
+              <input type="hidden" name="_redirect" value="/thanks" />
               <input type="hidden" name="_subject" value="New Wedding Enquiry — One Now Two" />
               
               <div>
