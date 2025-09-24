@@ -39,7 +39,7 @@ export default function Enquire() {
       });
 
       if (response.ok) {
-        window.location.href = '/thanks';
+        window.location.href = `${window.location.origin}/thanks`;
       } else {
         alert('Sorry, something went wrong. Please try again.');
       }
