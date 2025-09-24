@@ -1,0 +1,158 @@
+tell me step by step what to do to incorporate and draft new form into my site with replit
+ChatGPT said:
+Thought for 34s
+
+Absolutely—let’s wire your enquiry page to Formspree so submissions get emailed to you, you redirect to /thanks.html, and Google Ads can count real form submissions as conversions.
+
+Step-by-step (Replit / React or plain HTML)
+1) Create a Thank-You page (once)
+
+In your public/ folder add thanks.html:
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank you | One Now Two</title>
+</head>
+<body style="background:#111;color:#eee;font-family:system-ui;display:grid;place-items:center;min-height:100vh;padding:32px;text-align:center">
+  <div>
+    <h1 style="font-weight:600;margin:0 0 12px">Thank you for your enquiry</h1>
+    <p style="opacity:.8;margin:0 0 24px">We’ll be in touch shortly.</p>
+    <a href="/" style="color:#eee;border:1px solid #eee;padding:10px 16px;border-radius:999px;text-decoration:none">Back to Home</a>
+  </div>
+</body>
+</html>
+
+
+This is the URL you’ll use as the conversion in Google Ads (URL contains /thanks.html).
+
+2) Replace the mailto: with a real form
+
+You have a Formspree endpoint on your dashboard (e.g. https://formspree.io/f/meorqnnr). Use your endpoint below.
+
+Option A — simplest (pure HTML POST with auto-redirect)
+
+Drop this inside your Enquiry page:
+
+<form action="https://formspree.io/f/MEORQNNR" method="POST" accept-charset="UTF-8">
+  <!-- 1) name attributes are REQUIRED -->
+  <label>Name
+    <input type="text" name="name" placeholder="Your full name" required autocomplete="name">
+  </label>
+
+  <label>Phone Number
+    <input type="tel" name="phone" placeholder="Your phone number" inputmode="tel" autocomplete="tel">
+  </label>
+
+  <label>Email
+    <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+  </label>
+
+  <label>Wedding Date
+    <input type="date" name="wedding_date" placeholder="Save the Date">
+  </label>
+
+  <label>Anything we should know?
+    <textarea name="message" rows="4" placeholder="Venue, planner, vibe, etc."></textarea>
+  </label>
+
+  <!-- Hidden helpers -->
+  <input type="hidden" name="_subject"  value="New wedding enquiry — One Now Two">
+  <input type="hidden" name="_redirect" value="https://www.onenowtwo.com.au/thanks.html">
+  <!-- Honeypot (spam trap) -->
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+
+  <button type="submit">Send Enquiry</button>
+</form>
+
+
+That’s it. Formspree sends you the email + redirects users to /thanks.html.
+
+Option B — React handler (keeps your styling/components)
+
+If your page is a React component, wire the submit like this:
+
+export default function EnquireForm() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const res = await fetch("https://formspree.io/f/MEORQNNR", {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: data
+    });
+
+    if (res.ok) {
+      window.location.href = "/thanks.html"; // conversion page
+    } else {
+      alert("Sorry, something went wrong. Please try again.");
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* same inputs as Option A (must have name="" attributes) */}
+    </form>
+  );
+}
+
+
+Use Option B only if you prefer JS handling; Option A is perfectly fine and simpler.
+
+3) (Optional but recommended) Enable spam protection
+
+In your Formspree dashboard → Settings for the form:
+
+Turn on Spam Filtering / reCAPTCHA v3 (if available on your plan).
+
+Ensure Reply-To is set to the form field email.
+
+4) Make sure the Google tag is installed
+
+Place the Google Ads global tag in public/index.html inside <head> (you already have this snippet). This lets Google see the /thanks.html page load.
+
+5) Tell Google Ads what counts as a conversion
+
+In Google Ads → Tools & Settings → Conversions:
+
+Create/Edit your conversion action → Website.
+
+Rule: “URL contains /thanks.html”.
+
+Value: you can set a static value (e.g., $1) or no value; optional.
+
+Save. Use “Test Installation” to confirm.
+
+6) Test end-to-end (do this once)
+
+Fill the form on your live site with a test email.
+
+Confirm you’re redirected to /thanks.html.
+
+Check your email and Formspree → Submissions.
+
+In Google Ads (or Tag Assistant), verify the conversion ping happened for /thanks.html.
+
+7) Remove any old mailto: links
+
+Search your codebase for mailto: and delete/replace them so all enquiries flow through the form (trackable + reliable).
+
+Quick copy block (labels/captions on brand)
+
+Heading: Tell us about your day
+
+Subhead: We’d love to hear about your plans and see if we’re the right fit to capture your story.
+
+Button: Send Enquiry
+
+If you paste Option A right now and add thanks.html, you’ll be live with:
+
+working enquiries to your inbox,
+
+a clean redirect,
+
+and accurate conversion tracking for Google Ads.
