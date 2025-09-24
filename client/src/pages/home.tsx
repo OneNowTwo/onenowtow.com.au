@@ -165,7 +165,7 @@ export default function Home() {
       formDataObj.append('_subject', 'New Wedding Enquiry — One Now Two');
 
       // Submit to Formspree
-      const response = await fetch('https://formspree.io/f/meorqnnr', {
+      const response = await fetch('https://formspree.io/f/meorqnr', {
         method: 'POST',
         headers: {
           'Accept': 'application/json'
