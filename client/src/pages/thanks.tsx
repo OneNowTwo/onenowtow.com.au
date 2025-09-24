@@ -2,6 +2,13 @@
 import { useEffect } from "react";
 import logoUrl from "../assets/logo.png";
 
+// Declare gtag function for TypeScript
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export default function Thanks() {
   useEffect(() => {
     // Fire Google Ads conversion tracking when thanks page loads
