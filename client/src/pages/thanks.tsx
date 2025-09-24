@@ -1,7 +1,16 @@
 
+import { useEffect } from "react";
 import logoUrl from "../assets/logo.png";
 
 export default function Thanks() {
+  useEffect(() => {
+    // Fire Google Ads conversion tracking when thanks page loads
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-17589875168/your_conversion_label_here'
+      });
+    }
+  }, []);
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       {/* Header */}
