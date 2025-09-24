@@ -7,7 +7,7 @@ export default function Thanks() {
     // Fire Google Ads conversion tracking when thanks page loads
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'conversion', {
-        'send_to': 'AW-17589875168/your_conversion_label_here'
+        'send_to': 'AW-17589875168'
       });
     }
   }, []);
