@@ -1,0 +1,66 @@
+looks like it working but looks fucking disgustiong and not on brand. You are the head of marketing and you serve up this shit? Fix it
+ChatGPT said:
+
+Got it — your form is functionally working now (submits to Formspree → redirects to /thanks → fires Google Ads conversion), but the thank-you page looks ugly and off-brand. Let’s fix this properly so it matches your dark, elegant One Now Two brand.
+
+Step 1 — Update your /thanks page content
+
+Instead of that default ugly box, let’s give you something that feels classy and consistent with your site. Replace the content of your client/src/pages/thanks.tsx with this:
+
+import React from "react";
+
+export default function Thanks() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-6">
+      <div className="max-w-xl text-center">
+        <h1 className="text-4xl font-light mb-4">Thank You</h1>
+        <p className="text-lg mb-8 text-gray-300">
+          We’ve received your enquiry. Our team will be in touch soon to talk
+          about your wedding plans.
+        </p>
+        <a
+          href="/"
+          className="inline-block bg-white text-black px-6 py-3 rounded-full hover:bg-gray-200 transition"
+        >
+          Back to Home
+        </a>
+      </div>
+    </div>
+  );
+}
+
+
+✅ This uses your dark theme with clean typography and spacing.
+✅ The “Back to Home” button matches your minimalist style.
+✅ Mobile responsive by default (Tailwind utility classes).
+
+Step 2 — Keep conversion tracking clean
+
+At the top of this component (after imports), you’ll still need the Google Ads event trigger:
+
+import { useEffect } from "react";
+
+export default function Thanks() {
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-17589875168/YOUR_CONVERSION_LABEL",
+      });
+    }
+  }, []);
+
+
+👉 Replace YOUR_CONVERSION_LABEL with the actual one Google gave you (e.g., AW-17589875168/abc123xyz).
+👉 This fires only on the thanks page — so your conversions stay accurate.
+
+Step 3 — Remove the ugly “form submitted” message
+
+That ugly box you saw (“Thanks! The form was submitted successfully.”) was Formspree’s default success page. By adding the _redirect hidden input (which we did), you skip their page entirely and land straight on your styled /thanks page. That’s what you want.
+
+Step 4 — Test end-to-end
+
+Fill out the form on /enquire.
+
+Submit → it should redirect cleanly to your new branded /thanks.
+
+Open Google Tag Assistant (Chrome extension) or Google Ads → check that the conversion event fired.
