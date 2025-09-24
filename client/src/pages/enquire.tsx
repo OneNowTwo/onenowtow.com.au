@@ -41,8 +41,10 @@ ${formData.name}
       const mailtoLink = `mailto:hello@onenowtwo.com.au?subject=${subject}&body=${body}`;
       window.location.href = mailtoLink;
       
-      setFormSubmitted(true);
-      setFormData({ name: '', phone: '', email: '', weddingDate: '' });
+      // Redirect to thanks page for conversion tracking
+      setTimeout(() => {
+        window.location.href = '/thanks';
+      }, 1000);
     } catch (error) {
       // Handle error silently for mailto
     } finally {
