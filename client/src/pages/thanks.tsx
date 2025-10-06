@@ -1,10 +1,16 @@
 
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export default function Thanks() {
   useEffect(() => {
     // Fire Google Ads conversion tracking when thanks page loads
-    if (window.gtag) {
+    if (typeof window.gtag !== 'undefined') {
       window.gtag('event', 'conversion', {
         'send_to': 'AW-17589875168'
       });
