@@ -84,21 +84,26 @@ const portfolioPreview = [
   },
   {
     id: 2,
+    title: "Rydges Hotel",
+    vimeoId: "1159058749"
+  },
+  {
+    id: 3,
     title: "Longueville Hotel",
     vimeoId: "1159066187"
   },
   {
-    id: 3,
+    id: 4,
     title: "Rhodes Central Shopping Centre",
     vimeoId: "1159058719"
   },
   {
-    id: 4,
+    id: 5,
     title: "District",
     vimeoId: "1159066087"
   },
   {
-    id: 5,
+    id: 6,
     title: "Parsons Creek Farm",
     vimeoId: "396407744"
   }
