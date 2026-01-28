@@ -83,38 +83,32 @@ const portfolioPreview = [
   {
     id: 1,
     title: "Hilton Hotel Sydney",
-    vimeoId: "1159058566",
-    thumbnail: "https://i.vimeocdn.com/video/1159058566-preview.jpg"
+    vimeoId: "1159058515"
   },
   {
     id: 2,
-    title: "Bridge Hotel Rozelle",
-    vimeoId: "396407744",
-    thumbnail: "https://i.vimeocdn.com/video/396407744-preview.jpg"
+    title: "Rydges Hotel",
+    vimeoId: "1159058749"
   },
   {
     id: 3,
-    title: "DKO Property Development",
-    vimeoId: "775600383",
-    thumbnail: "https://i.vimeocdn.com/video/775600383-preview.jpg"
+    title: "Marina Square Shopping Centre",
+    vimeoId: "1159058601"
   },
   {
     id: 4,
-    title: "Jacksons Ranch Walkthrough",
-    vimeoId: "1159058790",
-    thumbnail: "https://i.vimeocdn.com/video/1159058790-preview.jpg"
+    title: "The Oaks Development",
+    vimeoId: "1159058909"
   },
   {
     id: 5,
-    title: "Rhodes Central Shopping Centre",
-    vimeoId: "1149506208",
-    thumbnail: "https://i.vimeocdn.com/video/1149506208-preview.jpg"
+    title: "Sovereign Interiors",
+    vimeoId: "1159058790"
   },
   {
     id: 6,
-    title: "Rydges Hotel",
-    vimeoId: "1159058866",
-    thumbnail: "https://i.vimeocdn.com/video/1159058866-preview.jpg"
+    title: "Rhodes Central Shopping Centre",
+    vimeoId: "1159058719"
   }
 ];
 

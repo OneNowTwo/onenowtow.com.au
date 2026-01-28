@@ -6,79 +6,79 @@ const portfolioItems = [
   {
     id: 1,
     title: "Hilton Hotel Sydney",
-    vimeoId: "1159058566",
+    vimeoId: "1159058515",
     category: "Hotels & Resorts",
     location: "Sydney CBD"
   },
   {
     id: 2,
-    title: "Bridge Hotel Rozelle",
-    vimeoId: "396407744",
+    title: "Rydges Hotel",
+    vimeoId: "1159058749",
     category: "Hotels & Resorts",
-    location: "Rozelle"
+    location: "Sydney"
   },
   {
     id: 3,
-    title: "DKO Property Development",
+    title: "Marina Square Shopping Centre",
+    vimeoId: "1159058601",
+    category: "Shopping Centres",
+    location: "Sydney"
+  },
+  {
+    id: 4,
+    title: "Rhodes Central Shopping Centre",
+    vimeoId: "1159058719",
+    category: "Shopping Centres",
+    location: "Rhodes"
+  },
+  {
+    id: 5,
+    title: "The Oaks Development",
+    vimeoId: "1159058909",
+    category: "Commercial",
+    location: "Sydney"
+  },
+  {
+    id: 6,
+    title: "Sovereign Interiors",
+    vimeoId: "1159058790",
+    category: "Commercial",
+    location: "Sydney"
+  },
+  {
+    id: 7,
+    title: "Tallpoppie Muswellbrook",
+    vimeoId: "1159058866",
+    category: "Commercial",
+    location: "Muswellbrook"
+  },
+  {
+    id: 8,
+    title: "Alpine Development",
     vimeoId: "775600383",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 4,
-    title: "Jacksons Ranch",
-    vimeoId: "1159058790",
-    category: "Commercial",
-    location: "NSW"
-  },
-  {
-    id: 5,
-    title: "Rhodes Central",
-    vimeoId: "1149506208",
-    category: "Shopping Centres",
-    location: "Rhodes"
-  },
-  {
-    id: 6,
-    title: "Rydges Hotel",
-    vimeoId: "1159058866",
-    category: "Hotels & Resorts",
-    location: "Sydney"
-  },
-  {
-    id: 7,
-    title: "Marina Square",
-    vimeoId: "1159058909",
-    category: "Shopping Centres",
-    location: "Sydney"
-  },
-  {
-    id: 8,
-    title: "Sovereign Interiors",
-    vimeoId: "1159058834",
-    category: "Commercial",
-    location: "Sydney"
-  },
-  {
     id: 9,
-    title: "The Oaks Development",
-    vimeoId: "1159058749",
+    title: "Crescent Launch Day",
+    vimeoId: "1149506208",
     category: "Commercial",
     location: "Sydney"
   },
   {
     id: 10,
-    title: "Tallpoppie Muswellbrook",
-    vimeoId: "1159058719",
+    title: "Jacksons Ranch",
+    vimeoId: "1159058566",
     category: "Commercial",
-    location: "Muswellbrook"
+    location: "NSW"
   },
   {
     id: 11,
-    title: "Supamart",
+    title: "Barranca Kangaroo Valley",
     vimeoId: "1159058696",
     category: "Commercial",
-    location: "Sydney"
+    location: "Kangaroo Valley"
   },
   {
     id: 12,
@@ -89,34 +89,22 @@ const portfolioItems = [
   },
   {
     id: 13,
-    title: "Palazzo Luxury Apartments",
-    vimeoId: "1159058641",
+    title: "Supamart",
+    vimeoId: "1159058834",
     category: "Commercial",
     location: "Sydney"
   },
   {
     id: 14,
-    title: "District Development",
-    vimeoId: "1159058601",
+    title: "Parsons Creek Farm",
+    vimeoId: "396407744",
     category: "Commercial",
-    location: "Sydney"
-  },
-  {
-    id: 15,
-    title: "Barranca Kangaroo Valley",
-    vimeoId: "1159058515",
-    category: "Commercial",
-    location: "Kangaroo Valley"
+    location: "NSW"
   }
 ];
 
 export default function Portfolio() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioItems[0] | null>(null);
-  const [loadedThumbnails, setLoadedThumbnails] = useState<Set<string>>(new Set());
-
-  const handleThumbnailLoad = (vimeoId: string) => {
-    setLoadedThumbnails(prev => new Set(prev).add(vimeoId));
-  };
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
@@ -168,7 +156,6 @@ export default function Portfolio() {
                     style={{ transform: 'scale(1.2)' }}
                     frameBorder="0"
                     allow="autoplay"
-                    onLoad={() => handleThumbnailLoad(item.vimeoId)}
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                 </div>
