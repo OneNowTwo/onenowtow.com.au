@@ -18,15 +18,7 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/media/hero/hero-poster.jpg')`,
-          filter: 'grayscale(100%) contrast(1.05) brightness(0.85)',
-          opacity: videoLoaded ? 0 : 1,
-          transition: 'opacity 1s ease-in-out'
-        }}
-      />
+      <div className="absolute inset-0 bg-black" />
       
       <video
         autoPlay
@@ -36,8 +28,8 @@ function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover hero-iframe"
         style={{ 
           opacity: videoLoaded ? 1 : 0,
-          transition: 'opacity 1s ease-in-out',
-          filter: 'grayscale(100%) contrast(1.05) brightness(0.85)'
+          transition: 'opacity 1.5s ease-in-out',
+          filter: 'saturate(0.7) contrast(1.05) brightness(0.75)'
         }}
         onLoadedData={() => {
           setTimeout(() => setVideoLoaded(true), 300);
@@ -45,7 +37,7 @@ function HeroSection() {
       >
         <source src="/media/hero/One Now Two Banner Video Property Portfolio.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 hero-veil"></div>
+      <div className="absolute inset-0 bg-black/40"></div>
       
       <div className="relative text-center px-6">
         <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
