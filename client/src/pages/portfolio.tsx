@@ -7,49 +7,49 @@ const portfolioItems = [
     id: 1,
     title: "Hilton Hotel Sydney",
     vimeoId: "1159058566",
-    category: "Hotel",
+    category: "Hotels & Resorts",
     location: "Sydney CBD"
   },
   {
     id: 2,
     title: "Bridge Hotel Rozelle",
     vimeoId: "396407744",
-    category: "Hotel",
+    category: "Hotels & Resorts",
     location: "Rozelle"
   },
   {
     id: 3,
     title: "DKO Property Development",
     vimeoId: "775600383",
-    category: "Development",
+    category: "Commercial",
     location: "Sydney"
   },
   {
     id: 4,
-    title: "Jacksons Ranch Walkthrough",
+    title: "Jacksons Ranch",
     vimeoId: "1159058790",
-    category: "Residential",
+    category: "Commercial",
     location: "NSW"
   },
   {
     id: 5,
-    title: "Rhodes Central Shopping Centre",
+    title: "Rhodes Central",
     vimeoId: "1149506208",
-    category: "Commercial",
+    category: "Shopping Centres",
     location: "Rhodes"
   },
   {
     id: 6,
     title: "Rydges Hotel",
     vimeoId: "1159058866",
-    category: "Hotel",
+    category: "Hotels & Resorts",
     location: "Sydney"
   },
   {
     id: 7,
-    title: "Marina Square Shopping Centre",
+    title: "Marina Square",
     vimeoId: "1159058909",
-    category: "Commercial",
+    category: "Shopping Centres",
     location: "Sydney"
   },
   {
@@ -63,14 +63,14 @@ const portfolioItems = [
     id: 9,
     title: "The Oaks Development",
     vimeoId: "1159058749",
-    category: "Development",
+    category: "Commercial",
     location: "Sydney"
   },
   {
     id: 10,
     title: "Tallpoppie Muswellbrook",
     vimeoId: "1159058719",
-    category: "Development",
+    category: "Commercial",
     location: "Muswellbrook"
   },
   {
@@ -91,27 +91,32 @@ const portfolioItems = [
     id: 13,
     title: "Palazzo Luxury Apartments",
     vimeoId: "1159058641",
-    category: "Residential",
+    category: "Commercial",
     location: "Sydney"
   },
   {
     id: 14,
     title: "District Development",
     vimeoId: "1159058601",
-    category: "Development",
+    category: "Commercial",
     location: "Sydney"
   },
   {
     id: 15,
     title: "Barranca Kangaroo Valley",
     vimeoId: "1159058515",
-    category: "Residential",
+    category: "Commercial",
     location: "Kangaroo Valley"
   }
 ];
 
 export default function Portfolio() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioItems[0] | null>(null);
+  const [loadedThumbnails, setLoadedThumbnails] = useState<Set<string>>(new Set());
+
+  const handleThumbnailLoad = (vimeoId: string) => {
+    setLoadedThumbnails(prev => new Set(prev).add(vimeoId));
+  };
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
@@ -145,7 +150,7 @@ export default function Portfolio() {
           <div className="text-center mb-16">
             <h1 className="font-serif text-4xl md:text-5xl mb-4">Portfolio</h1>
             <p className="text-soft-grey text-lg max-w-2xl mx-auto">
-              A selection of property videos we've produced for developers, agents, and commercial clients across Sydney and NSW.
+              A selection of property videos we've produced for developers, agents, and commercial clients across Australia.
             </p>
           </div>
 
@@ -156,15 +161,16 @@ export default function Portfolio() {
                 onClick={() => setSelectedVideo(item)}
                 className="block w-full text-left cursor-pointer group"
               >
-                <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden mb-3">
-                  <img 
-                    src={`https://vumbnail.com/${item.vimeoId}.jpg`}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      e.currentTarget.src = `https://i.vimeocdn.com/video/${item.vimeoId}_640.jpg`;
-                    }}
+                <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden mb-3 relative">
+                  <iframe
+                    src={`https://player.vimeo.com/video/${item.vimeoId}?background=1&autoplay=0&loop=1&byline=0&title=0&muted=1`}
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    style={{ transform: 'scale(1.2)' }}
+                    frameBorder="0"
+                    allow="autoplay"
+                    onLoad={() => handleThumbnailLoad(item.vimeoId)}
                   />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                 </div>
                 <h3 className="font-serif text-lg group-hover:text-white transition-colors">{item.title}</h3>
                 <p className="text-soft-grey text-sm">{item.category} • {item.location}</p>
@@ -176,7 +182,7 @@ export default function Portfolio() {
 
       <footer className="py-8 section-border text-center text-soft-grey text-sm">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© {new Date().getFullYear()} One Now Two — Sydney, NSW</div>
+          <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
           <div className="flex gap-6">
             <Link href="/services" className="hover:text-white transition-colors">Services</Link>
             <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>

@@ -48,14 +48,14 @@ function HeroSection() {
       <div className="absolute inset-0 hero-veil"></div>
       
       <div className="relative text-center px-6">
-        <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4" data-testid="text-hero-title">
-          Property videos that sell the story — and the square metres.
+        <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
+          Elevating commercial property through cinematic storytelling.
         </h1>
-        <p className="text-soft-grey text-lg md:text-xl max-w-2xl mx-auto mb-8" data-testid="text-hero-subtitle">
-          Cinematic walkthroughs, agent-led socials, drone, and edit packages for developers, agents, and vendors.
+        <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8" data-testid="text-hero-subtitle">
+          Stunning real estate videos that captivate buyers, tenants, and investors.
         </p>
-        <div className="text-sm text-soft-grey tracking-wider uppercase mb-8" data-testid="text-hero-location">
-          Sydney • New South Wales • Australia
+        <div className="text-sm text-white/70 tracking-wider uppercase mb-8" data-testid="text-hero-location">
+          Sydney • Australia-Wide
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -118,22 +118,18 @@ const portfolioPreview = [
   }
 ];
 
-const services = [
+const packages = [
   {
-    title: "Listing Walkthrough",
-    description: "30–90 second cinematic walkthroughs that showcase properties at their best."
+    title: "Signature Series",
+    description: "Ultimate production value for prestigious commercial properties. Dual cameras, premium drone, voice-over."
   },
   {
-    title: "Social Cuts & Reels",
-    description: "Vertical video packages with captions, ready for Instagram and TikTok."
+    title: "Professional Series",
+    description: "Comprehensive coverage for commercial properties. Full-day filming with 4K cinema camera."
   },
   {
-    title: "Drone & Aerials",
-    description: "Stunning aerial perspectives that capture location and surroundings."
-  },
-  {
-    title: "Commercial Films",
-    description: "Development and commercial property films for developers and agencies."
+    title: "Essential Series",
+    description: "Half-day shoot perfect for smaller commercial spaces. Quick turnaround, quality results."
   }
 ];
 
@@ -188,22 +184,22 @@ export default function Home() {
         <section id="services" className="py-20 section-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl mb-4" data-testid="text-services-title">What We Do</h2>
-              <p className="text-soft-grey">Video production tailored for property.</p>
+              <h2 className="font-serif text-3xl mb-4" data-testid="text-services-title">Our Packages</h2>
+              <p className="text-soft-grey">Tailored video production for commercial real estate.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {services.map((service, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {packages.map((pkg, index) => (
                 <div key={index} className="p-6 border border-[var(--hairline)] rounded-lg">
-                  <h3 className="font-serif text-xl mb-3">{service.title}</h3>
-                  <p className="text-soft-grey text-sm">{service.description}</p>
+                  <h3 className="font-serif text-xl mb-3">{pkg.title}</h3>
+                  <p className="text-soft-grey text-sm">{pkg.description}</p>
                 </div>
               ))}
             </div>
 
             <div className="text-center mt-10">
               <Link href="/services" className="btn-outline">
-                View All Services
+                View All Packages
               </Link>
             </div>
           </div>
@@ -224,16 +220,16 @@ export default function Home() {
                   className="block w-full text-left cursor-pointer group"
                   data-testid={`button-portfolio-${work.id}`}
                 >
-                  <figure className="portfolio-figure m-0">
-                    <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden">
-                      <img 
-                        src={`https://vumbnail.com/${work.vimeoId}.jpg`}
-                        alt={work.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          e.currentTarget.src = `https://i.vimeocdn.com/video/${work.vimeoId}_640.jpg`;
-                        }}
+                  <figure className="m-0">
+                    <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden relative">
+                      <iframe
+                        src={`https://player.vimeo.com/video/${work.vimeoId}?background=1&autoplay=0&loop=1&byline=0&title=0&muted=1`}
+                        className="absolute inset-0 w-full h-full pointer-events-none"
+                        style={{ transform: 'scale(1.2)' }}
+                        frameBorder="0"
+                        allow="autoplay"
                       />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                     </div>
                     <figcaption className="mt-3 text-soft-grey group-hover:text-white transition-colors">
                       {work.title}
@@ -294,7 +290,7 @@ export default function Home() {
       <footer className="py-8 section-border text-center text-soft-grey text-sm">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div data-testid="text-footer-copyright">
-            © {new Date().getFullYear()} One Now Two — Sydney, NSW
+            © {new Date().getFullYear()} One Now Two — Sydney, Australia
           </div>
           <div className="flex gap-6">
             <Link href="/services" className="hover:text-white transition-colors">Services</Link>

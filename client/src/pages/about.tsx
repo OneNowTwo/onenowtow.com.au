@@ -32,34 +32,36 @@ export default function About() {
       <main className="pt-32 pb-20">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h1 className="font-serif text-4xl md:text-5xl mb-4">About</h1>
+            <h1 className="font-serif text-4xl md:text-5xl mb-4">About Us</h1>
           </div>
 
           <div className="space-y-8 text-lg leading-relaxed">
             <p className="text-soft-grey">
-              I'm Michael — a cinematographer, director, and producer with over 15 years of experience in video production.
+              At One Now Two, we specialise in crafting exceptional video content tailored for commercial real estate.
             </p>
 
             <p className="text-soft-grey">
-              Based in Sydney, I've spent the past decade crafting TVCs, brand films, and commercial content for agencies and brands across Australia. Now I'm bringing that same level of craft to property video production.
+              Based in Sydney, we proudly serve Newcastle, the Central Coast, regional NSW, and beyond — across Australia and internationally.
             </p>
 
             <p className="text-soft-grey">
-              I work fast, stay organised, and make handover easy. Whether it's a quick walkthrough or a full development film, I approach every project with the same attention to detail.
+              With over 15 years of experience in video production, our team brings a cinematic approach to every project. We've spent years crafting TVCs, brand films, and commercial content for agencies and brands — now we're bringing that same level of craft to property video production.
             </p>
 
             <div className="border-t border-b border-[var(--hairline)] py-8 my-12">
-              <h2 className="font-serif text-2xl mb-6">Tools & Workflow</h2>
-              <ul className="space-y-3 text-soft-grey">
-                <li>• <strong className="text-white">Edit:</strong> Adobe Premiere Pro, DaVinci Resolve</li>
-                <li>• <strong className="text-white">Motion & Titles:</strong> After Effects</li>
-                <li>• <strong className="text-white">Colour:</strong> DaVinci Resolve</li>
-                <li>• <strong className="text-white">AI-Assisted:</strong> Mood boards, fast concepts, and post graphics support — used thoughtfully, not gimmicky</li>
-              </ul>
+              <h2 className="font-serif text-2xl mb-6">What We Cover</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-soft-grey">
+                <div>• Commercial Real Estate</div>
+                <div>• Hotels & Resorts</div>
+                <div>• Shopping Centres</div>
+                <div>• Office Leasing</div>
+                <div>• Industrial Properties</div>
+                <div>• Residential Developments</div>
+              </div>
             </div>
 
             <p className="text-soft-grey">
-              Servicing Sydney, Greater Sydney, and NSW. Available for regional and interstate projects.
+              We work fast, stay organised, and make handover easy. Whether it's a quick walkthrough or a full development film, we approach every project with the same attention to detail.
             </p>
 
             <div className="text-center pt-8">
@@ -73,7 +75,7 @@ export default function About() {
 
       <footer className="py-8 section-border text-center text-soft-grey text-sm">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© {new Date().getFullYear()} One Now Two — Sydney, NSW</div>
+          <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
           <div className="flex gap-6">
             <Link href="/services" className="hover:text-white transition-colors">Services</Link>
             <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
