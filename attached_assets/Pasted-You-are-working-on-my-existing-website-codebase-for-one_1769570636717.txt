@@ -1,0 +1,83 @@
+You are working on my existing website codebase for onenowtwo.com.au (currently positioned as wedding videography). I need you to pivot the entire site to “Property Video Production” (commercial + residential, Sydney/NSW). Keep the current tech stack and deployment setup exactly the same, only change content, structure, and media.
+
+GOALS
+- Rebrand from weddings to property-focused video production.
+- Use my existing styling/components where possible (minimal refactor).
+- Add a Portfolio page/section that showcases my property videos.
+- Update all copy, headings, CTAs, navigation, metadata, and forms to match property.
+- Remove/replace any wedding language across the whole codebase.
+
+SITE STRUCTURE (must implement)
+Nav:
+- Home
+- Services
+- Portfolio
+- About
+- Enquire (or Contact)
+
+HOME PAGE (new hero + sections)
+Hero:
+- Headline: “Property videos that sell the story — and the square metres.”
+- Subheadline: “Cinematic walkthroughs, agent-led socials, drone, and edit packages for developers, agents, and vendors.”
+- Primary CTA button: “Get a quote”
+- Secondary CTA: “View portfolio”
+
+Sections:
+1) Social proof / outcomes (short): “Faster interest. Cleaner listings. Better brand.”
+2) Services overview cards (link to Services page)
+3) Portfolio teaser (3–6 videos)
+4) Process: Shoot → Edit → Deliver (fast turnarounds)
+5) Contact CTA strip
+
+SERVICES PAGE
+Create service blocks with concise copy:
+- Listing Walkthrough Video (30–90s)
+- Social Cuts / Reels Package (vertical + captions)
+- Drone / Aerials (if available)
+- Agent Piece-to-Camera (optional)
+- Development / Commercial Property Films
+- Photography add-on (ONLY if I already offer it; otherwise omit)
+
+Each service: what it includes + typical turnaround + “Enquire” CTA.
+
+PORTFOLIO PAGE
+I will provide video files or links. Build a simple responsive grid:
+- Each item shows thumbnail + title + location + short description.
+- Clicking opens modal/lightbox or dedicated page and plays video.
+- If files are local, store them in /public/videos (or equivalent) and reference properly.
+- If hosted (YouTube/Vimeo), embed with responsive aspect ratio.
+
+ABOUT PAGE
+Rewrite about copy for property:
+- I’m Michael, cinematographer/director/producer with 15+ years experience.
+- Based Sydney/NSW. Fast, organised, easy handover.
+- Tools: Premiere Pro, After Effects (light titles), Resolve (basic colour).
+- I use AI thoughtfully for mood boards, fast concepts, and post graphics support (not gimmicky).
+
+ENQUIRE / CONTACT
+- Update the form fields to property specific:
+  - Name, Email, Phone
+  - Property address/suburb
+  - Type: Residential / Commercial / Development
+  - Agent/Vendor/Developer
+  - What you need: Walkthrough / Reels / Drone / Other
+  - Preferred shoot date
+  - Message
+- Make sure form submission still works exactly as it did before.
+
+GLOBAL REBRAND REQUIREMENTS
+- Replace all mentions of “wedding”, “bride”, “groom”, etc everywhere.
+- Update site title, meta description, OpenGraph tags, and favicon/title if needed.
+  - Site title: “One Now Two | Property Video Production”
+  - Meta description: “Sydney property videos: walkthroughs, reels, drone & commercial films.”
+- Update homepage imagery to property-relevant visuals (use placeholders if you need until I add my media).
+- Make sure URLs remain clean (avoid breaking existing routes). If there are wedding routes, redirect them to relevant new pages.
+
+MEDIA INTEGRATION
+Ask me where the videos are located:
+- If I have local MP4 files: implement using HTML5 <video> with controls off by default + hover play optional.
+- If I have links: implement embeds.
+
+DELIVERABLE
+- Commit changes so the whole site is property-focused.
+- Provide me a short checklist of what you changed and where to add/replace portfolio videos (exact folder paths + file naming).
