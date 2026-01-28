@@ -260,11 +260,11 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="font-serif text-2xl text-center mb-12 text-soft-grey">Trusted by leading brands</h2>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-              <img src={jllLogo} alt="JLL" className="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
-              <img src={cbreLogo} alt="CBRE" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
-              <img src={rydgesLogo} alt="Rydges Hotels & Resorts" className="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
-              <img src={arissaLogo} alt="Arissa" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain invert" />
-              <img src={asheMorganLogo} alt="Ashe Morgan" className="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
+              <img src={jllLogo} alt="JLL" className="h-10 md:h-14 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
+              <img src={cbreLogo} alt="CBRE" className="h-8 md:h-10 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
+              <img src={rydgesLogo} alt="Rydges Hotels & Resorts" className="h-10 md:h-14 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
+              <img src={arissaLogo} alt="Arissa" className="h-8 md:h-10 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
+              <img src={asheMorganLogo} alt="Ashe Morgan" className="h-10 md:h-12 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
             </div>
           </div>
         </section>
