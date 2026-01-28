@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import logoUrl from "../assets/logo.png";
+import arissaLogo from "@assets/Arissa_1769577580214.png";
+import jllLogo from "@assets/JLL-Logo-Positive-10-29mm-RGB-1-002_1769577580216.png";
+import cbreLogo from "@assets/png-clipart-cbre-group-real-estate-commercial-property-busines_1769577580216.png";
+import rydgesLogo from "@assets/Rydges_Hotels_&_Resorts_Logo_1769577580217.png";
+import asheMorganLogo from "@assets/sponslogos4_1769577580217.png";
 
 function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
@@ -79,28 +84,23 @@ const portfolioPreview = [
   },
   {
     id: 2,
-    title: "Rydges Hotel",
-    vimeoId: "1159058749"
+    title: "Longueville Hotel",
+    vimeoId: "1159066187"
   },
   {
     id: 3,
-    title: "Marina Square Shopping Centre",
-    vimeoId: "1159058601"
+    title: "Rhodes Central Shopping Centre",
+    vimeoId: "1159058719"
   },
   {
     id: 4,
-    title: "The Oaks Development",
-    vimeoId: "1159058909"
+    title: "District",
+    vimeoId: "1159066087"
   },
   {
     id: 5,
-    title: "Sovereign Interiors",
-    vimeoId: "1159058790"
-  },
-  {
-    id: 6,
-    title: "Rhodes Central Shopping Centre",
-    vimeoId: "1159058719"
+    title: "Parsons Creek Farm",
+    vimeoId: "396407744"
   }
 ];
 
@@ -252,6 +252,19 @@ export default function Home() {
                 <h3 className="font-serif text-xl mb-2">Deliver</h3>
                 <p className="text-soft-grey text-sm">Files delivered in all formats you need, ready to publish.</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 section-border">
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="font-serif text-2xl text-center mb-12 text-soft-grey">Trusted by leading brands</h2>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+              <img src={jllLogo} alt="JLL" className="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
+              <img src={cbreLogo} alt="CBRE" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
+              <img src={rydgesLogo} alt="Rydges Hotels & Resorts" className="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
+              <img src={arissaLogo} alt="Arissa" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain invert" />
+              <img src={asheMorganLogo} alt="Ashe Morgan" className="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity object-contain" />
             </div>
           </div>
         </section>
