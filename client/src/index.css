@@ -109,6 +109,10 @@
     @apply border border-[var(--light-accent)] text-[var(--ink)] no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 hover:bg-white/5 transition-all;
   }
 
+  .btn-primary {
+    @apply bg-white text-black no-underline px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-100 transition-all;
+  }
+
   /* Hero */
   .hero-iframe {
     filter: contrast(1.05) brightness(0.85);

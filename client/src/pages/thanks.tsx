@@ -1,5 +1,5 @@
-
 import { useEffect } from "react";
+import { Link } from "wouter";
 
 declare global {
   interface Window {
@@ -9,7 +9,6 @@ declare global {
 
 export default function Thanks() {
   useEffect(() => {
-    // Fire Google Ads conversion tracking when thanks page loads
     if (typeof window.gtag !== 'undefined') {
       window.gtag('event', 'conversion', {
         'send_to': 'AW-17589875168'
@@ -24,14 +23,14 @@ export default function Thanks() {
           Thank you.
         </h1>
         <p className="text-soft-grey text-lg mb-8 leading-relaxed">
-          We've received your enquiry and will be in touch soon to discuss your wedding day.
+          We've received your enquiry and will be in touch within 24 hours to discuss your project.
         </p>
-        <a
+        <Link
           href="/"
           className="inline-block btn-outline"
         >
           Return Home
-        </a>
+        </Link>
       </div>
     </div>
   );
