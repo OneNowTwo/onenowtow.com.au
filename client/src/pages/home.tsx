@@ -25,23 +25,47 @@ function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-black" />
       
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover hero-iframe"
-        style={{ 
-          opacity: videoLoaded ? 1 : 0,
-          transition: 'opacity 1.5s ease-in-out',
-          filter: 'saturate(0.7) contrast(1.05) brightness(0.75)'
-        }}
-        onLoadedData={() => {
-          setTimeout(() => setVideoLoaded(true), 300);
-        }}
-      >
-        <source src="/media/hero/One Now Two Banner Video Property Portfolio.mp4" type="video/mp4" />
-      </video>
+      {isMobile ? (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full aspect-video">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-contain hero-iframe"
+              style={{ 
+                opacity: videoLoaded ? 1 : 0,
+                transition: 'opacity 1.5s ease-in-out',
+                filter: 'saturate(0.7) contrast(1.05) brightness(0.75)'
+              }}
+              onLoadedData={() => {
+                setTimeout(() => setVideoLoaded(true), 300);
+              }}
+            >
+              <source src="/media/hero/One Now Two Banner Video Property Portfolio.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      ) : (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover hero-iframe"
+          style={{ 
+            opacity: videoLoaded ? 1 : 0,
+            transition: 'opacity 1.5s ease-in-out',
+            filter: 'saturate(0.7) contrast(1.05) brightness(0.75)'
+          }}
+          onLoadedData={() => {
+            setTimeout(() => setVideoLoaded(true), 300);
+          }}
+        >
+          <source src="/media/hero/One Now Two Banner Video Property Portfolio.mp4" type="video/mp4" />
+        </video>
+      )}
       <div className="absolute inset-0 bg-black/40"></div>
       
       <div className="relative text-center px-6">
