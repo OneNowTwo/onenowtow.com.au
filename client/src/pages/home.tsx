@@ -256,15 +256,25 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-20 section-border">
-          <div className="max-w-6xl mx-auto px-6">
-            <h2 className="font-serif text-2xl text-center mb-12 text-soft-grey">Trusted by leading brands</h2>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-              <img src={jllLogo} alt="JLL" className="h-10 md:h-14 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
-              <img src={cbreLogo} alt="CBRE" className="h-8 md:h-10 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
-              <img src={rydgesLogo} alt="Rydges Hotels & Resorts" className="h-10 md:h-14 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
-              <img src={arissaLogo} alt="Arissa" className="h-8 md:h-10 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
-              <img src={asheMorganLogo} alt="Ashe Morgan" className="h-10 md:h-12 w-auto brightness-0 invert opacity-80 hover:opacity-100 transition-opacity object-contain" />
+        <section className="py-16 section-border">
+          <div className="max-w-5xl mx-auto px-6">
+            <h2 className="font-serif text-xl text-center mb-10 text-soft-grey">Trusted by leading brands</h2>
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+              <div className="bg-white/90 rounded-lg px-6 py-4">
+                <img src={jllLogo} alt="JLL" className="h-8 md:h-10 w-auto object-contain" />
+              </div>
+              <div className="bg-white/90 rounded-lg px-6 py-4">
+                <img src={cbreLogo} alt="CBRE" className="h-6 md:h-8 w-auto object-contain" />
+              </div>
+              <div className="bg-white/90 rounded-lg px-6 py-4">
+                <img src={rydgesLogo} alt="Rydges Hotels & Resorts" className="h-8 md:h-10 w-auto object-contain" />
+              </div>
+              <div className="bg-white/90 rounded-lg px-6 py-4">
+                <img src={arissaLogo} alt="Arissa" className="h-6 md:h-8 w-auto object-contain" />
+              </div>
+              <div className="bg-white/90 rounded-lg px-6 py-4">
+                <img src={asheMorganLogo} alt="Ashe Morgan" className="h-8 md:h-10 w-auto object-contain" />
+              </div>
             </div>
           </div>
         </section>
