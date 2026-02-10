@@ -1,6 +1,6 @@
 # Overview
 
-One Now Two is a cinematic wedding videography website featuring a minimalist, monochrome design aesthetic. The application serves as a portfolio showcase for a wedding filmmaker transitioning from commercial work to wedding cinematography. Built with a modern full-stack architecture using React/TypeScript frontend and Express backend, the site emphasizes visual storytelling through carefully curated work samples and an elegant, understated design language.
+One Now Two is a professional video production website for commercial and industrial real estate, featuring a minimalist, monochrome design aesthetic. The application serves as a portfolio showcase for a video production company with 15+ years of experience in commercial content, now specializing in property video production. Built with a modern full-stack architecture using React/TypeScript frontend and Express backend, the site emphasizes visual storytelling through carefully curated work samples and an elegant, understated design language.
 
 # User Preferences
 
