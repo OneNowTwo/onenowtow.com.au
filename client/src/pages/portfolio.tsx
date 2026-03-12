@@ -19,14 +19,14 @@ const portfolioItems = [
   },
   {
     id: 3,
-    title: "Emu Plains",
+    title: "CBRE - Emu Plains Development",
     vimeoId: "1172749465",
     category: "Commercial",
     location: "Emu Plains"
   },
   {
     id: 4,
-    title: "Longueville Hotel",
+    title: "JLL - Longueville Hotel",
     vimeoId: "1159066187",
     category: "Hotels & Resorts",
     location: "Sydney"
