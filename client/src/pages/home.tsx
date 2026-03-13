@@ -113,7 +113,7 @@ const portfolioPreview = [
   },
   {
     id: 3,
-    title: "Longueville Hotel",
+    title: "JLL - Longueville Hotel",
     vimeoId: "1159066187"
   },
   {
@@ -123,8 +123,8 @@ const portfolioPreview = [
   },
   {
     id: 5,
-    title: "District",
-    vimeoId: "1159066087"
+    title: "CBRE - Emu Plains Development",
+    vimeoId: "1172749465"
   },
   {
     id: 6,

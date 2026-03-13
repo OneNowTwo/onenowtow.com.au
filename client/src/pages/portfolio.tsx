@@ -19,97 +19,125 @@ const portfolioItems = [
   },
   {
     id: 3,
-    title: "Longueville Hotel",
+    title: "CBRE - Emu Plains Development",
+    vimeoId: "1172749465",
+    category: "Commercial",
+    location: "Emu Plains"
+  },
+  {
+    id: 4,
+    title: "JLL - Longueville Hotel",
     vimeoId: "1159066187",
     category: "Hotels & Resorts",
     location: "Sydney"
   },
   {
-    id: 4,
+    id: 5,
     title: "The Bridge Hotel",
     vimeoId: "1159066039",
     category: "Hotels & Resorts",
     location: "Sydney"
   },
   {
-    id: 5,
+    id: 6,
     title: "Marina Square Shopping Centre",
     vimeoId: "1159058601",
     category: "Shopping Centres",
     location: "Sydney"
   },
   {
-    id: 6,
+    id: 7,
+    title: "22B Hanson",
+    vimeoId: "1172749036",
+    category: "Commercial",
+    location: "Sydney"
+  },
+  {
+    id: 8,
     title: "Rhodes Central Shopping Centre",
     vimeoId: "1159058719",
     category: "Shopping Centres",
     location: "Rhodes"
   },
   {
-    id: 7,
+    id: 9,
     title: "The Oaks Development",
     vimeoId: "1159058909",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 8,
+    id: 10,
     title: "Sovereign Interiors",
     vimeoId: "1159058790",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 9,
+    id: 11,
+    title: "Kemps Creek Insights",
+    vimeoId: "1172745516",
+    category: "Commercial",
+    location: "Kemps Creek"
+  },
+  {
+    id: 12,
     title: "Tallpoppie Muswellbrook",
     vimeoId: "1159058866",
     category: "Commercial",
     location: "Muswellbrook"
   },
   {
-    id: 10,
+    id: 13,
     title: "District",
     vimeoId: "1159066087",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 11,
+    id: 14,
     title: "Crescent Launch Day",
     vimeoId: "1149506208",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 12,
+    id: 15,
+    title: "Team Chat Blooper",
+    vimeoId: "1172747276",
+    category: "Commercial",
+    location: "Sydney"
+  },
+  {
+    id: 16,
     title: "Jacksons Ranch",
     vimeoId: "1159058566",
     category: "Commercial",
     location: "NSW"
   },
   {
-    id: 13,
+    id: 17,
     title: "Barranca Kangaroo Valley",
     vimeoId: "1159058696",
     category: "Commercial",
     location: "Kangaroo Valley"
   },
   {
-    id: 14,
+    id: 18,
     title: "Porbeski Architects",
     vimeoId: "1159058666",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 15,
+    id: 19,
     title: "Supamart",
     vimeoId: "1159058834",
     category: "Commercial",
     location: "Sydney"
   },
   {
-    id: 16,
+    id: 20,
     title: "Parsons Creek Farm",
     vimeoId: "396407744",
     category: "Commercial",
