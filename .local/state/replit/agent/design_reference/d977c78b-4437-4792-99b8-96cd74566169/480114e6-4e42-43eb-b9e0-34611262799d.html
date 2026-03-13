@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Now Two - Cinematic Wedding Films</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Cormorant Garamond', 'serif'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'near-black': '#0f0f10',
+                        'off-white': '#f6f6f6',
+                        'soft-grey': '#9ca3af',
+                        'hairline': '#1b1b1d',
+                        'light-accent': '#e5e5e5'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --bg: #0f0f10;
+            --ink: #f6f6f6;
+            --muted: #9ca3af;
+            --line: #1b1b1d;
+            --accent: #e5e5e5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.9s ease 0.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .grayscale-hover {
+            filter: grayscale(100%);
+            transition: filter 0.5s ease, transform 0.6s ease;
+            transform: scale(1.02);
+        }
+
+        .grayscale-hover:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* Hero video styling */
+        .hero-video {
+            filter: grayscale(100%) contrast(1.05) brightness(0.85);
+        }
+
+        /* Navigation backdrop */
+        .nav-backdrop {
+            background: linear-gradient(to bottom, rgba(15,15,16,0.85), rgba(15,15,16,0));
+        }
+
+        /* Portfolio grid adjustments */
+        .portfolio-figure {
+            background: #0a0a0a;
+            border: 1px solid var(--line);
+        }
+
+        .portfolio-caption {
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- @COMPONENT: Header [Fixed navigation with logo and CTA] -->
+    <header class="fixed top-0 left-0 right-0 z-30 nav-backdrop">
+        <div class="max-w-7xl mx-auto px-6">
+            <nav class="flex justify-between items-center py-4">
+                <a href="#top" class="flex items-center gap-3 text-off-white no-underline" aria-label="One Now Two">
+                    <div class="h-8 w-8 rounded-lg bg-gray-900 border border-hairline flex items-center justify-center">
+                        <span class="font-semibold text-xs tracking-wider">ON</span>
+                    </div>
+                    <div class="font-semibold text-sm tracking-wider uppercase opacity-90">One Now Two</div>
+                </a>
+                <a href="#enquire" class="border border-light-accent text-off-white no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 transition-opacity">
+                    Enquire
+                </a>
+            </nav>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <main id="top">
+        <!-- @COMPONENT: Hero [Video background with centered content] -->
+        <section class="relative min-h-screen flex items-center justify-center">
+            <!-- Hero video background with elegant wedding ceremony footage -->
+            <video class="absolute inset-0 w-full h-full object-cover hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1508898578281-774ac4893bd0?q=80&w=1920&auto=format&fit=crop">
+                <source src="https://cdn.coverr.co/videos/coverr-bride-and-groom-walking-1528/1080p.mp4" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-gradient-radial from-black/15 via-black/30 to-black/55"></div>
+            
+            <div class="relative text-center px-6 fade-in">
+                <h1 class="font-serif text-5xl md:text-6xl leading-tight mb-3">
+                    Cinematic wedding films that feel like you.
+                </h1>
+                <div class="text-sm text-soft-grey tracking-wider uppercase mb-6">
+                    Sydney • New South Wales • Australia
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a href="#works" class="border border-light-accent px-5 py-3 rounded-full text-sm text-off-white no-underline opacity-95 hover:opacity-100 hover:bg-white/5 transition-all">
+                        Selected works
+                    </a>
+                    <a href="#why" class="border border-light-accent px-5 py-3 rounded-full text-sm text-off-white no-underline opacity-95 hover:opacity-100 hover:bg-white/5 transition-all">
+                        Why I film weddings
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Hero -->
+
+        <!-- @COMPONENT: About [Why section explaining background] -->
+        <section id="why" class="py-20 border-t border-hairline">
+            <div class="max-w-4xl mx-auto px-6 text-center fade-in">
+                <h2 class="font-serif text-3xl mb-2">Why I do this</h2>
+                <p class="text-soft-grey text-lg leading-relaxed max-w-3xl mx-auto">
+                    After a decade crafting TVCs and brand films at Young Buck Media, I moved into weddings
+                    to make something quieter—and truer. I work calmly on the day, listen more than I speak,
+                    and cut with restraint so your film feels timeless next year and in twenty.
+                </p>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: About -->
+
+        <!-- @COMPONENT: Portfolio [Selected works grid] -->
+        <section id="works" class="py-20 border-t border-hairline">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-8 fade-in">
+                    <h2 class="font-serif text-3xl mb-2">Selected Works</h2>
+                    <p class="text-soft-grey">A handful only. The rest—by request.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 fade-in">
+                    <!-- @MAP: selectedWorks.map(work => ( -->
+                    
+                    <!-- Portfolio Item 1: Intimate ceremony in Kangaroo Valley surrounded by nature -->
+                    <a href="https://vimeo.com/76979871" target="_blank" rel="noreferrer" class="block">
+                        <figure class="portfolio-figure rounded-xl overflow-hidden relative m-0">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Elegant outdoor wedding ceremony in Kangaroo Valley" 
+                                 class="w-full aspect-video object-cover grayscale-hover" />
+                            <figcaption class="portfolio-caption absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200">
+                                A & J — Kangaroo Valley — 2025
+                            </figcaption>
+                        </figure>
+                    </a>
+
+                    <!-- Portfolio Item 2: Urban wedding ceremony in Sydney's iconic CBD -->
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noreferrer" class="block">
+                        <figure class="portfolio-figure rounded-xl overflow-hidden relative m-0">
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Modern city wedding with Sydney CBD skyline backdrop" 
+                                 class="w-full aspect-video object-cover grayscale-hover" />
+                            <figcaption class="portfolio-caption absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200">
+                                S & M — Sydney CBD — 2024
+                            </figcaption>
+                        </figure>
+                    </a>
+
+                    <!-- Portfolio Item 3: Vineyard wedding celebration in Hunter Valley -->
+                    <a href="https://vimeo.com/318097471" target="_blank" rel="noreferrer" class="block">
+                        <figure class="portfolio-figure rounded-xl overflow-hidden relative m-0">
+                            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Romantic vineyard wedding ceremony in Hunter Valley wine country" 
+                                 class="w-full aspect-video object-cover grayscale-hover" />
+                            <figcaption class="portfolio-caption absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200">
+                                L & T — Hunter Valley — 2025
+                            </figcaption>
+                        </figure>
+                    </a>
+
+                    <!-- Portfolio Item 4: Coastal wedding ceremony with ocean views -->
+                    <a href="https://vimeo.com/177524264" target="_blank" rel="noreferrer" class="block">
+                        <figure class="portfolio-figure rounded-xl overflow-hidden relative m-0">
+                            <img src="https://images.unsplash.com/photo-1503863937795-62954a3c0f05?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Beautiful coastal wedding ceremony overlooking the South Coast beaches" 
+                                 class="w-full aspect-video object-cover grayscale-hover" />
+                            <figcaption class="portfolio-caption absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200">
+                                E & R — South Coast — 2024
+                            </figcaption>
+                        </figure>
+                    </a>
+
+                    <!-- Portfolio Item 5: Mountain wedding with Blue Mountains backdrop -->
+                    <a href="#" target="_blank" rel="noreferrer" class="block">
+                        <figure class="portfolio-figure rounded-xl overflow-hidden relative m-0">
+                            <img src="https://images.unsplash.com/photo-1521316730702-829a8e30dfdf?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Scenic mountain wedding ceremony in the Blue Mountains wilderness" 
+                                 class="w-full aspect-video object-cover grayscale-hover" />
+                            <figcaption class="portfolio-caption absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200">
+                                C & P — Blue Mountains — 2023
+                            </figcaption>
+                        </figure>
+                    </a>
+
+                    <!-- Portfolio Item 6: Beachfront wedding in Byron Bay with sunset -->
+                    <a href="#" target="_blank" rel="noreferrer" class="block">
+                        <figure class="portfolio-figure rounded-xl overflow-hidden relative m-0">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Dreamy beachfront wedding ceremony at sunset in Byron Bay" 
+                                 class="w-full aspect-video object-cover grayscale-hover" />
+                            <figcaption class="portfolio-caption absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200">
+                                N & H — Byron Bay — 2025
+                            </figcaption>
+                        </figure>
+                    </a>
+                    
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Portfolio -->
+
+        <!-- @COMPONENT: Ethos [Philosophy and approach] -->
+        <section id="ethos" class="py-20 border-t border-hairline">
+            <div class="max-w-3xl mx-auto px-6 text-center fade-in">
+                <h2 class="font-serif text-3xl mb-6">An ethos of restraint</h2>
+                <div class="space-y-3">
+                    <p class="text-soft-grey text-lg">Observe quietly.</p>
+                    <p class="text-soft-grey text-lg">Edit honestly.</p>
+                    <p class="text-soft-grey text-lg">Leave space for feeling.</p>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Ethos -->
+
+        <!-- @COMPONENT: Contact [CTA section] -->
+        <section id="enquire" class="py-20 border-t border-hairline">
+            <div class="max-w-2xl mx-auto px-6 text-center fade-in">
+                <h2 class="font-serif text-3xl mb-6">Dates are limited.</h2>
+                <a href="mailto:hello@onenowtwo.com.au?subject=Wedding Enquiry — One Now Two" 
+                   class="inline-block border border-light-accent px-5 py-3 rounded-full text-sm text-off-white no-underline opacity-95 hover:opacity-100 hover:bg-white/5 transition-all mb-3">
+                    Enquire by email
+                </a>
+                <p class="text-soft-grey text-sm">
+                    Prefer a call? Add your number in the email and I'll ring you back.
+                </p>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Contact -->
+    </main>
+
+    <!-- @COMPONENT: Footer [Copyright and location] -->
+    <footer class="py-8 border-t border-hairline text-center text-soft-grey text-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <span data-bind="currentYear">© 2024</span> One Now Two — Sydney, NSW
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // Simple fade-in animation trigger
+        (function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.9s ease 0.2s forwards';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Update copyright year
+            const currentYear = new Date().getFullYear();
+            const yearSpan = document.querySelector('[data-bind="currentYear"]');
+            if (yearSpan) {
+                yearSpan.textContent = `© ${currentYear}`;
+            }
+        })();
+    </script>
+</body>
+</html>

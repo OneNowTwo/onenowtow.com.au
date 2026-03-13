@@ -1,0 +1,244 @@
+Love the vibe. Here’s a lean, “aloof” one-pager concept for One Now Two—minimal, monochrome, old-school serif, and laser-focused on showcasing work with just enough copy to intrigue.
+
+Concept (for your Replit build)
+
+Look & feel
+
+Monochrome: black / white / soft grey (#111, #f7f7f7, #9ca3af).
+
+Typeface: old-school serif for titles (Cormorant Garamond), neutral grotesk for microcopy (Inter).
+
+Big whitespace, slow fades, no clutter. Feels a bit exclusive on purpose.
+
+Tone
+
+Sparse, confident, slightly mysterious. You’re the prize. Minimal words; let the films do the talking.
+
+Structure (single page)
+
+Hero: Autoplay, muted, looping mashup reel (poster image fallback). Centered logotype + tiny line. Single CTA: “Enquire”.
+
+Why: 2–3 lines about moving from TVCs/corporate (Young Buck Media) into weddings—calm on the day, meticulous in the edit.
+
+Selected Works: 6 films only. Black-and-white thumbnails that gently fade to colour on hover. Captions: Couple — Venue — Year. Click → Vimeo/YouTube.
+
+Ethos: Three ultra-short lines (no bullet bloat). Example: “Observe quietly. Edit honestly. Leave space for feeling.”
+
+Availability CTA: One line: “Dates are limited.” + mailto link.
+
+Footer: Tiny, centred. Sydney • NSW. © One Now Two.
+
+Micro-interactions
+
+Slow fade-ins (CSS only).
+
+Cursor hover → grayscale fades to colour on thumbnails.
+
+No heavy animations; keep it elegant.
+
+Paste-into-Replit Code (drop this straight into src/App.js)
+export default function App() {
+  return (
+    <div className="site">
+      {/* Inline CSS so it runs instantly in Replit (no Tailwind/plugins) */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+
+        :root{
+          --bg:#0f0f10;        /* near-black */
+          --ink:#f6f6f6;       /* off-white */
+          --muted:#9ca3af;     /* soft grey */
+          --line:#1b1b1d;      /* hairline */
+          --accent:#e5e5e5;    /* light border accents */
+        }
+        *{box-sizing:border-box}
+        html,body,#root,.site{height:100%}
+        body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+        .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+        h1,h2,h3{font-family:'Cormorant Garamond', serif; letter-spacing:.2px}
+        p,small,a,li,button,figcaption{font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
+
+        /* Header (ultra-minimal) */
+        header{position:fixed;top:0;left:0;right:0;z-index:30;background:linear-gradient(to bottom, rgba(15,15,16,.85), rgba(15,15,16,0));}
+        .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+        .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+        .mark{height:34px;width:34px;border-radius:8px;background:#111;display:grid;place-items:center;border:1px solid var(--line)}
+        .mark span{font-weight:600;font-size:12px;letter-spacing:.08em}
+        .logotype{font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+        .cta{border:1px solid var(--accent);color:var(--ink);text-decoration:none;padding:8px 14px;border-radius:999px;font-size:13px;opacity:.9}
+        .cta:hover{opacity:1}
+
+        /* Hero */
+        .hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;isolation:isolate}
+        .reel{position:absolute;inset:0;object-fit:cover;filter:grayscale(100%) contrast(1.05) brightness(.85)}
+        .veil{position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,.15), rgba(0,0,0,.55))}
+        .heroCopy{position:relative;text-align:center;padding:0 24px}
+        .heroTitle{font-size:56px;line-height:1.04;margin:0 0 10px}
+        .heroSub{font-size:14px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+        .heroActions{margin-top:22px;display:flex;gap:12px;justify-content:center}
+        .btn{border:1px solid var(--accent);padding:10px 18px;border-radius:999px;text-decoration:none;color:var(--ink);font-size:14px;opacity:.95}
+        .btn:hover{opacity:1;background:rgba(255,255,255,.06)}
+
+        /* Sections */
+        section{padding:80px 0;border-top:1px solid var(--line)}
+        .intro{max-width:860px;margin:0 auto;text-align:center}
+        .intro p{color:var(--muted);font-size:18px;line-height:1.7;margin:10px 0}
+
+        /* Works grid */
+        .grid{display:grid;gap:18px;margin-top:28px}
+        @media(min-width:800px){.grid{grid-template-columns:repeat(3, 1fr)}}
+        figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative;background:#0a0a0a}
+        .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:grayscale(100%);transition:filter .5s ease, transform .6s ease;transform:scale(1.02)}
+        figure:hover .thumb{filter:grayscale(0%);transform:scale(1.05)}
+        .cap{position:absolute;left:12px;bottom:10px;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);padding:6px 10px;border-radius:999px;font-size:12px;color:#e8e8e8}
+
+        /* Ethos */
+        .ethos{display:grid;gap:10px;max-width:720px;margin:8px auto 0;text-align:center}
+        .ethos p{color:var(--muted);font-size:16px;margin:0}
+
+        /* CTA */
+        .ctaBlock{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+        .ctaBlock small{color:var(--muted)}
+
+        /* Footer */
+        footer{padding:34px 0;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:13px}
+
+        /* Utilities */
+        .fadeIn{opacity:0;animation:fade .9s ease .2s forwards}
+        @keyframes fade{to{opacity:1}}
+      `}</style>
+
+      {/* Header */}
+      <header className="wrap">
+        <div className="nav">
+          <a className="logo" href="#top" aria-label="One Now Two">
+            <div className="mark"><span>ON</span></div>
+            <div className="logotype">One Now Two</div>
+          </a>
+          <a className="cta" href="#enquire">Enquire</a>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <main id="top">
+        <section className="hero">
+          {/* Replace src with your reel URL when ready (mp4 recommended). Poster shows before autoplay loads. */}
+          <video className="reel" autoPlay muted loop playsInline poster="https://images.unsplash.com/photo-1508898578281-774ac4893bd0?q=80&w=1920&auto=format&fit=crop">
+            <source src="https://cdn.coverr.co/videos/coverr-bride-and-groom-walking-1528/1080p.mp4" type="video/mp4" />
+          </video>
+          <div className="veil" />
+          <div className="heroCopy fadeIn">
+            <h1 className="heroTitle">Cinematic wedding films that feel like you.</h1>
+            <div className="heroSub">Sydney • New South Wales • Australia</div>
+            <div className="heroActions">
+              <a className="btn" href="#works">Selected works</a>
+              <a className="btn" href="#why">Why I film weddings</a>
+            </div>
+          </div>
+        </section>
+
+        {/* Why */}
+        <section id="why">
+          <div className="wrap intro fadeIn">
+            <h2 style={{marginBottom:8}}>Why I do this</h2>
+            <p>
+              After a decade crafting TVCs and brand films at Young Buck Media, I moved into weddings
+              to make something quieter—and truer. I work calmly on the day, listen more than I speak,
+              and cut with restraint so your film feels timeless next year and in twenty.
+            </p>
+          </div>
+        </section>
+
+        {/* Selected Works */}
+        <section id="works">
+          <div className="wrap">
+            <h2 className="fadeIn" style={{textAlign:'center', marginBottom:6}}>Selected Works</h2>
+            <p className="fadeIn" style={{textAlign:'center', color:'var(--muted)', marginTop:0}}>A handful only. The rest—by request.</p>
+
+            <div className="grid fadeIn">
+              {/* Replace href/src with your actual Vimeo/YT thumbs/links */}
+              <a href="https://vimeo.com/76979871" target="_blank" rel="noreferrer">
+                <figure>
+                  <img className="thumb" alt="A & J — Kangaroo Valley — 2025"
+                       src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" />
+                  <figcaption className="cap">A & J — Kangaroo Valley — 2025</figcaption>
+                </figure>
+              </a>
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noreferrer">
+                <figure>
+                  <img className="thumb" alt="S & M — Sydney CBD — 2024"
+                       src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1200&auto=format&fit=crop" />
+                  <figcaption className="cap">S & M — Sydney CBD — 2024</figcaption>
+                </figure>
+              </a>
+              <a href="https://vimeo.com/318097471" target="_blank" rel="noreferrer">
+                <figure>
+                  <img className="thumb" alt="L & T — Hunter Valley — 2025"
+                       src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop" />
+                  <figcaption className="cap">L & T — Hunter Valley — 2025</figcaption>
+                </figure>
+              </a>
+              <a href="https://vimeo.com/177524264" target="_blank" rel="noreferrer">
+                <figure>
+                  <img className="thumb" alt="E & R — South Coast — 2024"
+                       src="https://images.unsplash.com/photo-1503863937795-62954a3c0f05?q=80&w=1200&auto=format&fit=crop" />
+                  <figcaption className="cap">E & R — South Coast — 2024</figcaption>
+                </figure>
+              </a>
+              <a href="https://example.com" target="_blank" rel="noreferrer">
+                <figure>
+                  <img className="thumb" alt="C & P — Blue Mountains — 2023"
+                       src="https://images.unsplash.com/photo-1521316730702-829a8e30dfdf?q=80&w=1200&auto=format&fit=crop" />
+                  <figcaption className="cap">C & P — Blue Mountains — 2023</figcaption>
+                </figure>
+              </a>
+              <a href="https://example.com" target="_blank" rel="noreferrer">
+                <figure>
+                  <img className="thumb" alt="N & H — Byron Bay — 2025"
+                       src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" />
+                  <figcaption className="cap">N & H — Byron Bay — 2025</figcaption>
+                </figure>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Ethos */}
+        <section id="ethos">
+          <div className="wrap ethos fadeIn">
+            <h2 style={{marginBottom:6}}>An ethos of restraint</h2>
+            <p>Observe quietly.</p>
+            <p>Edit honestly.</p>
+            <p>Leave space for feeling.</p>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section id="enquire">
+          <div className="wrap ctaBlock fadeIn">
+            <h2 style={{marginBottom:8}}>Dates are limited.</h2>
+            <a className="btn" href="mailto:hello@onenowtwo.com.au?subject=Wedding Enquiry — One Now Two">
+              Enquire by email
+            </a>
+            <small>Prefer a call? Add your number in the email and I’ll ring you back.</small>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer>
+        <div className="wrap">© {new Date().getFullYear()} One Now Two — Sydney, NSW</div>
+      </footer>
+    </div>
+  );
+}
+
+How to use in Replit
+
+Create a React project in Replit.
+
+Open src/App.js → select all → paste the code above.
+
+Press Run. That’s it.
+
+Swap in your reel (hero <video> source) and your own Vimeo/YouTube links + thumbnail images when ready.
