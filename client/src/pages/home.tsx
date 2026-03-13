@@ -43,7 +43,7 @@ function HeroSection() {
                 setTimeout(() => setVideoLoaded(true), 300);
               }}
             >
-              <source src="/media/hero/One Now Two Banner Video Property Portfolio.mp4" type="video/mp4" />
+              <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -63,7 +63,7 @@ function HeroSection() {
             setTimeout(() => setVideoLoaded(true), 300);
           }}
         >
-          <source src="/media/hero/One Now Two Banner Video Property Portfolio.mp4" type="video/mp4" />
+          <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
         </video>
       )}
       <div className="absolute inset-0 bg-black/40"></div>
