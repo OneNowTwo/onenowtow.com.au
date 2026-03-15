@@ -26,6 +26,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.onenowtwo.com.au/blog</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.onenowtwo.com.au/blog/commercial-property-video-production-sydney</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>

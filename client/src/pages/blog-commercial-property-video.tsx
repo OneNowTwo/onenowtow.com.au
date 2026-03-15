@@ -13,6 +13,14 @@ export default function BlogCommercialPropertyVideo() {
       <Nav />
 
       <main className="pt-32 pb-20">
+        <div className="max-w-3xl mx-auto px-6 mb-6">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-soft-grey hover:text-white transition-colors text-sm no-underline">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to blog
+          </Link>
+        </div>
         <div className="max-w-3xl mx-auto px-6">
           <p className="text-soft-grey text-sm mb-4 tracking-wider uppercase">One Now Two — March 2026</p>
 

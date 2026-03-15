@@ -66,6 +66,9 @@ export default function Nav() {
             <Link href="/portfolio" className="text-off-white hover:text-white transition-colors">
               Portfolio
             </Link>
+            <Link href="/blog" className="text-off-white hover:text-white transition-colors">
+              Blog
+            </Link>
             <Link href="/about" className="text-off-white hover:text-white transition-colors">
               About
             </Link>
@@ -109,6 +112,7 @@ export default function Nav() {
             <div className="pt-2 border-t border-[var(--hairline)] mt-2 space-y-1">
               <Link href="/services" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Packages</Link>
               <Link href="/portfolio" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Portfolio</Link>
+              <Link href="/blog" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Blog</Link>
               <Link href="/about" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>About</Link>
               <Link href="/enquire" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Enquire</Link>
             </div>

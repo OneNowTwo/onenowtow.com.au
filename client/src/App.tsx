@@ -24,6 +24,7 @@ import IndustrialWarehouseVideo from "@/pages/industrial-warehouse-video";
 import DevelopmentMarketingVideo from "@/pages/development-marketing-video";
 import DroneAerialVideo from "@/pages/drone-aerial-video";
 import BlogCommercialPropertyVideo from "@/pages/blog-commercial-property-video";
+import Blog from "@/pages/blog";
 
 function Router() {
   return (
@@ -38,6 +39,7 @@ function Router() {
       <Route path="/industrial-warehouse-video-sydney" component={IndustrialWarehouseVideo} />
       <Route path="/development-marketing-video-sydney" component={DevelopmentMarketingVideo} />
       <Route path="/drone-aerial-property-video-sydney" component={DroneAerialVideo} />
+      <Route path="/blog" component={Blog} />
       <Route path="/blog/commercial-property-video-production-sydney" component={BlogCommercialPropertyVideo} />
       <Route component={NotFound} />
     </Switch>
