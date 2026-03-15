@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import logoUrl from "../assets/logo.png";
+import Nav from "../components/Nav";
 
 const portfolioItems = [
   {
@@ -150,30 +150,7 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <header className="fixed top-0 left-0 right-0 z-30 nav-backdrop">
-        <div className="max-w-7xl mx-auto px-6">
-          <nav className="flex justify-between items-center py-4">
-            <Link 
-              href="/" 
-              className="flex items-center text-off-white no-underline" 
-              aria-label="One Now Two"
-            >
-              <img 
-                src={logoUrl} 
-                alt="One Now Two Logo" 
-                className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
-              />
-            </Link>
-            <div className="hidden md:flex items-center gap-8">
-              <Link href="/services" className="text-off-white hover:text-white transition-colors">Services</Link>
-              <Link href="/portfolio" className="text-white">Portfolio</Link>
-              <Link href="/about" className="text-off-white hover:text-white transition-colors">About</Link>
-              <Link href="/enquire" className="btn-outline">Enquire</Link>
-            </div>
-            <Link href="/enquire" className="btn-outline md:hidden">Enquire</Link>
-          </nav>
-        </div>
-      </header>
+      <Nav />
 
       <main className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">

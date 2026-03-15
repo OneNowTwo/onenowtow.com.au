@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePageMeta } from "../hooks/use-page-meta";
 import { Link } from "wouter";
-import logoUrl from "../assets/logo.png";
+import Nav from "../components/Nav";
 import arissaLogo from "@assets/Arissa_1769577580214.png";
 import jllLogo from "@assets/JLL-Logo-Positive-10-29mm-RGB-1-002_1769577580216.png";
 import cbreLogo from "@assets/png-clipart-cbre-group-real-estate-commercial-property-busines_1769577580216.png";
@@ -158,37 +158,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full">
-      <header className="fixed top-0 left-0 right-0 z-30 nav-backdrop">
-        <div className="max-w-7xl mx-auto px-6">
-          <nav className="flex justify-between items-center py-4">
-            <Link 
-              href="/" 
-              className="flex items-center text-off-white no-underline" 
-              aria-label="One Now Two"
-              data-testid="link-logo"
-            >
-              <img 
-                src={logoUrl} 
-                alt="One Now Two Logo" 
-                className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
-              />
-            </Link>
-            <div className="hidden md:flex items-center gap-8">
-              <Link href="/services" className="text-off-white hover:text-white transition-colors">Services</Link>
-              <Link href="/portfolio" className="text-off-white hover:text-white transition-colors">Portfolio</Link>
-              <Link href="/about" className="text-off-white hover:text-white transition-colors">About</Link>
-              <Link href="/enquire" className="btn-outline" data-testid="button-enquire-header">Enquire</Link>
-            </div>
-            <Link 
-              href="/enquire" 
-              className="btn-outline md:hidden"
-              data-testid="button-enquire-mobile"
-            >
-              Enquire
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Nav />
 
       <main id="top">
         <HeroSection />
