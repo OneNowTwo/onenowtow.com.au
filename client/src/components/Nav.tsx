@@ -41,7 +41,7 @@ export default function Nav() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6">
             {/* Services dropdown */}
             <div
               className="relative"
@@ -79,7 +79,7 @@ export default function Nav() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-off-white p-2"
+            className="lg:hidden text-off-white p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -97,7 +97,7 @@ export default function Nav() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-[var(--hairline)] py-4 space-y-1">
+          <div className="lg:hidden border-t border-[var(--hairline)] py-4 space-y-1">
             <p className="px-2 py-1 text-xs text-soft-grey uppercase tracking-wider">Services</p>
             {serviceLinks.map((link) => (
               <Link
