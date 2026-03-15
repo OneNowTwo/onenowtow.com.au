@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { usePageMeta } from "../hooks/use-page-meta";
 import { Link } from "wouter";
 import logoUrl from "../assets/logo.png";
 import arissaLogo from "@assets/Arissa_1769577580214.png";
@@ -70,10 +71,10 @@ function HeroSection() {
       
       <div className="relative text-center px-6">
         <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
-          Elevating commercial property through cinematic storytelling.
+          Commercial Property Video Production Sydney
         </h1>
-        <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-8" data-testid="text-hero-subtitle">
-          Stunning real estate videos that captivate buyers, tenants, and investors.
+        <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto mb-8" data-testid="text-hero-subtitle">
+          One Now Two creates cinematic, high-quality video content for commercial real estate agents, property developers, and marketing teams across Sydney. From industrial warehouses in Western Sydney to premium office towers in the CBD — we produce property videos that make assets stand out, attract buyers and tenants, and close deals faster.
         </p>
         <div className="text-sm text-white/70 tracking-wider uppercase mb-8" data-testid="text-hero-location">
           Sydney • Australia-Wide
@@ -150,6 +151,10 @@ const packages = [
 
 export default function Home() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioPreview[0] | null>(null);
+  usePageMeta(
+    "Commercial Property Video Production Sydney | One Now Two",
+    "One Now Two produces cinematic video content for commercial real estate agents, developers and property marketing teams across Sydney. Office buildings, industrial warehouses, development sites and retail spaces."
+  );
 
   return (
     <div className="min-h-screen w-full">
@@ -199,22 +204,30 @@ export default function Home() {
         <section id="services" className="py-20 section-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl mb-4" data-testid="text-services-title">Our Packages</h2>
+              <h2 className="font-serif text-3xl mb-4" data-testid="text-services-title">Our Services</h2>
               <p className="text-soft-grey">Tailored video production for commercial real estate.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {packages.map((pkg, index) => (
-                <div key={index} className="p-6 border border-[var(--hairline)] rounded-lg">
-                  <h3 className="font-serif text-xl mb-3">{pkg.title}</h3>
-                  <p className="text-soft-grey text-sm">{pkg.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-10">
-              <Link href="/services" className="btn-outline">
-                View All Packages
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Link href="/commercial-office-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
+                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Commercial Office Video</h3>
+                <p className="text-soft-grey text-sm mb-4">Cinematic video production for office buildings, from boutique suites to CBD towers.</p>
+                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
+              </Link>
+              <Link href="/industrial-warehouse-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
+                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Industrial &amp; Warehouse Video</h3>
+                <p className="text-soft-grey text-sm mb-4">Video production for warehouses, logistics facilities, and industrial estates across Sydney.</p>
+                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
+              </Link>
+              <Link href="/development-marketing-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
+                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Development Marketing Video</h3>
+                <p className="text-soft-grey text-sm mb-4">Pre-construction to completion — video content for every stage of your development.</p>
+                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
+              </Link>
+              <Link href="/drone-aerial-property-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
+                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Drone &amp; Aerial Filming</h3>
+                <p className="text-soft-grey text-sm mb-4">CASA-certified aerial filming integrated into full production packages or standalone.</p>
+                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
               </Link>
             </div>
           </div>
