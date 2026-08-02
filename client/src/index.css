@@ -115,7 +115,7 @@
 
   /* Hero */
   .hero-iframe {
-    filter: contrast(1.05) brightness(0.85);
+    filter: contrast(1.05) brightness(1.0);
     transform: scale(1.02); /* Slightly oversized to prevent mobile edge gaps */
   }
 

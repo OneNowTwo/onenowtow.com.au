@@ -38,7 +38,7 @@ function HeroSection() {
               style={{ 
                 opacity: videoLoaded ? 1 : 0,
                 transition: 'opacity 1.5s ease-in-out',
-                filter: 'saturate(0.7) contrast(1.05) brightness(0.75)'
+                filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
               }}
               onLoadedData={() => {
                 setTimeout(() => setVideoLoaded(true), 300);
@@ -58,7 +58,7 @@ function HeroSection() {
           style={{ 
             opacity: videoLoaded ? 1 : 0,
             transition: 'opacity 1.5s ease-in-out',
-            filter: 'saturate(0.7) contrast(1.05) brightness(0.75)'
+            filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
           }}
           onLoadedData={() => {
             setTimeout(() => setVideoLoaded(true), 300);
@@ -67,7 +67,7 @@ function HeroSection() {
           <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
         </video>
       )}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/20"></div>
       
       <div className="relative text-center px-6">
         <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
