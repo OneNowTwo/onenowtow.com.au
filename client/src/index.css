@@ -25,12 +25,15 @@
   --input: hsl(200, 23.0769%, 97.4510%);
   --ring: hsl(202.8169, 89.1213%, 53.1373%);
   
-  /* One Now Two Custom Colors */
-  --bg: hsl(240, 9%, 6%);
-  --ink: hsl(240, 9%, 96%);
-  --muted-grey: hsl(240, 5%, 65%);
-  --hairline: hsl(240, 8%, 11%);
-  --light-accent: hsl(240, 2%, 90%);
+  /* One Now Two — warm editorial palette (logo-aligned) */
+  --bg: hsl(40, 28%, 97%);
+  --ink: hsl(220, 18%, 16%);
+  --muted-grey: hsl(220, 8%, 42%);
+  --hairline: hsl(40, 14%, 88%);
+  --light-accent: hsl(220, 22%, 28%);
+  --navy: hsl(220, 32%, 24%);
+  --cream: hsl(40, 30%, 95%);
+  --surface: hsl(40, 22%, 94%);
   
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -99,41 +102,59 @@
 }
 
 @layer components {
-  /* Navigation */
+  /* Navigation — soft cream glass over content */
   .nav-backdrop {
-    background: linear-gradient(to bottom, rgba(15,15,16,0.85), rgba(15,15,16,0));
+    background: linear-gradient(
+      to bottom,
+      rgba(247, 244, 239, 0.94),
+      rgba(247, 244, 239, 0.72),
+      rgba(247, 244, 239, 0)
+    );
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-on-hero {
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 15, 16, 0.55),
+      rgba(15, 15, 16, 0)
+    );
   }
 
   /* Buttons */
   .btn-outline {
-    @apply border border-[var(--light-accent)] text-[var(--ink)] no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 hover:bg-white/5 transition-all;
+    @apply border border-[var(--navy)]/35 text-[var(--ink)] no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 hover:bg-[var(--navy)]/5 transition-all;
+  }
+
+  .btn-outline-light {
+    @apply border border-white/80 text-white no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 hover:bg-white/10 transition-all;
   }
 
   .btn-primary {
-    @apply bg-white text-black no-underline px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-100 transition-all;
+    @apply bg-[var(--navy)] text-[var(--cream)] no-underline px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-all;
   }
 
   /* Hero */
   .hero-iframe {
     filter: contrast(1.05) brightness(1.0);
-    transform: scale(1.02); /* Slightly oversized to prevent mobile edge gaps */
+    transform: scale(1.02);
   }
 
   .hero-veil {
-    background: radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,0.15), rgba(0,0,0,0.55));
+    background: radial-gradient(80% 60% at 50% 50%, rgba(0,0,0,0.12), rgba(0,0,0,0.45));
   }
 
   /* Mobile optimizations */
   @media (max-width: 768px) {
     .hero-iframe {
-      transform: scale(1.05); /* More oversized on mobile to prevent gaps */
+      transform: scale(1.05);
       object-position: center;
     }
   }
 
   /* Portfolio */
   .portfolio-figure {
-    @apply bg-zinc-950 border border-[var(--hairline)] rounded-xl overflow-hidden relative;
+    @apply bg-[var(--surface)] border border-[var(--hairline)] rounded-xl overflow-hidden relative;
   }
 
   .portfolio-thumb {
@@ -153,44 +174,48 @@
     @apply absolute left-3 bottom-3 px-3 py-1.5 rounded-full text-xs text-gray-200;
   }
 
-  /* Remove all animations to prevent flickering */
-
   /* Sections */
   .section-border {
     @apply border-t border-[var(--hairline)];
+  }
+
+  .nav-link {
+    @apply text-[var(--ink)]/80 hover:text-[var(--navy)] transition-colors;
+  }
+
+  .nav-dropdown {
+    @apply absolute top-full left-0 w-64 bg-[var(--cream)] border border-[var(--hairline)] rounded-lg py-2 shadow-lg;
   }
 
   /* Date input custom styling */
   .date-input {
     position: relative;
   }
-  
-  /* Default state - hide browser placeholder, show custom */
+
   .date-input:invalid:not(:focus)::-webkit-datetime-edit {
     color: transparent;
   }
-  
+
   .date-input:invalid:not(:focus)::-webkit-datetime-edit-text {
     color: transparent;
   }
-  
+
   .date-input:invalid:not(:focus)::-webkit-datetime-edit-month-field,
   .date-input:invalid:not(:focus)::-webkit-datetime-edit-day-field,
   .date-input:invalid:not(:focus)::-webkit-datetime-edit-year-field {
     color: transparent;
   }
-  
-  /* When focused or valid, show normal date input */
+
   .date-input:focus::-webkit-datetime-edit,
   .date-input:valid::-webkit-datetime-edit {
     color: var(--ink);
   }
-  
+
   .date-input:focus::-webkit-datetime-edit-text,
   .date-input:valid::-webkit-datetime-edit-text {
     color: var(--ink);
   }
-  
+
   .date-input:focus::-webkit-datetime-edit-month-field,
   .date-input:focus::-webkit-datetime-edit-day-field,
   .date-input:focus::-webkit-datetime-edit-year-field,
@@ -199,17 +224,16 @@
   .date-input:valid::-webkit-datetime-edit-year-field {
     color: var(--ink);
   }
-  
+
   .date-input::-webkit-calendar-picker-indicator {
     color: var(--muted-grey);
     opacity: 0.7;
   }
-  
+
   .date-input::-webkit-calendar-picker-indicator:hover {
     opacity: 1;
   }
-  
-  /* Custom placeholder overlay - only show when empty and not focused */
+
   .date-input:invalid:not(:focus)::before {
     content: "Save the Date";
     color: var(--muted-grey);

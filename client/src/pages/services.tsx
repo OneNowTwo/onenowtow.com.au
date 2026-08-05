@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
+import { SiteFooter } from "@/components/SiteChrome";
 
 const packages = [
   {
@@ -101,7 +102,7 @@ export default function Services() {
                     <ul className="space-y-2">
                       {pkg.deliverables.map((item, i) => (
                         <li key={i} className="text-soft-grey flex items-start gap-2">
-                          <span className="text-white mt-1">•</span> {item}
+                          <span className="text-[var(--navy)] mt-1">•</span> {item}
                         </li>
                       ))}
                     </ul>
@@ -118,7 +119,7 @@ export default function Services() {
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {pkg.includes.map((item, i) => (
                       <li key={i} className="text-soft-grey text-sm flex items-start gap-2">
-                        <span className="text-white">✓</span> {item}
+                        <span className="text-[var(--navy)]">✓</span> {item}
                       </li>
                     ))}
                   </ul>
@@ -143,17 +144,7 @@ export default function Services() {
         </div>
       </main>
 
-      <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
-          <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
+import { SiteFooter } from "@/components/SiteChrome";
 
 export default function About() {
   return (
@@ -28,12 +29,10 @@ export default function About() {
             <div className="border-t border-b border-[var(--hairline)] py-8 my-12">
               <h2 className="font-serif text-2xl mb-6">What We Cover</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-soft-grey">
-                <div>• Commercial Real Estate</div>
-                <div>• Hotels & Resorts</div>
-                <div>• Shopping Centres</div>
-                <div>• Office Leasing</div>
-                <div>• Industrial Properties</div>
-                <div>• Residential Developments</div>
+                <div>• Industrial & Warehouse</div>
+                <div>• Retail & Shopping Precincts</div>
+                <div>• Hotels, Hospitality & Tourism</div>
+                <div>• Property Developments</div>
               </div>
             </div>
 
@@ -50,17 +49,7 @@ export default function About() {
         </div>
       </main>
 
-      <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
-          <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

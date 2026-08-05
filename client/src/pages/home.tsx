@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
+import { SiteFooter } from "@/components/SiteChrome";
 import arissaLogo from "@assets/Arissa_1769577580214.png";
 import jllLogo from "@assets/JLL-Logo-Positive-10-29mm-RGB-1-002_1769577580216.png";
 import cbreLogo from "@assets/png-clipart-cbre-group-real-estate-commercial-property-busines_1769577580216.png";
@@ -71,10 +72,10 @@ function HeroSection() {
       
       <div className="relative text-center px-6">
         <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
-          Commercial Property Video Production Sydney
+          Commercial property video for assets that need more than stills
         </h1>
         <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto mb-8" data-testid="text-hero-subtitle">
-          One Now Two creates cinematic, high-quality video content for commercial real estate agents, property developers, and marketing teams across Sydney. From industrial warehouses in Western Sydney to premium office towers in the CBD — we produce property videos that make assets stand out, attract buyers and tenants, and close deals faster.
+          One Now Two creates cinematic campaign content for commercial property teams across industrial, retail, hospitality, tourism and development projects.
         </p>
         <div className="text-sm text-white/70 tracking-wider uppercase mb-8" data-testid="text-hero-location">
           Sydney • Australia-Wide
@@ -86,11 +87,11 @@ function HeroSection() {
             className="btn-primary"
             data-testid="button-hero-quote"
           >
-            Get a Quote
+            Enquire
           </Link>
           <Link 
             href="/portfolio" 
-            className="btn-outline"
+            className="btn-outline-light"
             data-testid="button-hero-portfolio"
           >
             View Portfolio
@@ -134,19 +135,31 @@ const portfolioPreview = [
   }
 ];
 
-const packages = [
+const serviceCategories = [
   {
-    title: "Signature Series",
-    description: "Ultimate production value for prestigious commercial properties. Dual cameras, premium drone, voice-over."
+    href: "/industrial-warehouse-property-video",
+    title: "Industrial & Warehouse",
+    description:
+      "Scale, access, truck movement, hardstand, clearance and connectivity.",
   },
   {
-    title: "Professional Series",
-    description: "Comprehensive coverage for commercial properties. Full-day filming with 4K cinema camera."
+    href: "/retail-shopping-precinct-video",
+    title: "Retail & Shopping Precincts",
+    description:
+      "Location, tenant mix, foot traffic, trade area and future upside.",
   },
   {
-    title: "Essential Series",
-    description: "Half-day shoot perfect for smaller commercial spaces. Quick turnaround, quality results."
-  }
+    href: "/hotel-hospitality-property-video",
+    title: "Hotels, Hospitality & Tourism",
+    description:
+      "Character, heritage, atmosphere, guest experience and investor appeal.",
+  },
+  {
+    href: "/property-development-video",
+    title: "Property Developments",
+    description:
+      "Scale, context, infrastructure, progress and future potential.",
+  },
 ];
 
 export default function Home() {
@@ -166,86 +179,94 @@ export default function Home() {
         <HeroSection />
 
         <section id="proof" className="py-16 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <p className="text-soft-grey text-xl leading-relaxed" data-testid="text-proof">
-              Faster interest. Cleaner listings. Better brand.
+          <div className="max-w-3xl mx-auto px-6 text-center">
+            <p className="text-[var(--ink)] text-xl md:text-2xl leading-relaxed font-serif" data-testid="text-proof">
+              Stills show what the asset looks like.
+              <br />
+              Video helps people understand why it matters.
             </p>
           </div>
         </section>
 
-        <section id="seo-commercial" className="py-20 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl mb-6">
-              Commercial property video production for campaigns that need more than stills
+        <section id="categories" className="py-20 section-border">
+          <div className="max-w-4xl mx-auto px-6 text-center mb-14">
+            <h2
+              className="font-serif text-3xl md:text-4xl mb-6"
+              data-testid="text-services-title"
+            >
+              Commercial property video for assets that need more than stills
             </h2>
-            <p className="text-soft-grey text-lg leading-relaxed mb-6">
-              One Now Two produces commercial property video, drone footage, ground photography and campaign content for agents, vendors and property sales teams across Sydney and NSW.
+            <p className="text-soft-grey text-lg leading-relaxed mb-4">
+              One Now Two creates cinematic campaign content for commercial property
+              teams across industrial, retail, hospitality, tourism and development
+              projects.
             </p>
-            <p className="text-soft-grey text-lg leading-relaxed mb-10">
-              From industrial warehouses and office leasing campaigns to hotels, hospitality venues and major commercial assets, our work helps buyers, occupiers and investors understand the opportunity faster.
+            <p className="text-soft-grey text-lg leading-relaxed">
+              Stills show what the asset looks like. Video helps buyers, occupiers
+              and investors understand the scale, setting, story and opportunity.
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link href="/commercial-property-video-production-sydney" className="btn-outline">
-                Commercial Property Video
-              </Link>
-              <Link href="/industrial-warehouse-property-video" className="btn-outline">
-                Industrial & Warehouse
-              </Link>
-              <Link href="/commercial-property-photography-drone" className="btn-outline">
-                Photography & Drone
-              </Link>
-              <Link href="/hotel-hospitality-property-video" className="btn-outline">
-                Hotel & Hospitality
-              </Link>
-              <Link href="/case-studies" className="btn-outline">
-                Case Studies
-              </Link>
+          </div>
+
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {serviceCategories.map((category) => (
+                <Link
+                  key={category.href}
+                  href={category.href}
+                  className="p-7 border border-[var(--hairline)] rounded-lg bg-[var(--cream)]/60 group hover:border-[var(--navy)]/30 hover:bg-[var(--cream)] transition-colors no-underline block"
+                >
+                  <h3 className="font-serif text-xl mb-3 text-[var(--ink)] group-hover:text-[var(--navy)] transition-colors">
+                    {category.title}
+                  </h3>
+                  <p className="text-soft-grey text-sm mb-4 leading-relaxed">
+                    {category.description}
+                  </p>
+                  <span className="text-soft-grey text-sm group-hover:text-[var(--navy)] transition-colors">
+                    → Learn more
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
+        </section>
+
+        <section className="py-16 section-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]">
-                <img src="/media/photos/photo-06.jpg" alt="Aerial view of Sydney CBD commercial property skyline" className="w-full h-full object-cover" loading="lazy" />
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
+                <img
+                  src="/media/photos/photo-06.jpg"
+                  alt="Aerial view of Sydney CBD commercial property skyline"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]">
-                <img src="/media/photos/photo-01.jpg" alt="Aerial drone photography of commercial corner property in Sydney" className="w-full h-full object-cover" loading="lazy" />
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
+                <img
+                  src="/media/photos/photo-01.jpg"
+                  alt="Aerial drone photography of commercial corner property in Sydney"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]">
-                <img src="/media/photos/photo-12.jpg" alt="Hotel and hospitality property photography Sydney" className="w-full h-full object-cover" loading="lazy" />
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
+                <img
+                  src="/media/photos/photo-12.jpg"
+                  alt="Hotel and hospitality property photography Sydney"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
             </div>
-          </div>
-        </section>
-
-        <section id="services" className="py-20 section-border">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl mb-4" data-testid="text-services-title">Our Services</h2>
-              <p className="text-soft-grey">Tailored video production for commercial real estate.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Link href="/commercial-office-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
-                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Commercial Office Video</h3>
-                <p className="text-soft-grey text-sm mb-4">Cinematic video production for office buildings, from boutique suites to CBD towers.</p>
-                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
+            <p className="text-center text-soft-grey text-sm mt-8">
+              Looking for the broader overview?{" "}
+              <Link
+                href="/commercial-property-video-production-sydney"
+                className="text-[var(--navy)] underline-offset-2 hover:underline"
+              >
+                Commercial property video production in Sydney
               </Link>
-              <Link href="/industrial-warehouse-property-video" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
-                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Industrial &amp; Warehouse Video</h3>
-                <p className="text-soft-grey text-sm mb-4">Video production for warehouses, logistics facilities, and industrial estates across Sydney.</p>
-                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
-              </Link>
-              <Link href="/development-marketing-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
-                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Development Marketing Video</h3>
-                <p className="text-soft-grey text-sm mb-4">Pre-construction to completion — video content for every stage of your development.</p>
-                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
-              </Link>
-              <Link href="/drone-aerial-property-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
-                <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Drone &amp; Aerial Filming</h3>
-                <p className="text-soft-grey text-sm mb-4">CASA-certified aerial filming integrated into full production packages or standalone.</p>
-                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
-              </Link>
-            </div>
+            </p>
           </div>
         </section>
 
@@ -276,7 +297,7 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                     </div>
-                    <figcaption className="mt-3 text-soft-grey group-hover:text-white transition-colors">
+                    <figcaption className="mt-3 text-soft-grey group-hover:text-[var(--navy)] transition-colors">
                       {work.title}
                     </figcaption>
                   </figure>
@@ -341,45 +362,27 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="cta" className="py-20 section-border">
+        <section id="cta" className="py-20 section-border bg-[var(--navy)] text-[var(--cream)]">
           <div className="max-w-2xl mx-auto px-6 text-center">
-            <h2 className="font-serif text-3xl mb-4">Ready to elevate your listings?</h2>
-            <p className="text-soft-grey text-lg mb-8">
-              Get in touch to discuss your next project.
+            <h2 className="font-serif text-3xl mb-4">
+              Ready to brief the next campaign?
+            </h2>
+            <p className="text-[var(--cream)]/75 text-lg mb-8">
+              Tell us the asset, the audience and the timeline — we&apos;ll recommend
+              the right video approach.
             </p>
             <Link 
               href="/enquire"
-              className="btn-primary"
+              className="inline-block bg-[var(--cream)] text-[var(--navy)] no-underline px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-all"
               data-testid="button-enquire-cta"
             >
-              Get a Quote
+              Enquire
             </Link>
           </div>
         </section>
       </main>
 
-      <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-6">
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            <Link href="/commercial-property-video-production-sydney" className="hover:text-white transition-colors">Commercial Property Video</Link>
-            <Link href="/industrial-warehouse-property-video" className="hover:text-white transition-colors">Industrial & Warehouse</Link>
-            <Link href="/commercial-property-photography-drone" className="hover:text-white transition-colors">Photography & Drone</Link>
-            <Link href="/hotel-hospitality-property-video" className="hover:text-white transition-colors">Hotel & Hospitality</Link>
-            <Link href="/case-studies" className="hover:text-white transition-colors">Case Studies</Link>
-          </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div data-testid="text-footer-copyright">
-              © {new Date().getFullYear()} One Now Two — Sydney, Australia
-            </div>
-            <div className="flex gap-6">
-              <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-              <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-              <Link href="/about" className="hover:text-white transition-colors">About</Link>
-              <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {selectedVideo && (
         <div 

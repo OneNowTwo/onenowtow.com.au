@@ -5,61 +5,60 @@ import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components
 import { photos } from "@/lib/photos";
 
 const communicateItems = [
-  "Heritage and character",
-  "Venue atmosphere",
-  "Local neighbourhood story",
-  "Food, beverage and customer experience",
-  "Investor appeal",
-  "Repositioning potential",
-  "Multi-venue or precinct story",
+  "Scale and masterplan context",
+  "Infrastructure and connectivity",
+  "Site progress and construction milestones",
+  "Future built form and amenity",
+  "Investor and stakeholder clarity",
+  "Leasing and sales narrative",
+  "Precinct and neighbourhood story",
 ];
 
 const usefulFor = [
-  "Hotel sales campaigns",
-  "Pub and venue portfolios",
-  "Hospitality precincts",
-  "Resort and accommodation assets",
+  "Pre-construction and off-the-plan campaigns",
+  "Construction progress updates",
+  "Practical completion and launch films",
+  "Industrial and logistics estates",
+  "Mixed-use and retail precincts",
   "Investor communications",
-  "Social cutdowns and campaign pages",
 ];
 
-export default function HotelHospitalityVideo() {
+export default function PropertyDevelopmentVideo() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <SeoHead
-        title="Hotel, Hospitality & Tourism Video Sydney | One Now Two"
-        description="Video production for hotels, pubs, hospitality venues and tourism precinct campaigns. Capture heritage, ambience, local story and investor appeal."
-        path="/hotel-hospitality-property-video"
+        title="Property Development Video Sydney | One Now Two"
+        description="Video for property developments across Sydney. Scale, context, infrastructure, progress and future potential for investors, tenants and sales teams."
+        path="/property-development-video"
       />
       <Nav />
 
       <main className="pt-32 pb-20">
         <section className="max-w-4xl mx-auto px-6 text-center mb-10">
           <h1 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
-            Hotel and hospitality property video that sells the story behind the
-            asset
+            Property development video that explains scale, progress and potential
           </h1>
           <p className="text-soft-grey text-lg md:text-xl leading-relaxed">
-            Hospitality property campaigns need more than clean visuals. They need
-            story, character and atmosphere.
+            Developments need more than stills of a vacant site. Stakeholders need to
+            understand what is coming, and why it matters.
           </p>
         </section>
 
-        <PageHeroImage {...photos.clockHotel} />
+        <PageHeroImage {...photos.developmentSite} />
 
         <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
-            Hospitality property campaigns are not just about floor area and yield.
-            The strongest campaigns communicate character, heritage, ambience,
-            location and future potential.
+            From early marketing through construction to practical completion, video
+            helps investors, tenants and sales teams see the opportunity clearly —
+            site context, infrastructure, progress and the finished story.
           </p>
           <p className="text-soft-grey text-lg leading-relaxed">
-            For hospitality and hotel assets, video helps communicate character,
-            heritage, ambience, neighbourhood story and investor appeal.
+            Stills show a moment. Video shows how the project sits in its precinct,
+            how access works, and how the asset will perform when complete.
           </p>
         </section>
 
-        <ImagePair images={[photos.hospitalityAmbience, photos.interiorCommercial]} />
+        <ImagePair images={[photos.aerialAccess, photos.locationOverlay]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -79,7 +78,7 @@ export default function HotelHospitalityVideo() {
           </div>
         </section>
 
-        <ImagePair images={[photos.streetscape, photos.cornerLotAerial]} />
+        <ImagePair images={[photos.warehouseContext, photos.motionGraphicStill]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -100,11 +99,11 @@ export default function HotelHospitalityVideo() {
         <section className="py-20 section-border">
           <div className="max-w-2xl mx-auto px-6 text-center">
             <h2 className="font-serif text-3xl mb-4">
-              Bring the asset&apos;s character, history and opportunity into focus
+              From site story to completion film
             </h2>
             <p className="text-soft-grey text-lg mb-8">
-              Send through the venue, location or campaign brief and we&apos;ll
-              recommend the right video approach.
+              Tell us the stage of the project and the audience — investors, tenants
+              or the market — and we&apos;ll recommend the right approach.
             </p>
             <Link href="/enquire" className="btn-primary">
               Enquire
@@ -115,14 +114,17 @@ export default function HotelHospitalityVideo() {
         <RelatedLinks
           links={[
             {
-              href: "/commercial-property-video-production-sydney",
-              label: "Commercial Property Video",
+              href: "/development-marketing-video-sydney",
+              label: "Development Marketing (detail)",
             },
             {
-              href: "/case-studies/jll-hotels-social-collective",
-              label: "JLL Hotels Case Study",
+              href: "/industrial-warehouse-property-video",
+              label: "Industrial & Warehouse",
             },
-            { href: "/case-studies", label: "Case Studies" },
+            {
+              href: "/case-studies/emu-plains-industrial",
+              label: "Emu Plains Case Study",
+            },
           ]}
         />
       </main>

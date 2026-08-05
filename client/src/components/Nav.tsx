@@ -1,18 +1,29 @@
 import { useState, useRef } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import logoUrl from "../assets/logo.png";
 
 const serviceLinks = [
-  { href: "/commercial-property-video-production-sydney", label: "Commercial Property Video" },
-  { href: "/industrial-warehouse-property-video", label: "Industrial & Warehouse" },
-  { href: "/commercial-property-photography-drone", label: "Photography & Drone" },
-  { href: "/hotel-hospitality-property-video", label: "Hotel & Hospitality" },
-  { href: "/commercial-office-video-sydney", label: "Commercial Office Video" },
-  { href: "/development-marketing-video-sydney", label: "Development Marketing Video" },
-  { href: "/drone-aerial-property-video-sydney", label: "Drone & Aerial Filming" },
+  {
+    href: "/industrial-warehouse-property-video",
+    label: "Industrial & Warehouse",
+  },
+  {
+    href: "/retail-shopping-precinct-video",
+    label: "Retail & Shopping Precincts",
+  },
+  {
+    href: "/hotel-hospitality-property-video",
+    label: "Hotels, Hospitality & Tourism",
+  },
+  {
+    href: "/property-development-video",
+    label: "Property Developments",
+  },
 ];
 
 export default function Nav() {
+  const [location] = useLocation();
+  const isHome = location === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -26,44 +37,65 @@ export default function Nav() {
     closeTimer.current = setTimeout(() => setServicesOpen(false), 200);
   };
 
+  const linkClass = isHome
+    ? "text-white/90 hover:text-[var(--navy)] transition-colors"
+    : "nav-link";
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-30 nav-backdrop">
+    <header
+      className={`fixed top-0 left-0 right-0 z-30 ${
+        isHome ? "nav-on-hero" : "nav-backdrop"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6">
         <nav className="flex justify-between items-center py-4">
           <Link
             href="/"
-            className="flex items-center text-off-white no-underline"
+            className="flex items-center no-underline"
             aria-label="One Now Two"
             data-testid="link-logo"
           >
             <img
               src={logoUrl}
-              alt="One Now Two Logo"
-              className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              alt="One Now Two commercial property video production Sydney"
+              className={`h-16 md:h-20 w-auto transition-opacity opacity-90 hover:opacity-100 ${
+                isHome ? "" : "invert"
+              }`}
             />
           </Link>
 
-          {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-6">
-            {/* Services dropdown */}
             <div
               className="relative"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <button className="text-off-white hover:text-white transition-colors flex items-center gap-1 py-2">
+              <button
+                className={`${linkClass} flex items-center gap-1 py-2`}
+                type="button"
+              >
                 Services
-                <svg className="w-3 h-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                <svg
+                  className="w-3 h-3 opacity-60"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
               {servicesOpen && (
-                <div className="absolute top-full left-0 w-64 bg-[#111] border border-[var(--hairline)] rounded-lg py-2 shadow-xl">
+                <div className="nav-dropdown">
                   {serviceLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="block px-4 py-2.5 text-sm text-soft-grey hover:text-white hover:bg-white/5 transition-colors no-underline"
+                      className="block px-4 py-2.5 text-sm text-[var(--ink)]/75 hover:text-[var(--navy)] hover:bg-[var(--navy)]/5 transition-colors no-underline"
                       onClick={() => setServicesOpen(false)}
                     >
                       {link.label}
@@ -73,19 +105,29 @@ export default function Nav() {
               )}
             </div>
 
-            <Link href="/services" className="text-off-white hover:text-white transition-colors">Packages</Link>
-            <Link href="/portfolio" className="text-off-white hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/case-studies" className="text-off-white hover:text-white transition-colors">Case Studies</Link>
-            <Link href="/blog" className="text-off-white hover:text-white transition-colors">Blog</Link>
-            <Link href="/about" className="text-off-white hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="btn-outline" data-testid="button-enquire-header">Enquire</Link>
+            <Link href="/portfolio" className={linkClass}>
+              Portfolio
+            </Link>
+            <Link href="/case-studies" className={linkClass}>
+              Case Studies
+            </Link>
+            <Link href="/about" className={linkClass}>
+              About
+            </Link>
+            <Link
+              href="/enquire"
+              className={isHome ? "btn-outline-light" : "btn-outline"}
+              data-testid="button-enquire-header"
+            >
+              Enquire
+            </Link>
           </div>
 
-          {/* Mobile menu button */}
           <button
-            className="lg:hidden text-off-white p-2"
+            className={`lg:hidden p-2 ${isHome ? "text-white" : "text-[var(--ink)]"}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            type="button"
           >
             {mobileOpen ? (
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -99,27 +141,76 @@ export default function Nav() {
           </button>
         </nav>
 
-        {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-[var(--hairline)] py-4 space-y-1">
-            <p className="px-2 py-1 text-xs text-soft-grey uppercase tracking-wider">Services</p>
+          <div
+            className={`lg:hidden border-t py-4 space-y-1 ${
+              isHome
+                ? "border-white/20 bg-black/70"
+                : "border-[var(--hairline)] bg-[var(--cream)]"
+            }`}
+          >
+            <p
+              className={`px-2 py-1 text-xs uppercase tracking-wider ${
+                isHome ? "text-white/60" : "text-soft-grey"
+              }`}
+            >
+              Services
+            </p>
             {serviceLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block px-2 py-2 text-soft-grey hover:text-white transition-colors no-underline"
+                className={`block px-2 py-2 transition-colors no-underline ${
+                  isHome
+                    ? "text-white/80 hover:text-[var(--navy)]"
+                    : "text-soft-grey hover:text-[var(--navy)]"
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2 border-t border-[var(--hairline)] mt-2 space-y-1">
-              <Link href="/services" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Packages</Link>
-              <Link href="/portfolio" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Portfolio</Link>
-              <Link href="/case-studies" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Case Studies</Link>
-              <Link href="/blog" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Blog</Link>
-              <Link href="/about" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>About</Link>
-              <Link href="/enquire" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Enquire</Link>
+            <div
+              className={`pt-2 border-t mt-2 space-y-1 ${
+                isHome ? "border-white/20" : "border-[var(--hairline)]"
+              }`}
+            >
+              <Link
+                href="/portfolio"
+                className={`block px-2 py-2 transition-colors no-underline ${
+                  isHome ? "text-white/90 hover:text-white" : "nav-link"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Portfolio
+              </Link>
+              <Link
+                href="/case-studies"
+                className={`block px-2 py-2 transition-colors no-underline ${
+                  isHome ? "text-white/90 hover:text-white" : "nav-link"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Case Studies
+              </Link>
+              <Link
+                href="/about"
+                className={`block px-2 py-2 transition-colors no-underline ${
+                  isHome ? "text-white/90 hover:text-white" : "nav-link"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/enquire"
+                className={`block px-2 py-2 transition-colors no-underline ${
+                  isHome ? "text-white/90 hover:text-white" : "nav-link"
+                }`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Enquire
+              </Link>
             </div>
           </div>
         )}

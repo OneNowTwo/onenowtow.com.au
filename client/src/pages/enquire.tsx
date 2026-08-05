@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import Nav from "../components/Nav";
+import { SiteFooter } from "@/components/SiteChrome";
 
 export default function Enquire() {
   const [formData, setFormData] = useState({
@@ -79,7 +79,7 @@ export default function Enquire() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--hairline)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-[var(--navy)]/40 transition-colors"
                 />
               </div>
               
@@ -95,7 +95,7 @@ export default function Enquire() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--hairline)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-[var(--navy)]/40 transition-colors"
                 />
               </div>
 
@@ -110,7 +110,7 @@ export default function Enquire() {
                   placeholder="Your phone number"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--hairline)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-[var(--navy)]/40 transition-colors"
                 />
               </div>
 
@@ -125,7 +125,7 @@ export default function Enquire() {
                   placeholder="Property type, location, timeline..."
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-transparent border border-[var(--light-accent)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-white/50 transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-[var(--cream)] border border-[var(--hairline)] rounded-lg text-[var(--ink)] placeholder-[var(--muted-grey)] focus:outline-none focus:border-[var(--navy)]/40 transition-colors resize-none"
                 />
               </div>
 
@@ -141,17 +141,7 @@ export default function Enquire() {
         </div>
       </main>
 
-      <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
-          <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

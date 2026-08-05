@@ -53,7 +53,7 @@ export default function CaseStudies() {
                   <p className="text-soft-grey text-sm mb-2">
                     {study.sector} • {study.location}
                   </p>
-                  <h2 className="font-serif text-2xl group-hover:text-white transition-colors">
+                  <h2 className="font-serif text-2xl group-hover:text-[var(--navy)] transition-colors">
                     {study.title}
                   </h2>
                 </div>

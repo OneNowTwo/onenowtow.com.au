@@ -1,54 +1,54 @@
 import { Link } from "wouter";
 
+const footerLinkClass =
+  "hover:text-[var(--navy)] transition-colors no-underline text-soft-grey";
+
 export function SiteFooter() {
   return (
-    <footer className="py-8 section-border text-center text-soft-grey text-sm">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col gap-6">
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+    <footer className="py-10 section-border text-center text-soft-grey text-sm">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col gap-8">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs md:text-sm opacity-90">
           <Link
             href="/commercial-property-video-production-sydney"
-            className="hover:text-white transition-colors"
+            className={footerLinkClass}
           >
-            Commercial Property Video
-          </Link>
-          <Link
-            href="/industrial-warehouse-property-video"
-            className="hover:text-white transition-colors"
-          >
-            Industrial & Warehouse
+            Commercial Property Video Production Sydney
           </Link>
           <Link
             href="/commercial-property-photography-drone"
-            className="hover:text-white transition-colors"
+            className={footerLinkClass}
           >
             Photography & Drone
           </Link>
           <Link
-            href="/hotel-hospitality-property-video"
-            className="hover:text-white transition-colors"
+            href="/drone-aerial-property-video-sydney"
+            className={footerLinkClass}
           >
-            Hotel & Hospitality
+            Drone & Aerial Filming
           </Link>
-          <Link href="/case-studies" className="hover:text-white transition-colors">
+          <Link
+            href="/commercial-office-video-sydney"
+            className={footerLinkClass}
+          >
+            Office Leasing Video
+          </Link>
+          <Link href="/case-studies" className={footerLinkClass}>
             Case Studies
           </Link>
-          <Link href="/blog" className="hover:text-white transition-colors">
-            Blog
+          <Link href="/enquire" className={footerLinkClass}>
+            Contact
           </Link>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
-          <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">
-              Packages
-            </Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link href="/portfolio" className={footerLinkClass}>
               Portfolio
             </Link>
-            <Link href="/about" className="hover:text-white transition-colors">
+            <Link href="/about" className={footerLinkClass}>
               About
             </Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">
+            <Link href="/enquire" className={footerLinkClass}>
               Enquire
             </Link>
           </div>
@@ -85,7 +85,7 @@ export function PageHeroImage({
 }) {
   return (
     <div className="max-w-6xl mx-auto px-6 mb-16">
-      <div className="aspect-[21/9] md:aspect-[2.4/1] overflow-hidden rounded-lg bg-[var(--hairline)]">
+      <div className="aspect-[21/9] md:aspect-[2.4/1] overflow-hidden rounded-lg bg-[var(--surface)]">
         <img
           src={src}
           alt={alt}
@@ -109,7 +109,7 @@ export function ImagePair({
         {images.map((img) => (
           <div
             key={img.src}
-            className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]"
+            className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]"
           >
             <img
               src={img.src}

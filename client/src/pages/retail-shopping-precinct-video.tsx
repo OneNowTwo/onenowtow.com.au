@@ -5,61 +5,60 @@ import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components
 import { photos } from "@/lib/photos";
 
 const communicateItems = [
-  "Heritage and character",
-  "Venue atmosphere",
-  "Local neighbourhood story",
-  "Food, beverage and customer experience",
-  "Investor appeal",
-  "Repositioning potential",
-  "Multi-venue or precinct story",
+  "Location and catchment",
+  "Tenant mix and street activation",
+  "Foot traffic and trade area",
+  "Access, parking and arrival",
+  "Public realm and precinct amenity",
+  "Future upside and repositioning",
+  "Mixed-use and lifestyle offer",
 ];
 
 const usefulFor = [
-  "Hotel sales campaigns",
-  "Pub and venue portfolios",
-  "Hospitality precincts",
-  "Resort and accommodation assets",
-  "Investor communications",
-  "Social cutdowns and campaign pages",
+  "Shopping centre leasing campaigns",
+  "Retail precinct sales",
+  "Mixed-use developments",
+  "High-street and strip retail",
+  "Investor and stakeholder updates",
+  "Campaign pages and social cutdowns",
 ];
 
-export default function HotelHospitalityVideo() {
+export default function RetailShoppingPrecinctVideo() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <SeoHead
-        title="Hotel, Hospitality & Tourism Video Sydney | One Now Two"
-        description="Video production for hotels, pubs, hospitality venues and tourism precinct campaigns. Capture heritage, ambience, local story and investor appeal."
-        path="/hotel-hospitality-property-video"
+        title="Retail & Shopping Centre Video Sydney | One Now Two"
+        description="Video for retail centres, shopping precincts and mixed-use campaigns. Show location, tenant mix, foot traffic, trade area and future upside."
+        path="/retail-shopping-precinct-video"
       />
       <Nav />
 
       <main className="pt-32 pb-20">
         <section className="max-w-4xl mx-auto px-6 text-center mb-10">
           <h1 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
-            Hotel and hospitality property video that sells the story behind the
-            asset
+            Retail and shopping precinct video that shows why the location works
           </h1>
           <p className="text-soft-grey text-lg md:text-xl leading-relaxed">
-            Hospitality property campaigns need more than clean visuals. They need
-            story, character and atmosphere.
+            Retail campaigns need more than shopfront stills. Buyers and tenants need
+            to understand catchment, activation and upside.
           </p>
         </section>
 
-        <PageHeroImage {...photos.clockHotel} />
+        <PageHeroImage {...photos.streetscape} />
 
         <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
-            Hospitality property campaigns are not just about floor area and yield.
-            The strongest campaigns communicate character, heritage, ambience,
-            location and future potential.
+            Shopping centres, high streets and mixed-use precincts sell on location,
+            tenant mix, foot traffic and future potential — not floorplates alone.
           </p>
           <p className="text-soft-grey text-lg leading-relaxed">
-            For hospitality and hotel assets, video helps communicate character,
-            heritage, ambience, neighbourhood story and investor appeal.
+            Video helps people understand the trade area, how customers arrive, how
+            the public realm feels, and where the upside sits for owners and
+            occupiers.
           </p>
         </section>
 
-        <ImagePair images={[photos.hospitalityAmbience, photos.interiorCommercial]} />
+        <ImagePair images={[photos.precinctAerial, photos.sydneyCbdAerial]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -79,7 +78,7 @@ export default function HotelHospitalityVideo() {
           </div>
         </section>
 
-        <ImagePair images={[photos.streetscape, photos.cornerLotAerial]} />
+        <ImagePair images={[photos.groundListing, photos.interiorCommercial]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -100,10 +99,10 @@ export default function HotelHospitalityVideo() {
         <section className="py-20 section-border">
           <div className="max-w-2xl mx-auto px-6 text-center">
             <h2 className="font-serif text-3xl mb-4">
-              Bring the asset&apos;s character, history and opportunity into focus
+              Show the catchment, the mix and the opportunity
             </h2>
             <p className="text-soft-grey text-lg mb-8">
-              Send through the venue, location or campaign brief and we&apos;ll
+              Send through the centre, precinct or campaign brief and we&apos;ll
               recommend the right video approach.
             </p>
             <Link href="/enquire" className="btn-primary">
@@ -119,8 +118,8 @@ export default function HotelHospitalityVideo() {
               label: "Commercial Property Video",
             },
             {
-              href: "/case-studies/jll-hotels-social-collective",
-              label: "JLL Hotels Case Study",
+              href: "/property-development-video",
+              label: "Property Developments",
             },
             { href: "/case-studies", label: "Case Studies" },
           ]}

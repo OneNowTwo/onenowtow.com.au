@@ -14,7 +14,7 @@ export default function IndustrialWarehouseVideo() {
 
       <main className="pt-32 pb-20">
         <div className="max-w-3xl mx-auto px-6 mb-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-soft-grey hover:text-white transition-colors text-sm no-underline">
+          <Link href="/" className="inline-flex items-center gap-2 text-soft-grey hover:text-[var(--navy)] transition-colors text-sm no-underline">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
@@ -85,9 +85,9 @@ export default function IndustrialWarehouseVideo() {
           <div className="mt-12 pt-8 border-t border-[var(--hairline)]">
             <p className="text-soft-grey text-sm mb-4">Other services:</p>
             <div className="flex flex-wrap gap-4 text-sm">
-              <Link href="/commercial-office-video-sydney" className="text-soft-grey hover:text-white transition-colors">Commercial Office Video</Link>
-              <Link href="/development-marketing-video-sydney" className="text-soft-grey hover:text-white transition-colors">Development Marketing Video</Link>
-              <Link href="/drone-aerial-property-video-sydney" className="text-soft-grey hover:text-white transition-colors">Drone &amp; Aerial Filming</Link>
+              <Link href="/commercial-office-video-sydney" className="text-soft-grey hover:text-[var(--navy)] transition-colors">Commercial Office Video</Link>
+              <Link href="/development-marketing-video-sydney" className="text-soft-grey hover:text-[var(--navy)] transition-colors">Development Marketing Video</Link>
+              <Link href="/drone-aerial-property-video-sydney" className="text-soft-grey hover:text-[var(--navy)] transition-colors">Drone &amp; Aerial Filming</Link>
             </div>
           </div>
         </div>
@@ -97,10 +97,10 @@ export default function IndustrialWarehouseVideo() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
           <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
+            <Link href="/services" className="hover:text-[var(--navy)] transition-colors">Services</Link>
+            <Link href="/portfolio" className="hover:text-[var(--navy)] transition-colors">Portfolio</Link>
+            <Link href="/about" className="hover:text-[var(--navy)] transition-colors">About</Link>
+            <Link href="/enquire" className="hover:text-[var(--navy)] transition-colors">Enquire</Link>
           </div>
         </div>
       </footer>

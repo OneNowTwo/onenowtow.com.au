@@ -14,6 +14,8 @@ import CommercialPropertyVideoSydney from "@/pages/commercial-property-video-syd
 import IndustrialWarehousePropertyVideo from "@/pages/industrial-warehouse-property-video";
 import CommercialPhotographyDrone from "@/pages/commercial-photography-drone";
 import HotelHospitalityVideo from "@/pages/hotel-hospitality-video";
+import RetailShoppingPrecinctVideo from "@/pages/retail-shopping-precinct-video";
+import PropertyDevelopmentVideo from "@/pages/property-development-video";
 import CaseStudies from "@/pages/case-studies";
 import CaseStudyDetail from "@/pages/case-study-detail";
 import CommercialOfficeVideo from "@/pages/commercial-office-video";
@@ -49,6 +51,8 @@ function Router() {
       <Route path="/industrial-warehouse-property-video" component={IndustrialWarehousePropertyVideo} />
       <Route path="/commercial-property-photography-drone" component={CommercialPhotographyDrone} />
       <Route path="/hotel-hospitality-property-video" component={HotelHospitalityVideo} />
+      <Route path="/retail-shopping-precinct-video" component={RetailShoppingPrecinctVideo} />
+      <Route path="/property-development-video" component={PropertyDevelopmentVideo} />
       <Route path="/case-studies/:slug" component={CaseStudyDetail} />
       <Route path="/case-studies" component={CaseStudies} />
       <Route component={NotFound} />

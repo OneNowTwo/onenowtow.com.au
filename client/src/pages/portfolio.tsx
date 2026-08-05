@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import Nav from "../components/Nav";
+import { SiteFooter } from "@/components/SiteChrome";
 
 const portfolioItems = [
   {
@@ -178,7 +178,7 @@ export default function Portfolio() {
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                 </div>
-                <h3 className="font-serif text-lg group-hover:text-white transition-colors">{item.title}</h3>
+                <h3 className="font-serif text-lg group-hover:text-[var(--navy)] transition-colors">{item.title}</h3>
                 <p className="text-soft-grey text-sm">{item.category} • {item.location}</p>
               </button>
             ))}
@@ -186,17 +186,7 @@ export default function Portfolio() {
         </div>
       </main>
 
-      <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
-          <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {selectedVideo && (
         <div 

@@ -42,11 +42,11 @@ export default function Blog() {
                 <p className="text-soft-grey text-xs uppercase tracking-wider mb-2">
                   {post.category} — {post.date}
                 </p>
-                <h2 className="font-serif text-2xl mb-3 group-hover:text-white transition-colors leading-snug">
+                <h2 className="font-serif text-2xl mb-3 group-hover:text-[var(--navy)] transition-colors leading-snug">
                   {post.title}
                 </h2>
                 <p className="text-soft-grey text-sm leading-relaxed mb-4">{post.excerpt}</p>
-                <span className="text-soft-grey text-sm group-hover:text-white transition-colors">
+                <span className="text-soft-grey text-sm group-hover:text-[var(--navy)] transition-colors">
                   Read more →
                 </span>
               </Link>
@@ -59,10 +59,10 @@ export default function Blog() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
           <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
+            <Link href="/services" className="hover:text-[var(--navy)] transition-colors">Services</Link>
+            <Link href="/portfolio" className="hover:text-[var(--navy)] transition-colors">Portfolio</Link>
+            <Link href="/about" className="hover:text-[var(--navy)] transition-colors">About</Link>
+            <Link href="/enquire" className="hover:text-[var(--navy)] transition-colors">Enquire</Link>
           </div>
         </div>
       </footer>
