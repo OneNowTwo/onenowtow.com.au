@@ -38,7 +38,7 @@ export default function Nav() {
   };
 
   const linkClass = isHome
-    ? "text-white/90 hover:text-[var(--navy)] transition-colors"
+    ? "text-white/90 hover:text-white transition-colors"
     : "nav-link";
 
   return (
@@ -48,18 +48,20 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <nav className="flex justify-between items-center py-4">
+        <nav className="flex justify-between items-center py-3 md:py-4">
           <Link
             href="/"
-            className="flex items-center no-underline"
+            className="flex items-center no-underline -ml-1"
             aria-label="One Now Two"
             data-testid="link-logo"
           >
             <img
               src={logoUrl}
               alt="One Now Two commercial property video production Sydney"
-              className={`h-16 md:h-20 w-auto transition-opacity opacity-90 hover:opacity-100 ${
-                isHome ? "" : "invert"
+              className={`w-auto transition-opacity opacity-95 hover:opacity-100 ${
+                isHome
+                  ? "h-24 md:h-32 lg:h-36"
+                  : "h-20 md:h-24 invert"
               }`}
             />
           </Link>
