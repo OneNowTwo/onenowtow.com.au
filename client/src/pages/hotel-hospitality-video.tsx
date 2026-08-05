@@ -1,6 +1,8 @@
 import { Link } from "wouter";
+import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
-import { SiteHeader, SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
+import { photos } from "@/lib/photos";
 
 const communicateItems = [
   "Heritage and character",
@@ -29,10 +31,10 @@ export default function HotelHospitalityVideo() {
         description="Video production for hotels, pubs, hospitality venues and precinct campaigns. Capture heritage, ambience, local story and investor appeal."
         path="/hotel-hospitality-property-video"
       />
-      <SiteHeader />
+      <Nav />
 
       <main className="pt-32 pb-20">
-        <section className="max-w-4xl mx-auto px-6 text-center mb-16">
+        <section className="max-w-4xl mx-auto px-6 text-center mb-10">
           <h1 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
             Hotel and hospitality property video that sells the story behind the
             asset
@@ -43,7 +45,9 @@ export default function HotelHospitalityVideo() {
           </p>
         </section>
 
-        <section className="max-w-3xl mx-auto px-6 mb-20">
+        <PageHeroImage {...photos.clockHotel} />
+
+        <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
             Hospitality property campaigns are not just about floor area and yield.
             The strongest campaigns communicate character, heritage, ambience,
@@ -54,6 +58,8 @@ export default function HotelHospitalityVideo() {
             heritage, ambience, neighbourhood story and investor appeal.
           </p>
         </section>
+
+        <ImagePair images={[photos.hospitalityAmbience, photos.interiorCommercial]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -72,6 +78,8 @@ export default function HotelHospitalityVideo() {
             </div>
           </div>
         </section>
+
+        <ImagePair images={[photos.streetscape, photos.cornerLotAerial]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">

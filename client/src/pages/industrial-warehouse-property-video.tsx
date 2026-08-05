@@ -1,6 +1,8 @@
 import { Link } from "wouter";
+import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
-import { SiteHeader, SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
+import { photos } from "@/lib/photos";
 
 const explainItems = [
   "Scale and layout",
@@ -21,10 +23,10 @@ export default function IndustrialWarehousePropertyVideo() {
         description="Industrial and warehouse property video production for Sydney commercial real estate campaigns. Show scale, truck access, loading, hardstand, clearance and connectivity."
         path="/industrial-warehouse-property-video"
       />
-      <SiteHeader />
+      <Nav />
 
       <main className="pt-32 pb-20">
-        <section className="max-w-4xl mx-auto px-6 text-center mb-16">
+        <section className="max-w-4xl mx-auto px-6 text-center mb-10">
           <h1 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
             Industrial and warehouse property video that explains how the asset
             works
@@ -34,7 +36,9 @@ export default function IndustrialWarehousePropertyVideo() {
           </p>
         </section>
 
-        <section className="max-w-3xl mx-auto px-6 mb-20">
+        <PageHeroImage {...photos.loadingHardstand} />
+
+        <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
             For warehouses, logistics facilities and industrial land, video helps
             clarify the details that stills often struggle to explain.
@@ -45,6 +49,8 @@ export default function IndustrialWarehousePropertyVideo() {
             and motorway connectivity.
           </p>
         </section>
+
+        <ImagePair images={[photos.warehouseContext, photos.aerialAccess]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -63,6 +69,8 @@ export default function IndustrialWarehousePropertyVideo() {
             </div>
           </div>
         </section>
+
+        <ImagePair images={[photos.industrialExterior, photos.developmentSite]} />
 
         <section className="py-16 section-border">
           <div className="max-w-3xl mx-auto px-6">

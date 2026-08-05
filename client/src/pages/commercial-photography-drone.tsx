@@ -1,6 +1,8 @@
 import { Link } from "wouter";
+import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
-import { SiteHeader, SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
+import { photos } from "@/lib/photos";
 
 const captureOptions = [
   {
@@ -47,10 +49,10 @@ export default function CommercialPhotographyDrone() {
         description="Ground photography, aerial stills, drone footage and video content for commercial property campaigns in Sydney. Package stills, drone and video into one efficient shoot."
         path="/commercial-property-photography-drone"
       />
-      <SiteHeader />
+      <Nav />
 
       <main className="pt-32 pb-20">
-        <section className="max-w-4xl mx-auto px-6 text-center mb-16">
+        <section className="max-w-4xl mx-auto px-6 text-center mb-10">
           <h1 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
             Commercial property photography, drone and video captured in one shoot
           </h1>
@@ -60,7 +62,9 @@ export default function CommercialPhotographyDrone() {
           </p>
         </section>
 
-        <section className="max-w-3xl mx-auto px-6 mb-20">
+        <PageHeroImage {...photos.cornerLotAerial} />
+
+        <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed">
             For many campaigns, the easiest way to add video is to package it with
             the photography and drone work already being organised. One Now Two can
@@ -68,6 +72,8 @@ export default function CommercialPhotographyDrone() {
             in one streamlined shoot.
           </p>
         </section>
+
+        <ImagePair images={[photos.groundListing, photos.locationOverlay]} />
 
         <section className="py-16 section-border">
           <div className="max-w-6xl mx-auto px-6">
@@ -91,6 +97,8 @@ export default function CommercialPhotographyDrone() {
             </div>
           </div>
         </section>
+
+        <ImagePair images={[photos.precinctAerial, photos.streetscape]} />
 
         <section className="py-16 section-border">
           <div className="max-w-3xl mx-auto px-6">

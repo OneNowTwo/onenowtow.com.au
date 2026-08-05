@@ -1,6 +1,8 @@
 import { Link } from "wouter";
+import Nav from "@/components/Nav";
 import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
-import { SiteHeader, SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
+import { photos } from "@/lib/photos";
 
 const deliverables = [
   "Campaign hero videos",
@@ -29,10 +31,10 @@ export default function CommercialPropertyVideoSydney() {
         path="/commercial-property-video-production-sydney"
         schema={localBusinessSchema}
       />
-      <SiteHeader />
+      <Nav />
 
       <main className="pt-32 pb-20">
-        <section className="max-w-4xl mx-auto px-6 text-center mb-16">
+        <section className="max-w-4xl mx-auto px-6 text-center mb-10">
           <h1 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
             Commercial property video production for Sydney property campaigns
           </h1>
@@ -42,7 +44,9 @@ export default function CommercialPropertyVideoSydney() {
           </p>
         </section>
 
-        <section className="max-w-3xl mx-auto px-6 mb-20">
+        <PageHeroImage {...photos.sydneyCbdAerial} />
+
+        <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
             Commercial property campaigns often need to explain more than what an
             asset looks like. The best video work helps buyers, occupiers and
@@ -54,6 +58,8 @@ export default function CommercialPropertyVideoSydney() {
             why it matters.
           </p>
         </section>
+
+        <ImagePair images={[photos.cornerLotAerial, photos.locationOverlay]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -70,6 +76,8 @@ export default function CommercialPropertyVideoSydney() {
             </div>
           </div>
         </section>
+
+        <ImagePair images={[photos.officeFacade, photos.motionGraphicStill]} />
 
         <section className="py-16 section-border">
           <div className="max-w-3xl mx-auto px-6">

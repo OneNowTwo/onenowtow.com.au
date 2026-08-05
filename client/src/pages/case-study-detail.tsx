@@ -1,6 +1,7 @@
 import { Link, useRoute } from "wouter";
+import Nav from "@/components/Nav";
 import { SeoHead, videoObjectSchema } from "@/components/SeoHead";
-import { SiteHeader, SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { SiteFooter, RelatedLinks } from "@/components/SiteChrome";
 import { getCaseStudy } from "@/lib/caseStudies";
 import NotFound from "@/pages/not-found";
 
@@ -24,7 +25,7 @@ export default function CaseStudyDetail() {
           vimeoId: study.vimeoId,
         })}
       />
-      <SiteHeader active="/case-studies" />
+      <Nav />
 
       <main className="pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-6">

@@ -1,52 +1,4 @@
 import { Link } from "wouter";
-import logoUrl from "../assets/logo.png";
-
-export function SiteHeader({ active }: { active?: string }) {
-  const linkClass = (path: string) =>
-    active === path
-      ? "text-white"
-      : "text-off-white hover:text-white transition-colors";
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-30 nav-backdrop">
-      <div className="max-w-7xl mx-auto px-6">
-        <nav className="flex justify-between items-center py-4">
-          <Link
-            href="/"
-            className="flex items-center text-off-white no-underline"
-            aria-label="One Now Two"
-          >
-            <img
-              src={logoUrl}
-              alt="One Now Two commercial property video production Sydney"
-              className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
-            />
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/services" className={linkClass("/services")}>
-              Services
-            </Link>
-            <Link href="/portfolio" className={linkClass("/portfolio")}>
-              Portfolio
-            </Link>
-            <Link href="/case-studies" className={linkClass("/case-studies")}>
-              Case Studies
-            </Link>
-            <Link href="/about" className={linkClass("/about")}>
-              About
-            </Link>
-            <Link href="/enquire" className="btn-outline">
-              Enquire
-            </Link>
-          </div>
-          <Link href="/enquire" className="btn-outline md:hidden">
-            Enquire
-          </Link>
-        </nav>
-      </div>
-    </header>
-  );
-}
 
 export function SiteFooter() {
   return (
@@ -80,12 +32,15 @@ export function SiteFooter() {
           <Link href="/case-studies" className="hover:text-white transition-colors">
             Case Studies
           </Link>
+          <Link href="/blog" className="hover:text-white transition-colors">
+            Blog
+          </Link>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>
           <div className="flex gap-6">
             <Link href="/services" className="hover:text-white transition-colors">
-              Services
+              Packages
             </Link>
             <Link href="/portfolio" className="hover:text-white transition-colors">
               Portfolio
@@ -117,5 +72,54 @@ export function RelatedLinks({ links }: { links: { href: string; label: string }
         </div>
       </div>
     </section>
+  );
+}
+
+/** Full-bleed image band for service/SEO pages */
+export function PageHeroImage({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
+  return (
+    <div className="max-w-6xl mx-auto px-6 mb-16">
+      <div className="aspect-[21/9] md:aspect-[2.4/1] overflow-hidden rounded-lg bg-[var(--hairline)]">
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover"
+          loading="eager"
+        />
+      </div>
+    </div>
+  );
+}
+
+/** Two-up image strip */
+export function ImagePair({
+  images,
+}: {
+  images: { src: string; alt: string }[];
+}) {
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {images.map((img) => (
+          <div
+            key={img.src}
+            className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]"
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

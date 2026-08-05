@@ -1,7 +1,9 @@
 import { Link } from "wouter";
+import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
-import { SiteHeader, SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { SiteFooter, RelatedLinks, PageHeroImage } from "@/components/SiteChrome";
 import { caseStudies } from "@/lib/caseStudies";
+import { photos } from "@/lib/photos";
 
 export default function CaseStudies() {
   return (
@@ -11,11 +13,11 @@ export default function CaseStudies() {
         description="Recent commercial property video work by One Now Two across industrial, hospitality, office, retail and commercial real estate campaigns."
         path="/case-studies"
       />
-      <SiteHeader active="/case-studies" />
+      <Nav />
 
       <main className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h1 className="font-serif text-4xl md:text-5xl mb-4">
               Recent commercial property campaign work
             </h1>
@@ -24,7 +26,11 @@ export default function CaseStudies() {
               produced for property sales teams across Sydney and NSW.
             </p>
           </div>
+        </div>
 
+        <PageHeroImage {...photos.precinctAerial} />
+
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {caseStudies.map((study) => (
               <Link

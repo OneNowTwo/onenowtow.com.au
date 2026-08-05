@@ -174,7 +174,7 @@ export default function Home() {
         </section>
 
         <section id="seo-commercial" className="py-20 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="max-w-4xl mx-auto px-6 text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl mb-6">
               Commercial property video production for campaigns that need more than stills
             </h2>
@@ -200,6 +200,19 @@ export default function Home() {
               <Link href="/case-studies" className="btn-outline">
                 Case Studies
               </Link>
+            </div>
+          </div>
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]">
+                <img src="/media/photos/photo-06.jpg" alt="Aerial view of Sydney CBD commercial property skyline" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]">
+                <img src="/media/photos/photo-01.jpg" alt="Aerial drone photography of commercial corner property in Sydney" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--hairline)]">
+                <img src="/media/photos/photo-12.jpg" alt="Hotel and hospitality property photography Sydney" className="w-full h-full object-cover" loading="lazy" />
+              </div>
             </div>
           </div>
         </section>
