@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
-import { photos } from "@/lib/photos";
+import { hospitalityPhotos } from "@/lib/photos";
 
 const communicateItems = [
   "Heritage and character",
@@ -45,7 +45,7 @@ export default function HotelHospitalityVideo() {
           </p>
         </section>
 
-        <PageHeroImage {...photos.clockHotel} />
+        <PageHeroImage {...hospitalityPhotos.hero} />
 
         <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
@@ -59,7 +59,7 @@ export default function HotelHospitalityVideo() {
           </p>
         </section>
 
-        <ImagePair images={[photos.hospitalityAmbience, photos.interiorCommercial]} />
+        <ImagePair images={[hospitalityPhotos.pairA, hospitalityPhotos.pairB]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -79,7 +79,7 @@ export default function HotelHospitalityVideo() {
           </div>
         </section>
 
-        <ImagePair images={[photos.streetscape, photos.cornerLotAerial]} />
+        <ImagePair images={[hospitalityPhotos.pairC, hospitalityPhotos.pairD]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">

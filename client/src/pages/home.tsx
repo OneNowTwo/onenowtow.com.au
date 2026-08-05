@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 import { SiteFooter } from "@/components/SiteChrome";
+import { VimeoThumbnail } from "@/components/VimeoThumbnail";
+import {
+  industrialPhotos,
+  retailPhotos,
+  hospitalityPhotos,
+  developmentPhotos,
+} from "@/lib/photos";
 import arissaLogo from "@assets/Arissa_1769577580214.png";
 import jllLogo from "@assets/JLL-Logo-Positive-10-29mm-RGB-1-002_1769577580216.png";
 import cbreLogo from "@assets/png-clipart-cbre-group-real-estate-commercial-property-busines_1769577580216.png";
@@ -23,52 +30,50 @@ function HeroSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const videoProps = {
+    autoPlay: true,
+    muted: true,
+    loop: true,
+    playsInline: true,
+    preload: "metadata" as const,
+    poster: "/media/hero/hero-poster.jpg",
+    onLoadedData: () => {
+      setTimeout(() => setVideoLoaded(true), 150);
+    },
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-black" />
+      <div className="absolute inset-0 bg-[var(--navy)]" />
       
       {isMobile ? (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-full aspect-video">
             <video
-              autoPlay
-              muted
-              loop
-              playsInline
+              {...videoProps}
               className="w-full h-full object-contain hero-iframe"
               style={{ 
                 opacity: videoLoaded ? 1 : 0,
-                transition: 'opacity 1.5s ease-in-out',
-                filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
-              }}
-              onLoadedData={() => {
-                setTimeout(() => setVideoLoaded(true), 300);
+                transition: 'opacity 0.8s ease-in-out',
               }}
             >
-              <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
+              <source src="/media/hero/hero-portfolio-web.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
       ) : (
         <video
-          autoPlay
-          muted
-          loop
-          playsInline
+          {...videoProps}
           className="absolute inset-0 w-full h-full object-cover hero-iframe"
           style={{ 
             opacity: videoLoaded ? 1 : 0,
-            transition: 'opacity 1.5s ease-in-out',
-            filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
-          }}
-          onLoadedData={() => {
-            setTimeout(() => setVideoLoaded(true), 300);
+            transition: 'opacity 0.8s ease-in-out',
           }}
         >
-          <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
+          <source src="/media/hero/hero-portfolio-web.mp4" type="video/mp4" />
         </video>
       )}
-      <div className="absolute inset-0 bg-black/20"></div>
+      <div className="absolute inset-0 bg-black/25"></div>
       
       <div className="relative text-center px-6">
         <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
@@ -81,7 +86,7 @@ function HeroSection() {
           Sydney • Australia-Wide
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
           <Link 
             href="/enquire" 
             className="btn-primary"
@@ -232,27 +237,35 @@ export default function Home() {
 
         <section className="py-16 section-border">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
                 <img
-                  src="/media/photos/photo-06.jpg"
-                  alt="Aerial view of Sydney CBD commercial property skyline"
+                  src={industrialPhotos.hero.src}
+                  alt={industrialPhotos.hero.alt}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>
               <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
                 <img
-                  src="/media/photos/photo-01.jpg"
-                  alt="Aerial drone photography of commercial corner property in Sydney"
+                  src={retailPhotos.hero.src}
+                  alt={retailPhotos.hero.alt}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>
               <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
                 <img
-                  src="/media/photos/photo-12.jpg"
-                  alt="Hotel and hospitality property photography Sydney"
+                  src={hospitalityPhotos.hero.src}
+                  alt={hospitalityPhotos.hero.alt}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
+                <img
+                  src={developmentPhotos.hero.src}
+                  alt={developmentPhotos.hero.alt}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -286,17 +299,11 @@ export default function Home() {
                   data-testid={`button-portfolio-${work.id}`}
                 >
                   <figure className="m-0">
-                    <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden relative">
-                      <iframe
-                        src={`https://player.vimeo.com/video/${work.vimeoId}?background=1&autoplay=0&loop=1&byline=0&title=0&muted=1`}
-                        className="absolute inset-0 w-full h-full pointer-events-none"
-                        style={{ transform: 'scale(1.2)' }}
-                        frameBorder="0"
-                        allow="autoplay"
-                        title={`${work.title} commercial property campaign video`}
-                      />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
-                    </div>
+                    <VimeoThumbnail
+                      vimeoId={work.vimeoId}
+                      title={`${work.title} commercial property campaign video`}
+                      className="rounded-lg"
+                    />
                     <figcaption className="mt-3 text-soft-grey group-hover:text-[var(--navy)] transition-colors">
                       {work.title}
                     </figcaption>

@@ -2,8 +2,9 @@ import { Link } from "wouter";
 import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage } from "@/components/SiteChrome";
+import { VimeoThumbnail } from "@/components/VimeoThumbnail";
 import { caseStudies } from "@/lib/caseStudies";
-import { photos } from "@/lib/photos";
+import { industrialPhotos } from "@/lib/photos";
 
 export default function CaseStudies() {
   return (
@@ -28,7 +29,7 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        <PageHeroImage {...photos.precinctAerial} />
+        <PageHeroImage {...industrialPhotos.hero} />
 
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -36,19 +37,12 @@ export default function CaseStudies() {
               <Link
                 key={study.slug}
                 href={`/case-studies/${study.slug}`}
-                className="block group border border-[var(--hairline)] rounded-lg overflow-hidden hover:border-white/30 transition-colors"
+                className="block group border border-[var(--hairline)] rounded-lg overflow-hidden hover:border-[var(--navy)]/30 transition-colors"
               >
-                <div className="aspect-video bg-[var(--hairline)] relative overflow-hidden">
-                  <iframe
-                    src={`https://player.vimeo.com/video/${study.vimeoId}?background=1&autoplay=0&loop=1&byline=0&title=0&muted=1`}
-                    className="absolute inset-0 w-full h-full pointer-events-none"
-                    style={{ transform: "scale(1.2)" }}
-                    frameBorder="0"
-                    allow="autoplay"
-                    title={`${study.title} commercial property campaign video`}
-                  />
-                  <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors" />
-                </div>
+                <VimeoThumbnail
+                  vimeoId={study.vimeoId}
+                  title={`${study.title} commercial property campaign video`}
+                />
                 <div className="p-6">
                   <p className="text-soft-grey text-sm mb-2">
                     {study.sector} • {study.location}

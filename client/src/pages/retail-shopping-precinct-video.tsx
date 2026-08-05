@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
-import { photos } from "@/lib/photos";
+import { retailPhotos } from "@/lib/photos";
 
 const communicateItems = [
   "Location and catchment",
@@ -44,7 +44,7 @@ export default function RetailShoppingPrecinctVideo() {
           </p>
         </section>
 
-        <PageHeroImage {...photos.streetscape} />
+        <PageHeroImage {...retailPhotos.hero} />
 
         <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
@@ -58,7 +58,7 @@ export default function RetailShoppingPrecinctVideo() {
           </p>
         </section>
 
-        <ImagePair images={[photos.precinctAerial, photos.sydneyCbdAerial]} />
+        <ImagePair images={[retailPhotos.pairA, retailPhotos.pairB]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -78,7 +78,7 @@ export default function RetailShoppingPrecinctVideo() {
           </div>
         </section>
 
-        <ImagePair images={[photos.groundListing, photos.interiorCommercial]} />
+        <ImagePair images={[retailPhotos.pairC, retailPhotos.pairD]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">

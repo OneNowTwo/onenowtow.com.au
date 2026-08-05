@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import Nav from "@/components/Nav";
 import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
-import { photos } from "@/lib/photos";
+import { industrialPhotos } from "@/lib/photos";
 
 const explainItems = [
   "Scale and layout",
@@ -36,7 +36,7 @@ export default function IndustrialWarehousePropertyVideo() {
           </p>
         </section>
 
-        <PageHeroImage {...photos.loadingHardstand} />
+        <PageHeroImage {...industrialPhotos.hero} />
 
         <section className="max-w-3xl mx-auto px-6 mb-16">
           <p className="text-soft-grey text-lg leading-relaxed mb-6">
@@ -50,7 +50,7 @@ export default function IndustrialWarehousePropertyVideo() {
           </p>
         </section>
 
-        <ImagePair images={[photos.warehouseContext, photos.aerialAccess]} />
+        <ImagePair images={[industrialPhotos.pairA, industrialPhotos.pairB]} />
 
         <section className="py-16 section-border">
           <div className="max-w-5xl mx-auto px-6">
@@ -70,7 +70,7 @@ export default function IndustrialWarehousePropertyVideo() {
           </div>
         </section>
 
-        <ImagePair images={[photos.industrialExterior, photos.developmentSite]} />
+        <ImagePair images={[industrialPhotos.pairC, industrialPhotos.pairD]} />
 
         <section className="py-16 section-border">
           <div className="max-w-3xl mx-auto px-6">

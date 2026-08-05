@@ -1,4 +1,97 @@
-/** Curated web-optimised campaign stills from client photo library. */
+/** Category-matched campaign stills from client photo folders. */
+export const industrialPhotos = {
+  hero: {
+    src: "/media/photos/industrial/industrial-04.jpg",
+    alt: "Aerial industrial warehouse property video still — 198 Power Street Glendenning",
+  },
+  pairA: {
+    src: "/media/photos/industrial/industrial-05.jpg",
+    alt: "Industrial warehouse aerial with site boundary for commercial property campaign",
+  },
+  pairB: {
+    src: "/media/photos/industrial/industrial-02.jpg",
+    alt: "Industrial development site video production — Emu Plains Industry Centre",
+  },
+  pairC: {
+    src: "/media/photos/industrial/industrial-03.jpg",
+    alt: "Industrial and warehouse property campaign photography Sydney",
+  },
+  pairD: {
+    src: "/media/photos/industrial/industrial-01.jpg",
+    alt: "Behind the scenes industrial warehouse video production Sydney",
+  },
+} as const;
+
+export const retailPhotos = {
+  hero: {
+    src: "/media/photos/retail/retail-03.jpg",
+    alt: "Retail shopping precinct lifestyle photography for commercial property campaign",
+  },
+  pairA: {
+    src: "/media/photos/retail/retail-01.jpg",
+    alt: "Retail centre tenant experience photography Sydney",
+  },
+  pairB: {
+    src: "/media/photos/retail/retail-04.jpg",
+    alt: "Specialty retail tenant mix photography for shopping precinct campaign",
+  },
+  pairC: {
+    src: "/media/photos/retail/retail-02.jpg",
+    alt: "Shopping precinct and retail foot-traffic campaign still",
+  },
+  pairD: {
+    src: "/media/photos/retail/retail-05.jpg",
+    alt: "Retail dining and precinct atmosphere photography Sydney",
+  },
+} as const;
+
+export const hospitalityPhotos = {
+  hero: {
+    src: "/media/photos/hospitality/hospitality-01.jpg",
+    alt: "Hotel and hospitality property campaign still with Sydney skyline context",
+  },
+  pairA: {
+    src: "/media/photos/hospitality/hospitality-03.jpg",
+    alt: "Hotel rooftop hospitality and tourism experience photography Sydney",
+  },
+  pairB: {
+    src: "/media/photos/hospitality/hospitality-02.jpg",
+    alt: "Hospitality venue atmosphere photography for property campaign",
+  },
+  pairC: {
+    src: "/media/photos/hospitality/hospitality-04.jpg",
+    alt: "Hotel and tourism property video campaign photography",
+  },
+  pairD: {
+    src: "/media/photos/hospitality/hospitality-05.jpg",
+    alt: "Hospitality precinct character photography Sydney",
+  },
+} as const;
+
+export const developmentPhotos = {
+  hero: {
+    src: "/media/photos/developments/developments-01.jpg",
+    alt: "Property development precinct aerial with campaign graphics",
+  },
+  pairA: {
+    src: "/media/photos/developments/developments-03.jpg",
+    alt: "Property development architectural photography Sydney",
+  },
+  pairB: {
+    src: "/media/photos/developments/developments-02.jpg",
+    alt: "Development site context photography for commercial campaign",
+  },
+  pairC: {
+    src: "/media/photos/developments/developments-04.jpg",
+    alt: "Property development progress and site photography",
+  },
+  pairD: {
+    src: "/media/photos/developments/developments-05.jpg",
+    alt: "Development marketing campaign still Sydney",
+  },
+} as const;
+
+/** Legacy stills kept for broader SEO pages and case studies. */
 export const photos = {
   cornerLotAerial: {
     src: "/media/photos/photo-01.jpg",

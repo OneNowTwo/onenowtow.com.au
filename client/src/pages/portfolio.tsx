@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
 import { SiteFooter } from "@/components/SiteChrome";
+import { VimeoThumbnail } from "@/components/VimeoThumbnail";
 
 const portfolioItems = [
   {
@@ -168,15 +169,12 @@ export default function Portfolio() {
                 onClick={() => setSelectedVideo(item)}
                 className="block w-full text-left cursor-pointer group"
               >
-                <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden mb-3 relative">
-                  <iframe
-                    src={`https://player.vimeo.com/video/${item.vimeoId}?background=1&autoplay=0&loop=1&byline=0&title=0&muted=1`}
-                    className="absolute inset-0 w-full h-full pointer-events-none"
-                    style={{ transform: 'scale(1.2)' }}
-                    frameBorder="0"
-                    allow="autoplay"
+                <div className="mb-3">
+                  <VimeoThumbnail
+                    vimeoId={item.vimeoId}
+                    title={item.title}
+                    className="rounded-lg"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                 </div>
                 <h3 className="font-serif text-lg group-hover:text-[var(--navy)] transition-colors">{item.title}</h3>
                 <p className="text-soft-grey text-sm">{item.category} • {item.location}</p>

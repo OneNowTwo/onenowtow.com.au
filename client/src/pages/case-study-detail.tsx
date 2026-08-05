@@ -2,6 +2,7 @@ import { Link, useRoute } from "wouter";
 import Nav from "@/components/Nav";
 import { SeoHead, videoObjectSchema } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks } from "@/components/SiteChrome";
+import { LazyVimeoPlayer } from "@/components/LazyVimeoPlayer";
 import { getCaseStudy } from "@/lib/caseStudies";
 import NotFound from "@/pages/not-found";
 
@@ -37,13 +38,9 @@ export default function CaseStudyDetail() {
             {study.sector} • {study.location}
           </p>
 
-          <div className="aspect-video bg-[var(--hairline)] rounded-lg overflow-hidden mb-12 relative">
-            <iframe
-              src={`https://player.vimeo.com/video/${study.vimeoId}?title=0&byline=0&portrait=0`}
-              className="absolute inset-0 w-full h-full"
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
+          <div className="mb-12">
+            <LazyVimeoPlayer
+              vimeoId={study.vimeoId}
               title={`${study.title} commercial property campaign video`}
             />
           </div>

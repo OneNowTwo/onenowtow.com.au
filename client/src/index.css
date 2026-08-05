@@ -121,40 +121,52 @@
     );
   }
 
-  /* Buttons */
+  /* Buttons — matched height, editorial radius (not pill) */
+  .btn-primary,
+  .btn-outline,
+  .btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, color 0.15s ease;
+    box-sizing: border-box;
+  }
+
   .btn-outline {
     border: 1px solid color-mix(in srgb, var(--navy) 35%, transparent);
     color: var(--ink);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    opacity: 0.9;
-    transition: all 0.15s ease;
+    background: transparent;
   }
 
   .btn-outline:hover {
-    opacity: 1;
     background: color-mix(in srgb, var(--navy) 5%, transparent);
   }
 
   .btn-outline-light {
-    @apply border border-white/80 text-white no-underline px-4 py-2 rounded-full text-sm opacity-90 hover:opacity-100 hover:bg-white/10 transition-all;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: #fff;
+    background: transparent;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .btn-primary {
+    border: 1px solid var(--navy);
     background: var(--navy);
     color: var(--cream);
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: opacity 0.15s ease;
   }
 
   .btn-primary:hover {
-    opacity: 0.9;
+    opacity: 0.92;
   }
 
   /* Hero */
