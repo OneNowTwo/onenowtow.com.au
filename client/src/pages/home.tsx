@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { usePageMeta } from "../hooks/use-page-meta";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 import arissaLogo from "@assets/Arissa_1769577580214.png";
@@ -7,6 +6,7 @@ import jllLogo from "@assets/JLL-Logo-Positive-10-29mm-RGB-1-002_1769577580216.p
 import cbreLogo from "@assets/png-clipart-cbre-group-real-estate-commercial-property-busines_1769577580216.png";
 import rydgesLogo from "@assets/Rydges_Hotels_&_Resorts_Logo_1769577580217.png";
 import asheMorganLogo from "@assets/sponslogos4_1769577580217.png";
+import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 
 function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
@@ -151,13 +151,15 @@ const packages = [
 
 export default function Home() {
   const [selectedVideo, setSelectedVideo] = useState<typeof portfolioPreview[0] | null>(null);
-  usePageMeta(
-    "Commercial Property Video Production Sydney | One Now Two",
-    "One Now Two produces cinematic video content for commercial real estate agents, developers and property marketing teams across Sydney. Office buildings, industrial warehouses, development sites and retail spaces."
-  );
 
   return (
     <div className="min-h-screen w-full">
+      <SeoHead
+        title="One Now Two | Commercial Property Video Production Sydney"
+        description="Commercial property video, drone and photography for agents, vendors and property sales teams across Sydney and NSW. Industrial, warehouse, hotel and hospitality campaigns."
+        path="/"
+        schema={localBusinessSchema}
+      />
       <Nav />
 
       <main id="top">
@@ -168,6 +170,37 @@ export default function Home() {
             <p className="text-soft-grey text-xl leading-relaxed" data-testid="text-proof">
               Faster interest. Cleaner listings. Better brand.
             </p>
+          </div>
+        </section>
+
+        <section id="seo-commercial" className="py-20 section-border">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="font-serif text-3xl md:text-4xl mb-6">
+              Commercial property video production for campaigns that need more than stills
+            </h2>
+            <p className="text-soft-grey text-lg leading-relaxed mb-6">
+              One Now Two produces commercial property video, drone footage, ground photography and campaign content for agents, vendors and property sales teams across Sydney and NSW.
+            </p>
+            <p className="text-soft-grey text-lg leading-relaxed mb-10">
+              From industrial warehouses and office leasing campaigns to hotels, hospitality venues and major commercial assets, our work helps buyers, occupiers and investors understand the opportunity faster.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link href="/commercial-property-video-production-sydney" className="btn-outline">
+                Commercial Property Video
+              </Link>
+              <Link href="/industrial-warehouse-property-video" className="btn-outline">
+                Industrial & Warehouse
+              </Link>
+              <Link href="/commercial-property-photography-drone" className="btn-outline">
+                Photography & Drone
+              </Link>
+              <Link href="/hotel-hospitality-property-video" className="btn-outline">
+                Hotel & Hospitality
+              </Link>
+              <Link href="/case-studies" className="btn-outline">
+                Case Studies
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -226,6 +259,7 @@ export default function Home() {
                         style={{ transform: 'scale(1.2)' }}
                         frameBorder="0"
                         allow="autoplay"
+                        title={`${work.title} commercial property campaign video`}
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
                     </div>
@@ -237,9 +271,12 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="text-center mt-10">
+            <div className="text-center mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/portfolio" className="btn-outline">
                 View Full Portfolio
+              </Link>
+              <Link href="/case-studies" className="btn-outline">
+                Case Studies
               </Link>
             </div>
           </div>
@@ -273,19 +310,19 @@ export default function Home() {
             <h2 className="font-serif text-xl text-center mb-10 text-soft-grey">Trusted by leading brands</h2>
             <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
               <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={jllLogo} alt="JLL" className="h-8 md:h-10 w-auto object-contain" />
+                <img src={jllLogo} alt="JLL commercial property video client" className="h-8 md:h-10 w-auto object-contain" />
               </div>
               <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={cbreLogo} alt="CBRE" className="h-6 md:h-8 w-auto object-contain" />
+                <img src={cbreLogo} alt="CBRE industrial warehouse property video client" className="h-6 md:h-8 w-auto object-contain" />
               </div>
               <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={rydgesLogo} alt="Rydges Hotels & Resorts" className="h-8 md:h-10 w-auto object-contain" />
+                <img src={rydgesLogo} alt="Rydges Hotels hospitality property video client" className="h-8 md:h-10 w-auto object-contain" />
               </div>
               <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={arissaLogo} alt="Arissa" className="h-6 md:h-8 w-auto object-contain" />
+                <img src={arissaLogo} alt="Arissa commercial property campaign client" className="h-6 md:h-8 w-auto object-contain" />
               </div>
               <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={asheMorganLogo} alt="Ashe Morgan" className="h-8 md:h-10 w-auto object-contain" />
+                <img src={asheMorganLogo} alt="Ashe Morgan commercial property video client" className="h-8 md:h-10 w-auto object-contain" />
               </div>
             </div>
           </div>
@@ -309,15 +346,24 @@ export default function Home() {
       </main>
 
       <footer className="py-8 section-border text-center text-soft-grey text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div data-testid="text-footer-copyright">
-            © {new Date().getFullYear()} One Now Two — Sydney, Australia
+        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <Link href="/commercial-property-video-production-sydney" className="hover:text-white transition-colors">Commercial Property Video</Link>
+            <Link href="/industrial-warehouse-property-video" className="hover:text-white transition-colors">Industrial & Warehouse</Link>
+            <Link href="/commercial-property-photography-drone" className="hover:text-white transition-colors">Photography & Drone</Link>
+            <Link href="/hotel-hospitality-property-video" className="hover:text-white transition-colors">Hotel & Hospitality</Link>
+            <Link href="/case-studies" className="hover:text-white transition-colors">Case Studies</Link>
           </div>
-          <div className="flex gap-6">
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div data-testid="text-footer-copyright">
+              © {new Date().getFullYear()} One Now Two — Sydney, Australia
+            </div>
+            <div className="flex gap-6">
+              <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+              <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
+              <Link href="/about" className="hover:text-white transition-colors">About</Link>
+              <Link href="/enquire" className="hover:text-white transition-colors">Enquire</Link>
+            </div>
           </div>
         </div>
       </footer>
@@ -346,6 +392,7 @@ export default function Home() {
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               data-testid="iframe-video-player"
+              title={`${selectedVideo.title} commercial property campaign video`}
             />
           </div>
         </div>

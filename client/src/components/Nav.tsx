@@ -3,8 +3,12 @@ import { Link } from "wouter";
 import logoUrl from "../assets/logo.png";
 
 const serviceLinks = [
+  { href: "/commercial-property-video-production-sydney", label: "Commercial Property Video" },
+  { href: "/industrial-warehouse-property-video", label: "Industrial & Warehouse" },
+  { href: "/commercial-property-photography-drone", label: "Photography & Drone" },
+  { href: "/hotel-hospitality-property-video", label: "Hotel & Hospitality" },
   { href: "/commercial-office-video-sydney", label: "Commercial Office Video" },
-  { href: "/industrial-warehouse-video-sydney", label: "Industrial & Warehouse Video" },
+  { href: "/industrial-warehouse-video-sydney", label: "Industrial Video (Sydney)" },
   { href: "/development-marketing-video-sydney", label: "Development Marketing Video" },
   { href: "/drone-aerial-property-video-sydney", label: "Drone & Aerial Filming" },
 ];
@@ -72,6 +76,7 @@ export default function Nav() {
 
             <Link href="/services" className="text-off-white hover:text-white transition-colors">Packages</Link>
             <Link href="/portfolio" className="text-off-white hover:text-white transition-colors">Portfolio</Link>
+            <Link href="/case-studies" className="text-off-white hover:text-white transition-colors">Case Studies</Link>
             <Link href="/blog" className="text-off-white hover:text-white transition-colors">Blog</Link>
             <Link href="/about" className="text-off-white hover:text-white transition-colors">About</Link>
             <Link href="/enquire" className="btn-outline" data-testid="button-enquire-header">Enquire</Link>
@@ -112,6 +117,7 @@ export default function Nav() {
             <div className="pt-2 border-t border-[var(--hairline)] mt-2 space-y-1">
               <Link href="/services" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Packages</Link>
               <Link href="/portfolio" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Portfolio</Link>
+              <Link href="/case-studies" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Case Studies</Link>
               <Link href="/blog" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Blog</Link>
               <Link href="/about" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>About</Link>
               <Link href="/enquire" className="block px-2 py-2 text-off-white hover:text-white transition-colors no-underline" onClick={() => setMobileOpen(false)}>Enquire</Link>
