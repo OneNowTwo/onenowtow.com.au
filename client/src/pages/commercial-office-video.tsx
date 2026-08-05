@@ -83,7 +83,7 @@ export default function CommercialOfficeVideo() {
           <div className="mt-12 pt-8 border-t border-[var(--hairline)]">
             <p className="text-soft-grey text-sm mb-4">Other services:</p>
             <div className="flex flex-wrap gap-4 text-sm">
-              <Link href="/industrial-warehouse-video-sydney" className="text-soft-grey hover:text-white transition-colors">Industrial &amp; Warehouse Video</Link>
+              <Link href="/industrial-warehouse-property-video" className="text-soft-grey hover:text-white transition-colors">Industrial &amp; Warehouse Video</Link>
               <Link href="/development-marketing-video-sydney" className="text-soft-grey hover:text-white transition-colors">Development Marketing Video</Link>
               <Link href="/drone-aerial-property-video-sydney" className="text-soft-grey hover:text-white transition-colors">Drone &amp; Aerial Filming</Link>
             </div>

@@ -39,14 +39,14 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "the-yards",
-    title: "The Yards",
-    sector: "Commercial / Precinct",
-    location: "Sydney",
+    title: "The Yards, Kemps Creek",
+    sector: "Industrial / Precinct",
+    location: "Kemps Creek, Western Sydney",
     campaignGoal:
-      "Capture the character and opportunity of the precinct for campaign and sales communications.",
+      "Capture the character and opportunity of the industrial precinct for campaign and sales communications.",
     whatVideoNeeded:
       "The film needed to explain how the asset sits in context — movement, atmosphere and the story of the place — not just façade and floor plate.",
-    body: "Stills can document an asset. Video helps audiences understand why it matters. For The Yards, the campaign film brought scale, location and opportunity into a single, clear narrative for buyers and stakeholders.",
+    body: "Stills can document an asset. Video helps audiences understand why it matters. For The Yards at Kemps Creek, the campaign film brought scale, location and opportunity into a single, clear narrative for buyers and stakeholders.",
     deliverables: [
       "Campaign hero video",
       "Drone footage",
@@ -54,10 +54,10 @@ export const caseStudies: CaseStudy[] = [
       "Motion graphics",
     ],
     vimeoId: "1215685136",
-    relatedServiceHref: "/commercial-property-video-production-sydney",
-    relatedServiceLabel: "Commercial Property Video",
+    relatedServiceHref: "/industrial-warehouse-property-video",
+    relatedServiceLabel: "Industrial & Warehouse Video",
     metaDescription:
-      "Commercial property video case study for The Yards. Campaign film for precinct storytelling, scale and opportunity.",
+      "Industrial property video case study for The Yards, Kemps Creek. Campaign film for precinct storytelling, scale and opportunity in Western Sydney.",
   },
   {
     slug: "emu-plains-industrial",

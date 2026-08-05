@@ -17,7 +17,6 @@ import HotelHospitalityVideo from "@/pages/hotel-hospitality-video";
 import CaseStudies from "@/pages/case-studies";
 import CaseStudyDetail from "@/pages/case-study-detail";
 import CommercialOfficeVideo from "@/pages/commercial-office-video";
-import IndustrialWarehouseVideo from "@/pages/industrial-warehouse-video";
 import DevelopmentMarketingVideo from "@/pages/development-marketing-video";
 import DroneAerialVideo from "@/pages/drone-aerial-video";
 import BlogCommercialPropertyVideo from "@/pages/blog-commercial-property-video";
@@ -42,7 +41,6 @@ function Router() {
       <Route path="/enquire" component={Enquire} />
       <Route path="/thanks" component={Thanks} />
       <Route path="/commercial-office-video-sydney" component={CommercialOfficeVideo} />
-      <Route path="/industrial-warehouse-video-sydney" component={IndustrialWarehouseVideo} />
       <Route path="/development-marketing-video-sydney" component={DevelopmentMarketingVideo} />
       <Route path="/drone-aerial-property-video-sydney" component={DroneAerialVideo} />
       <Route path="/blog" component={Blog} />

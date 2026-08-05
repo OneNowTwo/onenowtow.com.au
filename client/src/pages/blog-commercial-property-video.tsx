@@ -115,7 +115,7 @@ export default function BlogCommercialPropertyVideo() {
             <p className="text-soft-grey text-sm mb-4">Our services:</p>
             <div className="flex flex-wrap gap-4 text-sm">
               <Link href="/commercial-office-video-sydney" className="text-soft-grey hover:text-white transition-colors">Commercial Office Video</Link>
-              <Link href="/industrial-warehouse-video-sydney" className="text-soft-grey hover:text-white transition-colors">Industrial &amp; Warehouse Video</Link>
+              <Link href="/industrial-warehouse-property-video" className="text-soft-grey hover:text-white transition-colors">Industrial &amp; Warehouse Video</Link>
               <Link href="/development-marketing-video-sydney" className="text-soft-grey hover:text-white transition-colors">Development Marketing Video</Link>
               <Link href="/drone-aerial-property-video-sydney" className="text-soft-grey hover:text-white transition-colors">Drone &amp; Aerial Filming</Link>
             </div>

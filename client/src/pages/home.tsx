@@ -217,7 +217,7 @@ export default function Home() {
                 <p className="text-soft-grey text-sm mb-4">Cinematic video production for office buildings, from boutique suites to CBD towers.</p>
                 <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>
               </Link>
-              <Link href="/industrial-warehouse-video-sydney" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
+              <Link href="/industrial-warehouse-property-video" className="p-6 border border-[var(--hairline)] rounded-lg group hover:border-white/30 transition-colors no-underline block">
                 <h3 className="font-serif text-xl mb-3 group-hover:text-white transition-colors">Industrial &amp; Warehouse Video</h3>
                 <p className="text-soft-grey text-sm mb-4">Video production for warehouses, logistics facilities, and industrial estates across Sydney.</p>
                 <span className="text-soft-grey text-sm group-hover:text-white transition-colors">→ Learn more</span>

@@ -8,7 +8,6 @@ const serviceLinks = [
   { href: "/commercial-property-photography-drone", label: "Photography & Drone" },
   { href: "/hotel-hospitality-property-video", label: "Hotel & Hospitality" },
   { href: "/commercial-office-video-sydney", label: "Commercial Office Video" },
-  { href: "/industrial-warehouse-video-sydney", label: "Industrial Video (Sydney)" },
   { href: "/development-marketing-video-sydney", label: "Development Marketing Video" },
   { href: "/drone-aerial-property-video-sydney", label: "Drone & Aerial Filming" },
 ];
