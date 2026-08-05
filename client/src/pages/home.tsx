@@ -30,50 +30,52 @@ function HeroSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const videoProps = {
-    autoPlay: true,
-    muted: true,
-    loop: true,
-    playsInline: true,
-    preload: "metadata" as const,
-    poster: "/media/hero/hero-poster.jpg",
-    onLoadedData: () => {
-      setTimeout(() => setVideoLoaded(true), 150);
-    },
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-[var(--navy)]" />
+      <div className="absolute inset-0 bg-black" />
       
       {isMobile ? (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-full aspect-video">
             <video
-              {...videoProps}
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full h-full object-contain hero-iframe"
               style={{ 
                 opacity: videoLoaded ? 1 : 0,
-                transition: 'opacity 0.8s ease-in-out',
+                transition: 'opacity 1.5s ease-in-out',
+                filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
+              }}
+              onLoadedData={() => {
+                setTimeout(() => setVideoLoaded(true), 300);
               }}
             >
-              <source src="/media/hero/hero-portfolio-web.mp4" type="video/mp4" />
+              <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
       ) : (
         <video
-          {...videoProps}
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover hero-iframe"
           style={{ 
             opacity: videoLoaded ? 1 : 0,
-            transition: 'opacity 0.8s ease-in-out',
+            transition: 'opacity 1.5s ease-in-out',
+            filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
+          }}
+          onLoadedData={() => {
+            setTimeout(() => setVideoLoaded(true), 300);
           }}
         >
-          <source src="/media/hero/hero-portfolio-web.mp4" type="video/mp4" />
+          <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
         </video>
       )}
-      <div className="absolute inset-0 bg-black/25"></div>
+      <div className="absolute inset-0 bg-black/20"></div>
       
       <div className="relative text-center px-6">
         <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
