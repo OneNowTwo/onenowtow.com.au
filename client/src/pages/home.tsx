@@ -52,7 +52,7 @@ function HeroSection() {
                 setTimeout(() => setVideoLoaded(true), 300);
               }}
             >
-              <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
+              <source src="/media/hero/property-portfolio-aug26-short.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -72,7 +72,7 @@ function HeroSection() {
             setTimeout(() => setVideoLoaded(true), 300);
           }}
         >
-          <source src="/media/hero/Property Portfolio Shorter.mp4" type="video/mp4" />
+          <source src="/media/hero/property-portfolio-aug26-short.mp4" type="video/mp4" />
         </video>
       )}
       <div className="absolute inset-0 bg-black/20"></div>
