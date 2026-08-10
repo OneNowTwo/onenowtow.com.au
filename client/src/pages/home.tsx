@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 import { SiteFooter } from "@/components/SiteChrome";
@@ -17,95 +17,76 @@ import asheMorganLogo from "@assets/sponslogos4_1769577580217.png";
 import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 
 function HeroSection() {
-  const [isMobile, setIsMobile] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-black" />
-      
-      {isMobile ? (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-full aspect-video">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-contain hero-iframe"
-              style={{ 
-                opacity: videoLoaded ? 1 : 0,
-                transition: 'opacity 1.5s ease-in-out',
-                filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
-              }}
-              onLoadedData={() => {
-                setTimeout(() => setVideoLoaded(true), 300);
-              }}
+    <>
+      <section className="relative bg-black overflow-hidden">
+        <div className="relative w-full aspect-video md:aspect-auto md:min-h-[70vh] lg:min-h-screen">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover hero-iframe"
+            style={{
+              opacity: videoLoaded ? 1 : 0,
+              transition: "opacity 1.5s ease-in-out",
+              filter: "saturate(0.9) contrast(1.05) brightness(1.0)",
+            }}
+            onLoadedData={() => {
+              setTimeout(() => setVideoLoaded(true), 300);
+            }}
+          >
+            <source
+              src="/media/hero/property-portfolio-aug26-short.mp4?v=20260810"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 section-border">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h1
+            className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-5 text-[var(--ink)]"
+            data-testid="text-hero-title"
+          >
+            Commercial property video for assets that need more than stills
+          </h1>
+          <p
+            className="text-soft-grey text-lg md:text-xl leading-relaxed mb-6"
+            data-testid="text-hero-subtitle"
+          >
+            One Now Two creates cinematic campaign content for commercial
+            property teams across industrial, retail, hospitality, tourism and
+            development projects.
+          </p>
+          <div
+            className="text-sm text-soft-grey tracking-wider uppercase mb-8"
+            data-testid="text-hero-location"
+          >
+            Sydney • Australia-Wide
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
+            <Link
+              href="/enquire"
+              className="btn-primary"
+              data-testid="button-hero-quote"
             >
-              <source src="/media/hero/property-portfolio-aug26-short.mp4?v=20260810" type="video/mp4" />
-            </video>
+              Enquire
+            </Link>
+            <Link
+              href="/portfolio"
+              className="btn-outline"
+              data-testid="button-hero-portfolio"
+            >
+              View Portfolio
+            </Link>
           </div>
         </div>
-      ) : (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover hero-iframe"
-          style={{ 
-            opacity: videoLoaded ? 1 : 0,
-            transition: 'opacity 1.5s ease-in-out',
-            filter: 'saturate(0.9) contrast(1.05) brightness(1.0)'
-          }}
-          onLoadedData={() => {
-            setTimeout(() => setVideoLoaded(true), 300);
-          }}
-        >
-          <source src="/media/hero/property-portfolio-aug26-short.mp4?v=20260810" type="video/mp4" />
-        </video>
-      )}
-      <div className="absolute inset-0 bg-black/20"></div>
-      
-      <div className="relative text-center px-6">
-        <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-4 text-white" data-testid="text-hero-title">
-          Commercial property video for assets that need more than stills
-        </h1>
-        <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto mb-8" data-testid="text-hero-subtitle">
-          One Now Two creates cinematic campaign content for commercial property teams across industrial, retail, hospitality, tourism and development projects.
-        </p>
-        <div className="text-sm text-white/70 tracking-wider uppercase mb-8" data-testid="text-hero-location">
-          Sydney • Australia-Wide
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-          <Link 
-            href="/enquire" 
-            className="btn-primary"
-            data-testid="button-hero-quote"
-          >
-            Enquire
-          </Link>
-          <Link 
-            href="/portfolio" 
-            className="btn-outline-light"
-            data-testid="button-hero-portfolio"
-          >
-            View Portfolio
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
