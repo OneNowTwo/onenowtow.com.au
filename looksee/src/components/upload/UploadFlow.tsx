@@ -22,6 +22,7 @@ import {
   TARGET_VIDEO_MIN_SECONDS,
   videoCategories,
 } from "@/lib/validation/upload";
+import { isoDateDaysAgo, UPLOAD_LIMITS } from "@/lib/uploads/limits";
 import { cn } from "@/lib/utils/cn";
 
 type Step =
@@ -502,7 +503,8 @@ export function UploadFlow({ initialHostels }: Props) {
 
           <p className="mt-5 text-xs text-muted">
             Target {TARGET_VIDEO_MIN_SECONDS}–{TARGET_VIDEO_MAX_SECONDS}s · max{" "}
-            {MAX_VIDEO_SECONDS}s
+            {MAX_VIDEO_SECONDS}s · filmed in the last {UPLOAD_LIMITS.filmedWithinDays}{" "}
+            days · up to {UPLOAD_LIMITS.perDay}/day
           </p>
 
           <input
@@ -580,6 +582,7 @@ export function UploadFlow({ initialHostels }: Props) {
             <input
               type="date"
               value={filmedAt}
+              min={isoDateDaysAgo(UPLOAD_LIMITS.filmedWithinDays)}
               max={todayIsoDate()}
               onChange={(e) => setFilmedAt(e.target.value)}
               className="mt-2 h-11 w-full rounded-xl bg-card px-3 text-sm outline-none ring-1 ring-border"

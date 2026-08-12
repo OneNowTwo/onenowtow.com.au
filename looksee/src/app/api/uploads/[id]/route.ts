@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { AuthError, requireAuthUserId } from "@/lib/auth/session";
 import { getVideoById, patchVideo, submitVideoMetadata, syncVideoStatusFromMux } from "@/lib/db/videos";
 import { submitMetadataSchema } from "@/lib/validation/mvp";
+import { filmedAtLimitError } from "@/lib/uploads/limits";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -38,6 +39,11 @@ export async function PATCH(request: Request, { params }: Params) {
         { error: parsed.error.issues[0]?.message ?? "Invalid metadata" },
         { status: 400 },
       );
+    }
+
+    const filmedError = filmedAtLimitError(parsed.data.filmedAt);
+    if (filmedError) {
+      return NextResponse.json({ error: filmedError }, { status: 400 });
     }
 
     const video = await submitVideoMetadata({

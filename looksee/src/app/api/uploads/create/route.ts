@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { AuthError, requireAuthUserId } from "@/lib/auth/session";
 import { createDirectUpload, isMuxConfigured } from "@/lib/mux/client";
-import { createUploadVideoBeforeMux, patchVideo } from "@/lib/db/videos";
+import { createUploadVideoBeforeMux, listVideosForUser, patchVideo } from "@/lib/db/videos";
 import { resolveHostelIdForUpload } from "@/lib/db/hostels";
 import {
   allowLocalDataStore,
@@ -9,6 +9,7 @@ import {
   isSupabaseAdminConfigured,
 } from "@/lib/env";
 import { createUploadSchema } from "@/lib/validation/mvp";
+import { assertCanCreateUpload, UploadLimitError } from "@/lib/uploads/limits";
 
 export async function POST(request: Request) {
   try {
@@ -61,6 +62,14 @@ export async function POST(request: Request) {
 
     const filmedAt = parsed.data.filmedAt ?? new Date().toISOString().slice(0, 10);
 
+    const existing = await listVideosForUser(userId);
+    assertCanCreateUpload(existing, {
+      userId,
+      hostelId,
+      category: parsed.data.category,
+      filmedAt,
+    });
+
     const video = await createUploadVideoBeforeMux({
       userId,
       hostelId,
@@ -86,6 +95,9 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     if (error instanceof AuthError) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
+    }
+    if (error instanceof UploadLimitError) {
       return NextResponse.json({ error: error.message }, { status: error.status });
     }
     const message =

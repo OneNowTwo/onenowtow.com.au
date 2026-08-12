@@ -7,6 +7,7 @@ import {
   destinationSlugsWithAffiliates,
   POINTS_EARN,
 } from "@/lib/rewards/catalog";
+import { uploadLimitError } from "@/lib/uploads/limits";
 import type { Hostel, PointsTransaction } from "@/lib/types/database";
 
 describe("shouldApplyStatus", () => {
@@ -118,5 +119,76 @@ describe("hostel id mapping", () => {
     expect(
       videoBelongsToHostel("122fd7c4-c877-43f9-9907-d2102c11ba79", seedHostel, lookup),
     ).toBe(true);
+  });
+});
+
+describe("upload limits", () => {
+  const now = new Date("2026-08-13T02:00:00.000Z");
+  const base = {
+    user_id: "user-1",
+    hostel_id: "hostel-1",
+    category: "dorm",
+    status: "pending",
+    created_at: "2026-08-13T01:00:00.000Z",
+  };
+
+  it("allows a first Looksee filmed today", () => {
+    expect(
+      uploadLimitError([], {
+        userId: "user-1",
+        hostelId: "hostel-1",
+        category: "dorm",
+        filmedAt: "2026-08-13",
+      }, now),
+    ).toBeNull();
+  });
+
+  it("blocks filmed dates older than 14 days", () => {
+    expect(
+      uploadLimitError([], {
+        userId: "user-1",
+        hostelId: "hostel-1",
+        category: "dorm",
+        filmedAt: "2026-07-01",
+      }, now),
+    ).toMatch(/last 14 days/);
+  });
+
+  it("caps three uploads per day", () => {
+    const videos = [1, 2, 3].map((i) => ({
+      ...base,
+      category: i === 1 ? "dorm" : i === 2 ? "bathroom" : "kitchen",
+      created_at: `2026-08-13T0${i}:00:00.000Z`,
+    }));
+    expect(
+      uploadLimitError(videos, {
+        userId: "user-1",
+        hostelId: "hostel-1",
+        category: "common_area",
+        filmedAt: "2026-08-13",
+      }, now),
+    ).toMatch(/3 Looksees a day/);
+  });
+
+  it("blocks a second clip of the same hostel area", () => {
+    expect(
+      uploadLimitError([base], {
+        userId: "user-1",
+        hostelId: "hostel-1",
+        category: "dorm",
+        filmedAt: "2026-08-13",
+      }, now),
+    ).toMatch(/dorm/);
+  });
+
+  it("ignores rejected videos when counting hostel caps", () => {
+    expect(
+      uploadLimitError([{ ...base, status: "rejected" }], {
+        userId: "user-1",
+        hostelId: "hostel-1",
+        category: "dorm",
+        filmedAt: "2026-08-13",
+      }, now),
+    ).toBeNull();
   });
 });

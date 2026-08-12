@@ -387,7 +387,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Who can upload?",
-    a: "Anyone who’s actually staying (or just stayed) at the hostel. Film recent, unfiltered walkthroughs. We review before videos go public, and before points land.",
+    a: "Anyone who’s actually staying (or just stayed) at the hostel. Film in the last 14 days. Cap is 3 Looksees a day, 3 per hostel every 14 days, and one clip per area (dorm, bathroom, kitchen…) so the queue doesn’t fill with spam. We review before videos go public, and before points land.",
   },
   {
     q: "Do hostels pay for this?",
