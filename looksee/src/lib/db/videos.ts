@@ -295,12 +295,9 @@ export async function syncVideoStatusFromMux(videoId: string): Promise<Video | n
     }
 
     if (!assetId || !asset) {
-      if (video.status === "uploading") return video;
-      return applyWebhookUpdate({
-        videoId: video.id,
-        muxUploadId: video.mux_upload_id,
-        status: "processing",
-      });
+      throw new Error(
+        `Mux upload is ${upload.status} with no asset yet (asset_id=${upload.asset_id ?? "null"})`,
+      );
     }
 
     const errors = (asset as { errors?: { messages?: string[] } }).errors;
@@ -319,7 +316,7 @@ export async function syncVideoStatusFromMux(videoId: string): Promise<Video | n
     });
   } catch (error) {
     console.error("[syncVideoStatusFromMux]", videoId, error);
-    return video;
+    throw error;
   }
 }
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { applyWebhookUpdate } from "@/lib/db/videos";
-import { getMuxConfigStatus, verifyMuxWebhook } from "@/lib/mux/client";
+import { applyWebhookUpdate, listUploadedVideos, syncStaleMuxVideosWithReport } from "@/lib/db/videos";
+import { getMuxConfigStatus, probeMuxApi, verifyMuxWebhook } from "@/lib/mux/client";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -79,10 +79,21 @@ async function handleMuxEvent(event: MuxWebhookEvent): Promise<void> {
 
 export async function GET() {
   const mux = getMuxConfigStatus();
+  const probe = await probeMuxApi();
+  let repaired: Awaited<ReturnType<typeof syncStaleMuxVideosWithReport>>["results"] = [];
+
+  if (probe.ok) {
+    const videos = await listUploadedVideos();
+    const report = await syncStaleMuxVideosWithReport(videos);
+    repaired = report.results;
+  }
+
   return NextResponse.json({
-    ok: true,
+    ok: probe.ok,
     route: "/api/webhooks/mux",
     mux,
+    probe,
+    repaired,
     webhookSecretConfigured: mux.webhookSecretPresent,
   });
 }

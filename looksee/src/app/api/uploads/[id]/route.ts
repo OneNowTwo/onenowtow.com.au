@@ -70,7 +70,11 @@ export async function GET(_request: Request, { params }: Params) {
     }
 
     if (video.status === "uploading" || video.status === "processing") {
-      video = (await syncVideoStatusFromMux(id)) ?? video;
+      try {
+        video = (await syncVideoStatusFromMux(id)) ?? video;
+      } catch (error) {
+        console.error("[uploads/status]", id, error);
+      }
     }
     if (video.user_id !== userId) {
       const { getSessionUser } = await import("@/lib/auth/session");

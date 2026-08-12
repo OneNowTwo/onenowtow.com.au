@@ -8,6 +8,7 @@ export type MuxDirectUpload = {
 function requireMuxCredentials() {
   const tokenId = process.env.MUX_TOKEN_ID?.trim();
   const tokenSecret = process.env.MUX_TOKEN_SECRET?.trim();
+  const webhookSecret = process.env.MUX_WEBHOOK_SECRET?.trim();
 
   if (!tokenId || !tokenSecret) {
     throw new Error(
@@ -15,12 +16,12 @@ function requireMuxCredentials() {
     );
   }
 
-  return { tokenId, tokenSecret };
+  return { tokenId, tokenSecret, webhookSecret };
 }
 
 export function getMuxClient(): Mux {
-  const { tokenId, tokenSecret } = requireMuxCredentials();
-  return new Mux({ tokenId, tokenSecret });
+  const { tokenId, tokenSecret, webhookSecret } = requireMuxCredentials();
+  return new Mux({ tokenId, tokenSecret, webhookSecret });
 }
 
 export function isMuxConfigured(): boolean {
@@ -40,10 +41,24 @@ export function getMuxConfigStatus() {
     tokenIdPresent: Boolean(tokenId),
     tokenSecretPresent: Boolean(tokenSecret),
     webhookSecretPresent: Boolean(webhookSecret),
-    tokenIdLooksLikeSecret: tokenId.startsWith("sk_"),
-    tokenSecretLooksLikeSecret: tokenSecret.startsWith("sk_"),
     webhookSecretLooksLikeUrl: /^https?:\/\//i.test(webhookSecret),
   };
+}
+
+export async function probeMuxApi(): Promise<{ ok: boolean; error?: string }> {
+  if (!isMuxConfigured()) {
+    return { ok: false, error: "MUX_TOKEN_ID or MUX_TOKEN_SECRET is missing" };
+  }
+
+  try {
+    const mux = getMuxClient();
+    await mux.video.assets.list({ limit: 1 });
+    return { ok: true };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Mux API request failed";
+    console.error("[probeMuxApi]", message);
+    return { ok: false, error: message };
+  }
 }
 
 export async function createDirectUpload(options: {
