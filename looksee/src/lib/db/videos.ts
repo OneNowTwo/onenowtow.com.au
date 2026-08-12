@@ -3,7 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { allowLocalDataStore, isSupabaseConfigured } from "@/lib/env";
 import { isValidUuid } from "@/lib/utils/uuid";
-import { getMuxClient, isMuxConfigured } from "@/lib/mux/client";
+import { getMuxClient, getMuxConfigStatus, isMuxConfigured } from "@/lib/mux/client";
 import { awardPointsAdmin } from "@/lib/db/points";
 import {
   createLocalSuggestion,
@@ -290,7 +290,7 @@ export async function syncVideoStatusFromMux(videoId: string): Promise<Video | n
     if (assetId) {
       asset = await mux.video.assets.retrieve(assetId);
     } else {
-      asset = await findMuxAssetByPassthrough(mux, video.id);
+      asset = await findMuxAssetForVideo(mux, video.mux_upload_id, video.id);
       assetId = asset?.id ?? null;
     }
 
@@ -323,32 +323,90 @@ export async function syncVideoStatusFromMux(videoId: string): Promise<Video | n
   }
 }
 
-async function findMuxAssetByPassthrough(
+type MuxAssetRef = { id: string; status?: string; playback_ids?: MuxPlaybackRef[] };
+
+async function findMuxAssetForVideo(
   mux: ReturnType<typeof getMuxClient>,
+  uploadId: string,
   videoId: string,
-): Promise<{ id: string; status?: string; playback_ids?: MuxPlaybackRef[] } | null> {
+): Promise<MuxAssetRef | null> {
+  for await (const asset of mux.video.assets.list({ upload_id: uploadId, limit: 5 })) {
+    return asset;
+  }
+
   for await (const asset of mux.video.assets.list({ limit: 100 })) {
     if (asset.passthrough === videoId) return asset;
   }
+
   return null;
 }
 
-export async function syncStaleMuxVideos(videos: Video[]): Promise<void> {
+export type MuxSyncReport = {
+  mux: ReturnType<typeof getMuxConfigStatus>;
+  results: Array<{
+    id: string;
+    before: Pick<Video, "status" | "mux_asset_id" | "mux_playback_id">;
+    after: Pick<Video, "status" | "mux_asset_id" | "mux_playback_id">;
+    error?: string;
+  }>;
+};
+
+export async function syncStaleMuxVideosWithReport(
+  videos: Video[],
+): Promise<MuxSyncReport> {
   const stale = videos.filter(
     (v) =>
       (v.status === "uploading" || v.status === "processing") && Boolean(v.mux_upload_id),
   );
-  if (stale.length === 0) return;
 
-  await Promise.all(
-    stale.map(async (v) => {
-      try {
-        await syncVideoStatusFromMux(v.id);
-      } catch (error) {
-        console.error("[syncStaleMuxVideos]", v.id, error);
-      }
-    }),
-  );
+  const results: MuxSyncReport["results"] = [];
+
+  for (const video of stale) {
+    const before = {
+      status: video.status,
+      mux_asset_id: video.mux_asset_id,
+      mux_playback_id: video.mux_playback_id,
+    };
+
+    try {
+      const updated = await syncVideoStatusFromMux(video.id);
+      const afterVideo = updated ?? video;
+      const after = {
+        status: afterVideo.status,
+        mux_asset_id: afterVideo.mux_asset_id,
+        mux_playback_id: afterVideo.mux_playback_id,
+      };
+      const unchanged =
+        before.status === after.status &&
+        before.mux_asset_id === after.mux_asset_id &&
+        before.mux_playback_id === after.mux_playback_id;
+
+      results.push({
+        id: video.id,
+        before,
+        after,
+        error:
+          unchanged && isMuxConfigured()
+            ? "Mux asset not found or credentials cannot read this upload"
+            : unchanged && !isMuxConfigured()
+              ? "Mux is not configured on the server"
+              : undefined,
+      });
+    } catch (error) {
+      results.push({
+        id: video.id,
+        before,
+        after: before,
+        error: error instanceof Error ? error.message : "Mux sync failed",
+      });
+    }
+  }
+
+  return { mux: getMuxConfigStatus(), results };
+}
+
+export async function syncStaleMuxVideos(videos: Video[]): Promise<void> {
+  await syncStaleMuxVideosWithReport(videos);
 }
 
 export async function submitVideoMetadata(input: {

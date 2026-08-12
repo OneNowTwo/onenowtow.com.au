@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { applyWebhookUpdate } from "@/lib/db/videos";
-import { verifyMuxWebhook } from "@/lib/mux/client";
+import { getMuxConfigStatus, verifyMuxWebhook } from "@/lib/mux/client";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -78,10 +78,12 @@ async function handleMuxEvent(event: MuxWebhookEvent): Promise<void> {
 }
 
 export async function GET() {
+  const mux = getMuxConfigStatus();
   return NextResponse.json({
     ok: true,
     route: "/api/webhooks/mux",
-    webhookSecretConfigured: Boolean(process.env.MUX_WEBHOOK_SECRET),
+    mux,
+    webhookSecretConfigured: mux.webhookSecretPresent,
   });
 }
 

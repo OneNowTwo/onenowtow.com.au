@@ -6,8 +6,8 @@ export type MuxDirectUpload = {
 };
 
 function requireMuxCredentials() {
-  const tokenId = process.env.MUX_TOKEN_ID;
-  const tokenSecret = process.env.MUX_TOKEN_SECRET;
+  const tokenId = process.env.MUX_TOKEN_ID?.trim();
+  const tokenSecret = process.env.MUX_TOKEN_SECRET?.trim();
 
   if (!tokenId || !tokenSecret) {
     throw new Error(
@@ -24,7 +24,26 @@ export function getMuxClient(): Mux {
 }
 
 export function isMuxConfigured(): boolean {
-  return Boolean(process.env.MUX_TOKEN_ID && process.env.MUX_TOKEN_SECRET);
+  const tokenId = process.env.MUX_TOKEN_ID?.trim();
+  const tokenSecret = process.env.MUX_TOKEN_SECRET?.trim();
+  return Boolean(tokenId && tokenSecret);
+}
+
+/** Safe diagnostics for production health checks — never exposes secret values. */
+export function getMuxConfigStatus() {
+  const tokenId = process.env.MUX_TOKEN_ID?.trim() ?? "";
+  const tokenSecret = process.env.MUX_TOKEN_SECRET?.trim() ?? "";
+  const webhookSecret = process.env.MUX_WEBHOOK_SECRET?.trim() ?? "";
+
+  return {
+    configured: Boolean(tokenId && tokenSecret),
+    tokenIdPresent: Boolean(tokenId),
+    tokenSecretPresent: Boolean(tokenSecret),
+    webhookSecretPresent: Boolean(webhookSecret),
+    tokenIdLooksLikeSecret: tokenId.startsWith("sk_"),
+    tokenSecretLooksLikeSecret: tokenSecret.startsWith("sk_"),
+    webhookSecretLooksLikeUrl: /^https?:\/\//i.test(webhookSecret),
+  };
 }
 
 export async function createDirectUpload(options: {
