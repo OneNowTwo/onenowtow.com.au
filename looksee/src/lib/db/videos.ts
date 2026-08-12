@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { allowLocalDataStore, isSupabaseConfigured } from "@/lib/env";
 import { isValidUuid } from "@/lib/utils/uuid";
+import { getMuxClient, isMuxConfigured } from "@/lib/mux/client";
 import { awardPointsAdmin } from "@/lib/db/points";
 import {
   createLocalSuggestion,
@@ -236,6 +237,86 @@ export async function applyWebhookUpdate(input: {
     status: nextStatus,
     error_message: input.errorMessage ?? null,
   });
+}
+
+type MuxPlaybackRef = { id?: string; policy?: string };
+
+function pickMuxPlaybackId(playbackIds: MuxPlaybackRef[] | undefined): string | null {
+  return (
+    playbackIds?.find((p) => p.policy === "public")?.id ?? playbackIds?.[0]?.id ?? null
+  );
+}
+
+function mapMuxAssetStatus(status: string | undefined): VideoStatus {
+  if (status === "ready") return "ready";
+  if (status === "errored") return "errored";
+  return "processing";
+}
+
+/** Pull asset state from Mux when webhooks were missed or not configured yet. */
+export async function syncVideoStatusFromMux(videoId: string): Promise<Video | null> {
+  if (!isMuxConfigured() || !isSupabaseConfigured()) {
+    return getVideoById(videoId);
+  }
+
+  const video = await getVideoById(videoId);
+  if (!video?.mux_upload_id) return video;
+
+  if (
+    video.mux_playback_id &&
+    (video.status === "ready" ||
+      video.status === "pending" ||
+      video.status === "approved")
+  ) {
+    return video;
+  }
+
+  const mux = getMuxClient();
+  const upload = await mux.video.uploads.retrieve(video.mux_upload_id);
+
+  if (upload.status === "errored") {
+    return applyWebhookUpdate({
+      videoId: video.id,
+      muxUploadId: video.mux_upload_id,
+      status: "errored",
+      errorMessage: upload.error?.message ?? "Mux upload failed",
+    });
+  }
+
+  const assetId = upload.asset_id ?? video.mux_asset_id;
+  if (!assetId) {
+    if (video.status === "uploading") return video;
+    return applyWebhookUpdate({
+      videoId: video.id,
+      muxUploadId: video.mux_upload_id,
+      status: "processing",
+    });
+  }
+
+  const asset = await mux.video.assets.retrieve(assetId);
+  const errors = (asset as { errors?: { messages?: string[] } }).errors;
+  const status = mapMuxAssetStatus(asset.status);
+
+  return applyWebhookUpdate({
+    videoId: video.id,
+    muxUploadId: video.mux_upload_id,
+    muxAssetId: assetId,
+    muxPlaybackId: pickMuxPlaybackId(asset.playback_ids),
+    status,
+    errorMessage:
+      status === "errored"
+        ? errors?.messages?.join("; ") ?? "Mux could not process this video."
+        : null,
+  });
+}
+
+export async function syncStaleMuxVideos(videos: Video[]): Promise<void> {
+  const stale = videos.filter(
+    (v) =>
+      (v.status === "uploading" || v.status === "processing") && Boolean(v.mux_upload_id),
+  );
+  if (stale.length === 0) return;
+  await Promise.all(stale.map((v) => syncVideoStatusFromMux(v.id)));
 }
 
 export async function submitVideoMetadata(input: {

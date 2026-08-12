@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth/session";
-import { listUploadedVideos } from "@/lib/db/videos";
+import { listUploadedVideos, syncStaleMuxVideos } from "@/lib/db/videos";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isSupabaseConfigured } from "@/lib/env";
 import { AdminPendingVideos } from "@/components/admin/AdminPendingVideos";
@@ -22,7 +22,9 @@ export default async function AdminPage({ searchParams }: Props) {
   if (user.profile?.role !== "admin") notFound();
 
   const section = (await searchParams).section ?? "overview";
-  const videos = await listUploadedVideos();
+  let videos = await listUploadedVideos();
+  await syncStaleMuxVideos(videos);
+  videos = await listUploadedVideos();
   const pending = videos.filter((v) => v.status === "pending" || v.status === "ready");
   const approved = videos.filter((v) => v.status === "approved");
 

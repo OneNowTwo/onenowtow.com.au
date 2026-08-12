@@ -62,12 +62,7 @@ export function thumbnailUrl(playbackId: string, time = 1): string {
 export function verifyMuxWebhook(
   rawBody: string,
   headers: Record<string, string | string[] | undefined>,
-): unknown {
-  const secret = process.env.MUX_WEBHOOK_SECRET;
-  if (!secret) {
-    throw new Error("MUX_WEBHOOK_SECRET is not set");
-  }
-
+): Promise<unknown> {
   const mux = getMuxClient();
-  return mux.webhooks.verifySignature(rawBody, headers, secret);
+  return mux.webhooks.unwrap(rawBody, headers);
 }

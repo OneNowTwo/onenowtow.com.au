@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { AuthError, requireAuthUserId } from "@/lib/auth/session";
-import { getVideoById, patchVideo, submitVideoMetadata } from "@/lib/db/videos";
+import { getVideoById, patchVideo, submitVideoMetadata, syncVideoStatusFromMux } from "@/lib/db/videos";
 import { submitMetadataSchema } from "@/lib/validation/mvp";
 
 type Params = { params: Promise<{ id: string }> };
@@ -64,9 +64,13 @@ export async function GET(_request: Request, { params }: Params) {
   try {
     const userId = await requireAuthUserId();
     const { id } = await params;
-    const video = await getVideoById(id);
+    let video = await getVideoById(id);
     if (!video) {
       return NextResponse.json({ error: "Video not found." }, { status: 404 });
+    }
+
+    if (video.status === "uploading" || video.status === "processing") {
+      video = (await syncVideoStatusFromMux(id)) ?? video;
     }
     if (video.user_id !== userId) {
       const { getSessionUser } = await import("@/lib/auth/session");

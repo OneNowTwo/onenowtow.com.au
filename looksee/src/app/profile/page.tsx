@@ -7,7 +7,7 @@ import { HostelCardView } from "@/components/hostel/HostelCard";
 import { getSessionUser } from "@/lib/auth/session";
 import { listPointsForUser, formatPointsLine } from "@/lib/db/points";
 import { listSavedHostels } from "@/lib/db/engagement";
-import { listVideosForUser } from "@/lib/db/videos";
+import { listVideosForUser, syncStaleMuxVideos } from "@/lib/db/videos";
 import { searchHostels } from "@/lib/db/queries";
 import { seedHostelsWithCounts } from "@/lib/seed/data";
 import { ProfileSettingsForm } from "@/components/profile/ProfileSettingsForm";
@@ -26,8 +26,10 @@ export default async function ProfilePage({ searchParams }: Props) {
 
   const tab = (await searchParams).tab ?? "looksees";
   const profile = user.profile;
-  const [videos, points, saves] = await Promise.all([
-    listVideosForUser(user.id),
+  let videos = await listVideosForUser(user.id);
+  await syncStaleMuxVideos(videos);
+  videos = await listVideosForUser(user.id);
+  const [points, saves] = await Promise.all([
     listPointsForUser(user.id),
     listSavedHostels(user.id),
   ]);
