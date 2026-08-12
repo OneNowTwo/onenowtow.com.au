@@ -11,6 +11,7 @@ import { listVideosForUser, syncStaleMuxVideos } from "@/lib/db/videos";
 import { searchHostels } from "@/lib/db/queries";
 import { seedHostelsWithCounts } from "@/lib/seed/data";
 import { ProfileSettingsForm } from "@/components/profile/ProfileSettingsForm";
+import { ProfileVideoSync } from "@/components/profile/ProfileVideoSync";
 import { shortDate } from "@/lib/utils/dates";
 import { CATEGORY_LABELS } from "@/lib/seed/data";
 import type { VideoCategory } from "@/lib/types/database";
@@ -53,6 +54,7 @@ export default async function ProfilePage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-lg px-4 py-8 sm:px-6">
+      <ProfileVideoSync />
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="relative h-16 w-16 overflow-hidden rounded-full bg-muted-bg">

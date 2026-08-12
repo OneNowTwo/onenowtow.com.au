@@ -271,43 +271,66 @@ export async function syncVideoStatusFromMux(videoId: string): Promise<Video | n
     return video;
   }
 
-  const mux = getMuxClient();
-  const upload = await mux.video.uploads.retrieve(video.mux_upload_id);
+  try {
+    const mux = getMuxClient();
+    const upload = await mux.video.uploads.retrieve(video.mux_upload_id);
 
-  if (upload.status === "errored") {
+    if (upload.status === "errored") {
+      return applyWebhookUpdate({
+        videoId: video.id,
+        muxUploadId: video.mux_upload_id,
+        status: "errored",
+        errorMessage: upload.error?.message ?? "Mux upload failed",
+      });
+    }
+
+    let assetId = upload.asset_id ?? video.mux_asset_id ?? null;
+    let asset = null;
+
+    if (assetId) {
+      asset = await mux.video.assets.retrieve(assetId);
+    } else {
+      asset = await findMuxAssetByPassthrough(mux, video.id);
+      assetId = asset?.id ?? null;
+    }
+
+    if (!assetId || !asset) {
+      if (video.status === "uploading") return video;
+      return applyWebhookUpdate({
+        videoId: video.id,
+        muxUploadId: video.mux_upload_id,
+        status: "processing",
+      });
+    }
+
+    const errors = (asset as { errors?: { messages?: string[] } }).errors;
+    const status = mapMuxAssetStatus(asset.status);
+
     return applyWebhookUpdate({
       videoId: video.id,
       muxUploadId: video.mux_upload_id,
-      status: "errored",
-      errorMessage: upload.error?.message ?? "Mux upload failed",
+      muxAssetId: assetId,
+      muxPlaybackId: pickMuxPlaybackId(asset.playback_ids),
+      status,
+      errorMessage:
+        status === "errored"
+          ? errors?.messages?.join("; ") ?? "Mux could not process this video."
+          : null,
     });
+  } catch (error) {
+    console.error("[syncVideoStatusFromMux]", videoId, error);
+    return video;
   }
+}
 
-  const assetId = upload.asset_id ?? video.mux_asset_id;
-  if (!assetId) {
-    if (video.status === "uploading") return video;
-    return applyWebhookUpdate({
-      videoId: video.id,
-      muxUploadId: video.mux_upload_id,
-      status: "processing",
-    });
+async function findMuxAssetByPassthrough(
+  mux: ReturnType<typeof getMuxClient>,
+  videoId: string,
+): Promise<{ id: string; status?: string; playback_ids?: MuxPlaybackRef[] } | null> {
+  for await (const asset of mux.video.assets.list({ limit: 100 })) {
+    if (asset.passthrough === videoId) return asset;
   }
-
-  const asset = await mux.video.assets.retrieve(assetId);
-  const errors = (asset as { errors?: { messages?: string[] } }).errors;
-  const status = mapMuxAssetStatus(asset.status);
-
-  return applyWebhookUpdate({
-    videoId: video.id,
-    muxUploadId: video.mux_upload_id,
-    muxAssetId: assetId,
-    muxPlaybackId: pickMuxPlaybackId(asset.playback_ids),
-    status,
-    errorMessage:
-      status === "errored"
-        ? errors?.messages?.join("; ") ?? "Mux could not process this video."
-        : null,
-  });
+  return null;
 }
 
 export async function syncStaleMuxVideos(videos: Video[]): Promise<void> {
@@ -316,7 +339,16 @@ export async function syncStaleMuxVideos(videos: Video[]): Promise<void> {
       (v.status === "uploading" || v.status === "processing") && Boolean(v.mux_upload_id),
   );
   if (stale.length === 0) return;
-  await Promise.all(stale.map((v) => syncVideoStatusFromMux(v.id)));
+
+  await Promise.all(
+    stale.map(async (v) => {
+      try {
+        await syncVideoStatusFromMux(v.id);
+      } catch (error) {
+        console.error("[syncStaleMuxVideos]", v.id, error);
+      }
+    }),
+  );
 }
 
 export async function submitVideoMetadata(input: {
@@ -572,8 +604,8 @@ export async function listVideosForUser(userId: string): Promise<Video[]> {
   if (!isSupabaseConfigured()) {
     return (await listLocalVideos()).filter((v) => v.user_id === userId);
   }
-  const supabase = await createClient();
-  const { data, error } = await supabase
+  const admin = createAdminClient();
+  const { data, error } = await admin
     .from("videos")
     .select("*")
     .eq("user_id", userId)

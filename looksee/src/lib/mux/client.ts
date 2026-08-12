@@ -36,7 +36,7 @@ export async function createDirectUpload(options: {
   const upload = await mux.video.uploads.create({
     cors_origin: options.corsOrigin,
     new_asset_settings: {
-      playback_policy: ["public"],
+      playback_policies: ["public"],
       passthrough: options.videoId,
     },
   });
