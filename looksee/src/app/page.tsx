@@ -6,6 +6,8 @@ import { VideoCard } from "@/components/video/VideoCard";
 import { getRecentVideos, getTrendingDestinations } from "@/lib/db/queries";
 import { SEARCH_EXAMPLES } from "@/lib/seed/data";
 import { HomepageAnalytics } from "@/components/analytics/PageAnalytics";
+import { FaqList } from "@/components/rewards/FaqList";
+import { PointsPromoBanner } from "@/components/rewards/AffiliateList";
 
 export const dynamic = "force-dynamic";
 
@@ -113,9 +115,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <p className="px-4 pb-8 text-center text-xs text-muted sm:px-6">
-        Real travellers. Recent videos. No marketing spin.
-      </p>
+      <section className="px-4 pb-8 sm:px-6">
+        <PointsPromoBanner />
+      </section>
+
+      <section className="px-4 pb-10 sm:px-6">
+        <h2 className="text-lg font-bold tracking-tight">FAQ</h2>
+        <p className="mt-1 text-sm text-muted">The short version.</p>
+        <div className="mt-4">
+          <FaqList />
+        </div>
+      </section>
     </div>
   );
 }

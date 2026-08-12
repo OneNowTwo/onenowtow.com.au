@@ -90,7 +90,11 @@ export default async function ProfilePage({ searchParams }: Props) {
           <p className="text-[11px] text-muted">Helped travellers</p>
         </div>
       </div>
-      <p className="mt-2 text-xs text-muted">Rewards coming soon</p>
+      <p className="mt-2 text-xs text-muted">
+        <Link href="/points" className="font-semibold text-accent">
+          See what points get you
+        </Link>
+      </p>
 
       <div className="scrollbar-none mt-6 flex gap-2 overflow-x-auto">
         {[
@@ -169,25 +173,33 @@ export default async function ProfilePage({ searchParams }: Props) {
         ) : null}
 
         {tab === "points" ? (
-          points.length === 0 ? (
-            <Empty
-              title="No points activity yet."
-              actionHref="/upload"
-              actionLabel="Earn points by uploading"
-            />
-          ) : (
-            <ul className="space-y-2">
-              {points.map((tx) => (
-                <li
-                  key={tx.id}
-                  className="flex items-center justify-between rounded-xl bg-card px-3 py-3 text-sm ring-1 ring-border"
-                >
-                  <span>{formatPointsLine(tx)}</span>
-                  <span className="text-xs text-muted">{shortDate(tx.created_at)}</span>
-                </li>
-              ))}
-            </ul>
-          )
+          <div className="space-y-4">
+            <Link
+              href="/points"
+              className="block rounded-2xl bg-accent-soft px-4 py-3 text-sm font-semibold text-accent"
+            >
+              What can I spend points on?
+            </Link>
+            {points.length === 0 ? (
+              <Empty
+                title="No points activity yet."
+                actionHref="/upload"
+                actionLabel="Earn points by uploading"
+              />
+            ) : (
+              <ul className="space-y-2">
+                {points.map((tx) => (
+                  <li
+                    key={tx.id}
+                    className="flex items-center justify-between rounded-xl bg-card px-3 py-3 text-sm ring-1 ring-border"
+                  >
+                    <span>{formatPointsLine(tx)}</span>
+                    <span className="text-xs text-muted">{shortDate(tx.created_at)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         ) : null}
 
         {tab === "settings" ? (

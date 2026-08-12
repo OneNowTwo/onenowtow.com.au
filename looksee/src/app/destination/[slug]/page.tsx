@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HostelCardView } from "@/components/hostel/HostelCard";
 import { PageAnalytics } from "@/components/analytics/PageAnalytics";
@@ -8,6 +9,8 @@ import {
   getHostelsByDestination,
   getTrendingDestinations,
 } from "@/lib/db/queries";
+import { affiliatesForDestination } from "@/lib/rewards/catalog";
+import { AffiliateList } from "@/components/rewards/AffiliateList";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -36,6 +39,7 @@ export default async function DestinationPage({ params }: Props) {
 
   const hostels = await getHostelsByDestination(destination.id);
   const recentLooksees = hostels.reduce((sum, h) => sum + h.video_count, 0);
+  const affiliates = affiliatesForDestination(destination.slug);
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -81,6 +85,21 @@ export default async function DestinationPage({ params }: Props) {
         ) : (
           hostels.map((hostel) => <HostelCardView key={hostel.id} hostel={hostel} />)
         )}
+      </section>
+
+      <section className="space-y-3 px-4 pb-10 sm:px-6">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <h2 className="text-lg font-bold tracking-tight">Spend points here</h2>
+            <p className="mt-1 text-sm text-muted">
+              Pubs, clubs, surf and experiences in {destination.name}.
+            </p>
+          </div>
+          <Link href="/points" className="shrink-0 text-sm font-medium text-accent">
+            All rewards
+          </Link>
+        </div>
+        <AffiliateList offers={affiliates} />
       </section>
     </div>
   );

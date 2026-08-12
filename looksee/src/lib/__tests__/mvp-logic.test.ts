@@ -3,6 +3,10 @@ import { shouldApplyStatus } from "@/lib/db/video-store";
 import { indexHostelsByAnyId, videoBelongsToHostel } from "@/lib/db/hostel-ids";
 import { buildRealitySummary } from "@/lib/utils/reality-summary";
 import { formatPointsLine, POINTS_LABELS } from "@/lib/db/points";
+import {
+  destinationSlugsWithAffiliates,
+  POINTS_EARN,
+} from "@/lib/rewards/catalog";
 import type { Hostel, PointsTransaction } from "@/lib/types/database";
 
 describe("shouldApplyStatus", () => {
@@ -69,6 +73,31 @@ describe("points labels", () => {
     };
     expect(formatPointsLine(tx)).toBe("+100 — Hostel video approved");
     expect(POINTS_LABELS.first_upload_bonus).toContain("First");
+  });
+});
+
+describe("points catalog", () => {
+  it("keeps earn amounts aligned with the ledger", () => {
+    const byId = Object.fromEntries(POINTS_EARN.map((row) => [row.id, row.points]));
+    expect(byId.video_approved).toBe(100);
+    expect(byId.first_upload_bonus).toBe(100);
+    expect(byId.helpful_10).toBe(25);
+    expect(byId.helpful_50).toBe(50);
+  });
+
+  it("has affiliates for every east-coast destination", () => {
+    const slugs = destinationSlugsWithAffiliates().map((d) => d.slug);
+    expect(slugs).toEqual(
+      expect.arrayContaining([
+        "sydney",
+        "byron-bay",
+        "gold-coast",
+        "brisbane",
+        "noosa",
+        "airlie-beach",
+        "cairns",
+      ]),
+    );
   });
 });
 
