@@ -1,33 +1,18 @@
 import { NextResponse } from "next/server";
-import { AuthError, requireUser } from "@/lib/auth/session";
+import { AuthError, requireAuthUserId } from "@/lib/auth/session";
 import { createDirectUpload, isMuxConfigured } from "@/lib/mux/client";
 import { createUploadVideoBeforeMux, patchVideo } from "@/lib/db/videos";
+import { resolveHostelIdForUpload } from "@/lib/db/hostels";
 import {
   allowLocalDataStore,
   getAppUrl,
   isSupabaseAdminConfigured,
-  isSupabaseConfigured,
 } from "@/lib/env";
 import { createUploadSchema } from "@/lib/validation/mvp";
-import { seedHostelsWithCounts } from "@/lib/seed/data";
-import { createAdminClient } from "@/lib/supabase/admin";
-
-async function hostelExists(hostelId: string): Promise<boolean> {
-  if (seedHostelsWithCounts.some((h) => h.id === hostelId && h.active)) return true;
-  if (!isSupabaseConfigured()) return false;
-  const admin = createAdminClient();
-  const { data } = await admin
-    .from("hostels")
-    .select("id")
-    .eq("id", hostelId)
-    .eq("active", true)
-    .maybeSingle();
-  return Boolean(data);
-}
 
 export async function POST(request: Request) {
   try {
-    const user = await requireUser();
+    const userId = await requireAuthUserId();
 
     if (!allowLocalDataStore() && !isSupabaseAdminConfigured()) {
       return NextResponse.json(
@@ -69,15 +54,16 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!(await hostelExists(parsed.data.hostelId))) {
+    const hostelId = await resolveHostelIdForUpload(parsed.data.hostelId);
+    if (!hostelId) {
       return NextResponse.json({ error: "That hostel could not be found." }, { status: 404 });
     }
 
     const filmedAt = parsed.data.filmedAt ?? new Date().toISOString().slice(0, 10);
 
     const video = await createUploadVideoBeforeMux({
-      userId: user.id,
-      hostelId: parsed.data.hostelId,
+      userId,
+      hostelId,
       category: parsed.data.category,
       filmedAt,
     });

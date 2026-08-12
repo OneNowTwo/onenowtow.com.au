@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AuthError, requireUser } from "@/lib/auth/session";
+import { AuthError, requireAuthUserId } from "@/lib/auth/session";
 import { getVideoById, patchVideo, submitVideoMetadata } from "@/lib/db/videos";
 import { submitMetadataSchema } from "@/lib/validation/mvp";
 
@@ -7,7 +7,7 @@ type Params = { params: Promise<{ id: string }> };
 
 export async function PATCH(request: Request, { params }: Params) {
   try {
-    const user = await requireUser();
+    const userId = await requireAuthUserId();
     const { id } = await params;
     const body: unknown = await request.json();
     const action =
@@ -19,7 +19,7 @@ export async function PATCH(request: Request, { params }: Params) {
     if (!existing) {
       return NextResponse.json({ error: "Video not found." }, { status: 404 });
     }
-    if (existing.user_id !== user.id) {
+    if (existing.user_id !== userId) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -42,7 +42,7 @@ export async function PATCH(request: Request, { params }: Params) {
 
     const video = await submitVideoMetadata({
       videoId: parsed.data.videoId,
-      userId: user.id,
+      userId,
       caption: parsed.data.caption?.trim() ? parsed.data.caption.trim() : null,
       filmedAt: parsed.data.filmedAt,
       rating: parsed.data.rating,
@@ -62,14 +62,13 @@ export async function PATCH(request: Request, { params }: Params) {
 
 export async function GET(_request: Request, { params }: Params) {
   try {
-    const user = await requireUser();
+    const userId = await requireAuthUserId();
     const { id } = await params;
     const video = await getVideoById(id);
     if (!video) {
       return NextResponse.json({ error: "Video not found." }, { status: 404 });
     }
-    if (video.user_id !== user.id && user) {
-      // owners only for status polling (admins use admin APIs)
+    if (video.user_id !== userId) {
       const { getSessionUser } = await import("@/lib/auth/session");
       const session = await getSessionUser();
       if (session?.profile?.role !== "admin" && video.user_id !== session?.id) {

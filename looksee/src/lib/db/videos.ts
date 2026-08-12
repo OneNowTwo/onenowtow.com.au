@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { allowLocalDataStore, isSupabaseConfigured } from "@/lib/env";
+import { isValidUuid } from "@/lib/utils/uuid";
 import { awardPointsAdmin } from "@/lib/db/points";
 import {
   createLocalSuggestion,
@@ -131,6 +132,13 @@ export async function createUploadVideoBeforeMux(input: {
   category: VideoCategory;
   filmedAt: string;
 }): Promise<Video> {
+  if (!isValidUuid(input.userId)) {
+    throw new Error("Upload requires a signed-in Supabase user (invalid user id).");
+  }
+  if (isSupabaseConfigured() && !isValidUuid(input.hostelId)) {
+    throw new Error("Hostel id must be a valid database UUID.");
+  }
+
   const id = randomUUID();
   const base = {
     id,

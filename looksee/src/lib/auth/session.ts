@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isSupabaseConfigured } from "@/lib/env";
 import type { Profile, UserRole } from "@/lib/types/database";
+import { isValidUuid } from "@/lib/utils/uuid";
 
 export type SessionUser = {
   id: string;
@@ -100,7 +101,26 @@ export async function requireUser(): Promise<SessionUser> {
   if (!user) {
     throw new AuthError("Sign in required");
   }
+  if (!isValidUuid(user.id)) {
+    throw new AuthError("Invalid session");
+  }
   return user;
+}
+
+/** Authenticated Supabase auth.users.id — never a seed/demo placeholder. */
+export async function requireAuthUserId(): Promise<string> {
+  if (!isSupabaseConfigured()) {
+    throw new AuthError("Sign in required");
+  }
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error || !user?.id || !isValidUuid(user.id)) {
+    throw new AuthError("Sign in required");
+  }
+  return user.id;
 }
 
 export async function requireAdmin(): Promise<SessionUser> {
