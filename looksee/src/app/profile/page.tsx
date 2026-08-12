@@ -9,7 +9,7 @@ import { listPointsForUser, formatPointsLine } from "@/lib/db/points";
 import { listSavedHostels } from "@/lib/db/engagement";
 import { listVideosForUser, syncStaleMuxVideos } from "@/lib/db/videos";
 import { searchHostels } from "@/lib/db/queries";
-import { seedHostelsWithCounts } from "@/lib/seed/data";
+import { hostelsByAnyId } from "@/lib/db/hostels";
 import { ProfileSettingsForm } from "@/components/profile/ProfileSettingsForm";
 import { ProfileVideoSync } from "@/components/profile/ProfileVideoSync";
 import { shortDate } from "@/lib/utils/dates";
@@ -30,9 +30,10 @@ export default async function ProfilePage({ searchParams }: Props) {
   let videos = await listVideosForUser(user.id);
   await syncStaleMuxVideos(videos);
   videos = await listVideosForUser(user.id);
-  const [points, saves] = await Promise.all([
+  const [points, saves, hostelLookup] = await Promise.all([
     listPointsForUser(user.id),
     listSavedHostels(user.id),
+    hostelsByAnyId(),
   ]);
 
   const helpfulReceived = videos.reduce((sum, v) => sum + v.helpful_count, 0);
@@ -44,7 +45,7 @@ export default async function ProfilePage({ searchParams }: Props) {
       const hostel =
         allHostels.find((h) => h.id === s.hostel_id) ??
         (() => {
-          const seed = seedHostelsWithCounts.find((h) => h.id === s.hostel_id);
+          const seed = hostelLookup.get(s.hostel_id);
           if (!seed) return null;
           return allHostels.find((h) => h.slug === seed.slug) ?? null;
         })();
@@ -121,7 +122,7 @@ export default async function ProfilePage({ searchParams }: Props) {
           ) : (
             <ul className="space-y-3">
               {videos.map((video) => {
-                const hostel = seedHostelsWithCounts.find((h) => h.id === video.hostel_id);
+                const hostel = hostelLookup.get(video.hostel_id);
                 return (
                   <li key={video.id} className="rounded-2xl bg-card p-4 ring-1 ring-border">
                     <div className="flex items-center justify-between gap-2">

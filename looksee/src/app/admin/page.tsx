@@ -10,6 +10,7 @@ import { AdminReports } from "@/components/admin/AdminReports";
 import { AdminHostels } from "@/components/admin/AdminHostels";
 import { AdminSuggestions } from "@/components/admin/AdminSuggestions";
 import { seedDestinations, seedHostelsWithCounts } from "@/lib/seed/data";
+import { hostelsByAnyId } from "@/lib/db/hostels";
 
 export const metadata: Metadata = { title: "Admin" };
 export const dynamic = "force-dynamic";
@@ -61,6 +62,8 @@ export default async function AdminPage({ searchParams }: Props) {
     if (destRes.data?.length) destinations = destRes.data as typeof destinations;
   }
 
+  const hostelLookup = await hostelsByAnyId();
+
   const sections = [
     ["overview", "Overview"],
     ["pending", "Pending videos"],
@@ -107,7 +110,17 @@ export default async function AdminPage({ searchParams }: Props) {
           </div>
         ) : null}
 
-        {section === "pending" ? <AdminPendingVideos videos={pending} /> : null}
+        {section === "pending" ? (
+          <AdminPendingVideos
+            videos={pending}
+            hostelNames={Object.fromEntries(
+              pending.map((video) => [
+                video.hostel_id,
+                hostelLookup.get(video.hostel_id)?.name ?? video.hostel_id,
+              ]),
+            )}
+          />
+        ) : null}
         {section === "reports" ? <AdminReports reports={reports} /> : null}
         {section === "hostels" ? (
           <AdminHostels hostels={hostels} destinations={destinations} />

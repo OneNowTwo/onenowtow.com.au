@@ -8,9 +8,8 @@ import {
 } from "@/lib/db/videos";
 import { approveVideoSchema } from "@/lib/validation/mvp";
 import { revalidatePath } from "next/cache";
-import { seedHostelsWithCounts } from "@/lib/seed/data";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { isSupabaseConfigured } from "@/lib/env";
+import { seedDestinations } from "@/lib/seed/data";
+import { findSeedHostelByAnyId } from "@/lib/db/hostels";
 
 export async function GET() {
   try {
@@ -56,22 +55,15 @@ export async function POST(request: Request) {
       video = await hideVideoAsAdmin(parsed.data.videoId);
     }
 
-    const hostel =
-      seedHostelsWithCounts.find((h) => h.id === video.hostel_id) ??
-      (isSupabaseConfigured()
-        ? (
-            await createAdminClient()
-              .from("hostels")
-              .select("slug")
-              .eq("id", video.hostel_id)
-              .maybeSingle()
-          ).data
-        : null);
+    const hostel = await findSeedHostelByAnyId(video.hostel_id);
+    const destination = hostel
+      ? seedDestinations.find((d) => d.id === hostel.destination_id)
+      : null;
 
     revalidatePath("/");
-    if (hostel && "slug" in hostel && hostel.slug) {
-      revalidatePath(`/hostel/${hostel.slug}`);
-    }
+    revalidatePath("/search");
+    if (hostel?.slug) revalidatePath(`/hostel/${hostel.slug}`);
+    if (destination?.slug) revalidatePath(`/destination/${destination.slug}`);
 
     return NextResponse.json({ video });
   } catch (error) {

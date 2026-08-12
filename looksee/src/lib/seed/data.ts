@@ -30,6 +30,10 @@ const ids = {
   },
 } as const;
 
+function unsplash(photoId: string) {
+  return `https://images.unsplash.com/${photoId}?w=1600&q=80&fit=crop`;
+}
+
 const SAMPLE_VIDEOS = [
   "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
   "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
@@ -168,7 +172,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "Harbour city hostels, beach vibes and late-night bars.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1200&q=80",
+      unsplash("photo-1506973035872-a4ec16b8e8d9"),
     latitude: -33.8688,
     longitude: 151.2093,
     active: true,
@@ -181,7 +185,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "Surf, wellness and backpacker energy on the NSW north coast.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+      unsplash("photo-1568844293986-8d0400bd4745"),
     latitude: -28.6474,
     longitude: 153.602,
     active: true,
@@ -194,7 +198,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "Beachfront dorms, theme parks and Surfers nightlife.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+      unsplash("photo-1519046904884-53103b34b206"),
     latitude: -28.0167,
     longitude: 153.4,
     active: true,
@@ -207,7 +211,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "River city base for east-coast travellers.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1524293581917-878a6d017c71?w=1200&q=80",
+      unsplash("photo-1524293581917-878a6d017c71"),
     latitude: -27.4698,
     longitude: 153.0251,
     active: true,
@@ -220,7 +224,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "Chill coastal town with national park trails and cafés.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80",
+      unsplash("photo-1610878180933-123728745d22"),
     latitude: -26.3927,
     longitude: 153.0917,
     active: true,
@@ -233,7 +237,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "Gateway to the Whitsundays — boats, bars and lagoon life.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+      unsplash("photo-1589330273594-fade1ee91647"),
     latitude: -20.2675,
     longitude: 148.7169,
     active: true,
@@ -246,7 +250,7 @@ export const seedDestinations: Destination[] = [
     country: "Australia",
     description: "Reef and rainforest jump-off with a strong backpacker scene.",
     hero_image_url:
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80",
+      unsplash("photo-1582967788606-a171c1080cb0"),
     latitude: -16.9186,
     longitude: 145.7781,
     active: true,
@@ -288,7 +292,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -33.883,
     longitude: 151.205,
     hero_image_url:
-      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&q=80",
+      unsplash("photo-1477959858617-67f85cf4f1df"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 42,
     vibe: 35,
@@ -304,7 +308,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -33.859,
     longitude: 151.208,
     hero_image_url:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+      unsplash("photo-1523482580672-f109ba8cb9be"),
     preferred_booking_url: "https://www.yha.com.au/",
     price_from_aud: 48,
     vibe: 62,
@@ -320,7 +324,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -33.891,
     longitude: 151.274,
     hero_image_url:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80",
+      unsplash("photo-1534088568595-a066f410bcda"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 45,
     vibe: 18,
@@ -336,7 +340,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -33.874,
     longitude: 151.204,
     hero_image_url:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+      unsplash("photo-1514565131-fce0801e5785"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 40,
     vibe: 28,
@@ -352,7 +356,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -33.8835,
     longitude: 151.203,
     hero_image_url:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80",
+      unsplash("photo-1486325212027-8081e485255e"),
     preferred_booking_url: "https://www.yha.com.au/",
     price_from_aud: 38,
     vibe: 55,
@@ -369,7 +373,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.643,
     longitude: 153.612,
     hero_image_url:
-      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80",
+      unsplash("photo-1507525428034-b723cf961d3e"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 36,
     vibe: 30,
@@ -385,7 +389,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.645,
     longitude: 153.61,
     hero_image_url:
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200&q=80",
+      unsplash("photo-1571896349842-33c89424de2d"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 39,
     vibe: 40,
@@ -401,7 +405,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.648,
     longitude: 153.605,
     hero_image_url:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+      unsplash("photo-1441974231531-c6227db76b6e"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 34,
     vibe: 45,
@@ -417,7 +421,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.642,
     longitude: 153.614,
     hero_image_url:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+      unsplash("photo-1510414842594-a61c69b5ae57"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 41,
     vibe: 32,
@@ -433,7 +437,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.655,
     longitude: 153.58,
     hero_image_url:
-      "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1200&q=80",
+      unsplash("photo-1445019980597-93fa8acb246c"),
     preferred_booking_url: "https://www.booking.com/",
     price_from_aud: 44,
     vibe: 78,
@@ -450,7 +454,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.002,
     longitude: 153.429,
     hero_image_url:
-      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80",
+      unsplash("photo-1473116763249-2faaef81ccda"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 35,
     vibe: 22,
@@ -466,7 +470,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.004,
     longitude: 153.427,
     hero_image_url:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80",
+      unsplash("photo-1571003123894-1f0594d2b5d9"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 33,
     vibe: 12,
@@ -482,7 +486,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.165,
     longitude: 153.51,
     hero_image_url:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+      unsplash("photo-1559827260-dc66d52bef19"),
     preferred_booking_url: "https://www.yha.com.au/",
     price_from_aud: 37,
     vibe: 68,
@@ -498,7 +502,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.001,
     longitude: 153.425,
     hero_image_url:
-      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&q=80",
+      unsplash("photo-1512917774080-9991f1c4c750"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 32,
     vibe: 25,
@@ -514,7 +518,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -28.003,
     longitude: 153.43,
     hero_image_url:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80",
+      unsplash("photo-1475924156734-496f6cac6ec1"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 46,
     vibe: 58,
@@ -531,7 +535,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -27.462,
     longitude: 153.026,
     hero_image_url:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+      unsplash("photo-1480714378408-67cf0d13bc1b"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 34,
     vibe: 30,
@@ -547,7 +551,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -27.445,
     longitude: 153.037,
     hero_image_url:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80",
+      unsplash("photo-1444723121867-7a241cacace9"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 31,
     vibe: 15,
@@ -563,7 +567,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -27.468,
     longitude: 153.015,
     hero_image_url:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+      unsplash("photo-1464146072230-91cabc968266"),
     preferred_booking_url: "https://www.yha.com.au/",
     price_from_aud: 36,
     vibe: 60,
@@ -579,7 +583,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -27.482,
     longitude: 153.01,
     hero_image_url:
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1200&q=80",
+      unsplash("photo-1502672260266-1c1ef2d93688"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 33,
     vibe: 50,
@@ -595,7 +599,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -27.46,
     longitude: 153.022,
     hero_image_url:
-      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&q=80",
+      unsplash("photo-1493809842364-78817add7ffb"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 30,
     vibe: 35,
@@ -612,7 +616,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -26.388,
     longitude: 153.092,
     hero_image_url:
-      "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1200&q=80",
+      unsplash("photo-1542314831-068cd1dbfeeb"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 42,
     vibe: 55,
@@ -628,7 +632,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -26.4,
     longitude: 153.06,
     hero_image_url:
-      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1200&q=80",
+      unsplash("photo-1582719478250-c89cae4dc85b"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 38,
     vibe: 48,
@@ -644,7 +648,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -26.39,
     longitude: 153.089,
     hero_image_url:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80",
+      unsplash("photo-1631049307264-da0ec9d70304"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 48,
     vibe: 72,
@@ -660,7 +664,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -26.395,
     longitude: 153.085,
     hero_image_url:
-      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80",
+      unsplash("photo-1499793983690-e29da59ef1c2"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 40,
     vibe: 38,
@@ -676,7 +680,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -26.393,
     longitude: 153.088,
     hero_image_url:
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80",
+      unsplash("photo-1447752875215-b2761acb3c5d"),
     preferred_booking_url: "https://www.booking.com/",
     price_from_aud: 45,
     vibe: 80,
@@ -693,7 +697,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -20.268,
     longitude: 148.715,
     hero_image_url:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+      unsplash("photo-1559825481-12a05cc00344"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 36,
     vibe: 20,
@@ -709,7 +713,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -20.27,
     longitude: 148.718,
     hero_image_url:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80",
+      unsplash("photo-1551882547-ff40c63fe5fa"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 28,
     vibe: 8,
@@ -725,7 +729,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -20.271,
     longitude: 148.719,
     hero_image_url:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+      unsplash("photo-1566073771259-6a8506099945"),
     preferred_booking_url: "https://www.yha.com.au/",
     price_from_aud: 34,
     vibe: 58,
@@ -741,7 +745,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -20.269,
     longitude: 148.716,
     hero_image_url:
-      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&q=80",
+      unsplash("photo-1504280390367-361c6d9f38f4"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 32,
     vibe: 42,
@@ -757,7 +761,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -20.2675,
     longitude: 148.717,
     hero_image_url:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+      unsplash("photo-1520942702018-0862200e6873"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 35,
     vibe: 33,
@@ -774,7 +778,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -16.923,
     longitude: 145.776,
     hero_image_url:
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80",
+      unsplash("photo-1584132967334-10e028bd69f7"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 30,
     vibe: 10,
@@ -790,7 +794,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -16.925,
     longitude: 145.77,
     hero_image_url:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80",
+      unsplash("photo-1520250497591-112f2f40a3f4"),
     preferred_booking_url: "https://www.yha.com.au/",
     price_from_aud: 35,
     vibe: 65,
@@ -806,7 +810,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -16.921,
     longitude: 145.777,
     hero_image_url:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80",
+      unsplash("photo-1470770841072-f978cf4d019e"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 44,
     vibe: 52,
@@ -822,7 +826,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -16.91,
     longitude: 145.77,
     hero_image_url:
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=80",
+      unsplash("photo-1476514525535-07fb3b4ae5f1"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 33,
     vibe: 48,
@@ -838,7 +842,7 @@ const hostelDefs: HostelSeed[] = [
     latitude: -16.93,
     longitude: 145.765,
     hero_image_url:
-      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&q=80",
+      unsplash("photo-1522708323590-d24dbb6b0267"),
     preferred_booking_url: "https://www.hostelworld.com/",
     price_from_aud: 29,
     vibe: 40,

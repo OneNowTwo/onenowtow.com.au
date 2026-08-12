@@ -1,6 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isSupabaseConfigured } from "@/lib/env";
 import { seedDestinations, seedHostelsWithCounts } from "@/lib/seed/data";
+import { indexHostelsByAnyId } from "@/lib/db/hostel-ids";
 import type { Hostel } from "@/lib/types/database";
 import { isValidUuid } from "@/lib/utils/uuid";
 
@@ -107,4 +108,30 @@ async function ensureSeedHostelInDb(hostel: Hostel): Promise<string> {
   }
 
   return insertedHostel.id;
+}
+
+export async function listDbHostelRefs(): Promise<Array<{ id: string; slug: string }>> {
+  if (!isSupabaseConfigured()) return [];
+  try {
+    const admin = createAdminClient();
+    const { data, error } = await admin.from("hostels").select("id, slug");
+    if (error) {
+      console.error("listDbHostelRefs", error.message);
+      return [];
+    }
+    return (data ?? []) as Array<{ id: string; slug: string }>;
+  } catch (error) {
+    console.error("listDbHostelRefs", error);
+    return [];
+  }
+}
+
+export async function hostelsByAnyId(): Promise<Map<string, Hostel>> {
+  const dbHostels = await listDbHostelRefs();
+  return indexHostelsByAnyId(seedHostelsWithCounts, dbHostels);
+}
+
+export async function findSeedHostelByAnyId(hostelId: string): Promise<Hostel | null> {
+  const map = await hostelsByAnyId();
+  return map.get(hostelId) ?? null;
 }

@@ -7,7 +7,13 @@ import { MuxVideoPlayer } from "@/components/video/MuxVideoPlayer";
 import { seedHostelsWithCounts, CATEGORY_LABELS } from "@/lib/seed/data";
 import type { VideoCategory } from "@/lib/types/database";
 
-export function AdminPendingVideos({ videos }: { videos: Video[] }) {
+export function AdminPendingVideos({
+  videos,
+  hostelNames = {},
+}: {
+  videos: Video[];
+  hostelNames?: Record<string, string>;
+}) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -43,7 +49,10 @@ export function AdminPendingVideos({ videos }: { videos: Video[] }) {
     <div className="space-y-4">
       {error ? <p className="text-sm text-danger">{error}</p> : null}
       {videos.map((video) => {
-        const hostel = seedHostelsWithCounts.find((h) => h.id === video.hostel_id);
+        const hostelName =
+          hostelNames[video.hostel_id] ??
+          seedHostelsWithCounts.find((h) => h.id === video.hostel_id)?.name ??
+          video.hostel_id;
         return (
           <article key={video.id} className="rounded-2xl bg-card p-4 ring-1 ring-border">
             <div className="relative mx-auto aspect-[9/14] max-w-xs overflow-hidden rounded-xl bg-black">
@@ -60,7 +69,7 @@ export function AdminPendingVideos({ videos }: { videos: Video[] }) {
               )}
             </div>
             <div className="mt-4 space-y-1 text-sm">
-              <p className="font-bold">{hostel?.name ?? video.hostel_id}</p>
+              <p className="font-bold">{hostelName}</p>
               <p className="text-muted">
                 {CATEGORY_LABELS[video.category as VideoCategory]} · Filmed {video.filmed_at}
               </p>

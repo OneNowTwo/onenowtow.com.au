@@ -6,6 +6,8 @@ import {
   seedVideos,
 } from "@/lib/seed/data";
 import { listApprovedVideos, listUploadedVideos } from "@/lib/db/videos";
+import { hostelsByAnyId } from "@/lib/db/hostels";
+import { videoBelongsToHostel } from "@/lib/db/hostel-ids";
 import { thumbnailUrl } from "@/lib/mux/client";
 import type { Destination, Hostel, Profile, Rating, Video } from "@/lib/types/database";
 import type { DestinationCard, HostelCard, VideoCard } from "@/lib/types/views";
@@ -20,10 +22,6 @@ function destinationMap(): Map<string, Destination> {
   return new Map(seedDestinations.map((d) => [d.id, d]));
 }
 
-function hostelMap(): Map<string, Hostel> {
-  return new Map(seedHostelsWithCounts.map((h) => [h.id, h]));
-}
-
 async function approvedVideos(): Promise<Video[]> {
   const uploaded = await listApprovedVideos().catch(() => listUploadedVideos());
   const byId = new Map<string, Video>();
@@ -36,8 +34,16 @@ async function approvedVideos(): Promise<Video[]> {
   return Array.from(byId.values());
 }
 
-function toVideoCard(video: Video): VideoCard | null {
-  const hostel = hostelMap().get(video.hostel_id);
+async function browseContext(): Promise<{
+  videos: Video[];
+  lookup: Map<string, Hostel>;
+}> {
+  const [videos, lookup] = await Promise.all([approvedVideos(), hostelsByAnyId()]);
+  return { videos, lookup };
+}
+
+function toVideoCard(video: Video, lookup: Map<string, Hostel>): VideoCard | null {
+  const hostel = lookup.get(video.hostel_id);
   const contributor = profileMap().get(video.user_id) ?? {
     first_name: "Traveller",
     avatar_url: null,
@@ -71,23 +77,35 @@ function toVideoCard(video: Video): VideoCard | null {
   };
 }
 
-async function mostRecentFilmedAt(hostelId: string): Promise<string | null> {
-  const dates = (await approvedVideos())
-    .filter((v) => v.hostel_id === hostelId)
+function mostRecentFilmedAt(
+  videos: Video[],
+  seedHostel: Hostel,
+  lookup: Map<string, Hostel>,
+): string | null {
+  const dates = videos
+    .filter((v) => videoBelongsToHostel(v.hostel_id, seedHostel, lookup))
     .map((v) => v.filmed_at)
     .sort()
     .reverse();
   return dates[0] ?? null;
 }
 
-async function approvedCountForHostel(hostelId: string): Promise<number> {
-  return (await approvedVideos()).filter((v) => v.hostel_id === hostelId).length;
+function approvedCountForHostel(
+  videos: Video[],
+  seedHostel: Hostel,
+  lookup: Map<string, Hostel>,
+): number {
+  return videos.filter((v) => videoBelongsToHostel(v.hostel_id, seedHostel, lookup)).length;
 }
 
-async function toHostelCard(hostel: Hostel): Promise<HostelCard | null> {
+async function toHostelCard(
+  hostel: Hostel,
+  videos: Video[],
+  lookup: Map<string, Hostel>,
+): Promise<HostelCard | null> {
   const destination = destinationMap().get(hostel.destination_id);
   if (!destination) return null;
-  const videoCount = await approvedCountForHostel(hostel.id);
+  const videoCount = approvedCountForHostel(videos, hostel, lookup);
   return {
     id: hostel.id,
     name: hostel.name,
@@ -99,43 +117,50 @@ async function toHostelCard(hostel: Hostel): Promise<HostelCard | null> {
     avg_vibe_score: hostel.avg_vibe_score,
     video_count: videoCount || hostel.video_count,
     price_from_aud: hostel.price_from_aud,
-    most_recent_filmed_at: await mostRecentFilmedAt(hostel.id),
+    most_recent_filmed_at: mostRecentFilmedAt(videos, hostel, lookup),
   };
 }
 
-async function recentLookseeCount(destinationId: string, withinDays = 30): Promise<number> {
-  const hostelIds = new Set(
-    seedHostelsWithCounts.filter((h) => h.destination_id === destinationId).map((h) => h.id),
-  );
+function recentLookseeCount(
+  videos: Video[],
+  lookup: Map<string, Hostel>,
+  destinationId: string,
+  withinDays = 30,
+): number {
   const now = new Date();
-  return (await approvedVideos()).filter((v) => {
-    if (!hostelIds.has(v.hostel_id)) return false;
+  return videos.filter((v) => {
+    const hostel = lookup.get(v.hostel_id);
+    if (!hostel || hostel.destination_id !== destinationId) return false;
     return differenceInCalendarDays(now, parseISO(v.filmed_at)) <= withinDays;
   }).length;
 }
 
 export async function getTrendingDestinations(): Promise<DestinationCard[]> {
+  const { videos, lookup } = await browseContext();
   const destinations = seedDestinations.filter((d) => d.active);
-  return Promise.all(
-    destinations.map(async (d) => ({
-      id: d.id,
-      name: d.name,
-      slug: d.slug,
-      country: d.country,
-      hero_image_url: d.hero_image_url,
-      hostel_count: seedHostelsWithCounts.filter((h) => h.destination_id === d.id && h.active)
-        .length,
-      recent_looksee_count: await recentLookseeCount(d.id),
-    })),
-  );
+  return destinations.map((d) => ({
+    id: d.id,
+    name: d.name,
+    slug: d.slug,
+    country: d.country,
+    hero_image_url: d.hero_image_url,
+    hostel_count: seedHostelsWithCounts.filter((h) => h.destination_id === d.id && h.active)
+      .length,
+    recent_looksee_count: recentLookseeCount(videos, lookup, d.id),
+  }));
 }
 
 export async function getRecentVideos(limit = 12): Promise<VideoCard[]> {
-  return (await approvedVideos())
-    .sort((a, b) => (a.filmed_at < b.filmed_at ? 1 : -1))
-    .slice(0, limit)
-    .map(toVideoCard)
-    .filter((v): v is VideoCard => v !== null);
+  const { videos, lookup } = await browseContext();
+  return videos
+    .sort((a, b) => {
+      const muxDelta = Number(Boolean(b.mux_playback_id)) - Number(Boolean(a.mux_playback_id));
+      if (muxDelta !== 0) return muxDelta;
+      return a.filmed_at < b.filmed_at ? 1 : -1;
+    })
+    .map((video) => toVideoCard(video, lookup))
+    .filter((v): v is VideoCard => v !== null)
+    .slice(0, limit);
 }
 
 export async function getDestinationBySlug(slug: string): Promise<Destination | null> {
@@ -143,10 +168,11 @@ export async function getDestinationBySlug(slug: string): Promise<Destination | 
 }
 
 export async function getHostelsByDestination(destinationId: string): Promise<HostelCard[]> {
+  const { videos, lookup } = await browseContext();
   const hostels = seedHostelsWithCounts.filter(
     (h) => h.destination_id === destinationId && h.active,
   );
-  const cards = await Promise.all(hostels.map(toHostelCard));
+  const cards = await Promise.all(hostels.map((hostel) => toHostelCard(hostel, videos, lookup)));
   return cards
     .filter((h): h is HostelCard => h !== null)
     .sort((a, b) => (b.avg_overall ?? 0) - (a.avg_overall ?? 0));
@@ -164,14 +190,22 @@ export async function getVideosForHostel(
   hostelId: string,
   category?: string,
 ): Promise<VideoCard[]> {
-  return (await approvedVideos())
+  const { videos, lookup } = await browseContext();
+  const seedHostel = lookup.get(hostelId) ?? seedHostelsWithCounts.find((h) => h.id === hostelId);
+  if (!seedHostel) return [];
+
+  return videos
     .filter((v) => {
-      if (v.hostel_id !== hostelId) return false;
+      if (!videoBelongsToHostel(v.hostel_id, seedHostel, lookup)) return false;
       if (category && category !== "all" && v.category !== category) return false;
       return true;
     })
-    .sort((a, b) => (a.filmed_at < b.filmed_at ? 1 : -1))
-    .map(toVideoCard)
+    .sort((a, b) => {
+      const muxDelta = Number(Boolean(b.mux_playback_id)) - Number(Boolean(a.mux_playback_id));
+      if (muxDelta !== 0) return muxDelta;
+      return a.filmed_at < b.filmed_at ? 1 : -1;
+    })
+    .map((video) => toVideoCard(video, lookup))
     .filter((v): v is VideoCard => v !== null);
 }
 
@@ -185,6 +219,7 @@ export async function searchHostels(
 ): Promise<HostelCard[]> {
   const q = query.trim().toLowerCase();
   const destinations = destinationMap();
+  const { videos, lookup } = await browseContext();
 
   let results = seedHostelsWithCounts.filter((h) => {
     if (!h.active) return false;
@@ -223,7 +258,7 @@ export async function searchHostels(
     });
   }
 
-  const cards = await Promise.all(results.map(toHostelCard));
+  const cards = await Promise.all(results.map((hostel) => toHostelCard(hostel, videos, lookup)));
   let filtered = cards.filter((h): h is HostelCard => h !== null);
 
   if (filters.includes("recently_reviewed")) {

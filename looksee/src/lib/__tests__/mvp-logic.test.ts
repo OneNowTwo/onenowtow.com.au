@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { shouldApplyStatus } from "@/lib/db/video-store";
+import { indexHostelsByAnyId, videoBelongsToHostel } from "@/lib/db/hostel-ids";
 import { buildRealitySummary } from "@/lib/utils/reality-summary";
 import { formatPointsLine, POINTS_LABELS } from "@/lib/db/points";
-import type { PointsTransaction } from "@/lib/types/database";
+import type { Hostel, PointsTransaction } from "@/lib/types/database";
 
 describe("shouldApplyStatus", () => {
   it("blocks regressions from approved/rejected/hidden", () => {
@@ -68,5 +69,25 @@ describe("points labels", () => {
     };
     expect(formatPointsLine(tx)).toBe("+100 — Hostel video approved");
     expect(POINTS_LABELS.first_upload_bonus).toContain("First");
+  });
+});
+
+describe("hostel id mapping", () => {
+  const seedHostel = {
+    id: "h1000001-0000-4000-8000-000000000002",
+    slug: "sydney-harbour-yha",
+  } as Hostel;
+
+  it("maps supabase UUIDs onto seed hostels by slug", () => {
+    const lookup = indexHostelsByAnyId(
+      [seedHostel],
+      [{ id: "122fd7c4-c877-43f9-9907-d2102c11ba79", slug: "sydney-harbour-yha" }],
+    );
+
+    expect(lookup.get(seedHostel.id)?.slug).toBe("sydney-harbour-yha");
+    expect(lookup.get("122fd7c4-c877-43f9-9907-d2102c11ba79")?.id).toBe(seedHostel.id);
+    expect(
+      videoBelongsToHostel("122fd7c4-c877-43f9-9907-d2102c11ba79", seedHostel, lookup),
+    ).toBe(true);
   });
 });

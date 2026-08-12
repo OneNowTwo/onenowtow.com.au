@@ -5,6 +5,8 @@ import { allowLocalDataStore, isSupabaseConfigured } from "@/lib/env";
 import { isValidUuid } from "@/lib/utils/uuid";
 import { getMuxClient, getMuxConfigStatus, isMuxConfigured } from "@/lib/mux/client";
 import { awardPointsAdmin } from "@/lib/db/points";
+import { listDbHostelRefs } from "@/lib/db/hostels";
+import { seedHostelsWithCounts } from "@/lib/seed/data";
 import {
   createLocalSuggestion,
   createLocalVideo,
@@ -672,18 +674,27 @@ export async function listVideosForUser(userId: string): Promise<Video[]> {
 export async function getApprovedRatingsForHostel(hostelId: string): Promise<Rating[]> {
   if (!isSupabaseConfigured()) return [];
   const admin = createAdminClient();
+  const seed = seedHostelsWithCounts.find((h) => h.id === hostelId || h.slug === hostelId);
+  const dbRefs = await listDbHostelRefs();
+  const ids = new Set<string>();
+  if (isValidUuid(hostelId)) ids.add(hostelId);
+  for (const row of dbRefs) {
+    if (row.id === hostelId || (seed && row.slug === seed.slug)) ids.add(row.id);
+  }
+  const hostelIds = [...ids];
+  if (hostelIds.length === 0) return [];
+
   const { data, error } = await admin
     .from("ratings")
     .select("*, videos!inner(status)")
-    .eq("hostel_id", hostelId)
+    .in("hostel_id", hostelIds)
     .eq("videos.status", "approved");
   if (error) {
-    // Fallback without join
-    const { data: ratings } = await admin.from("ratings").select("*").eq("hostel_id", hostelId);
+    const { data: ratings } = await admin.from("ratings").select("*").in("hostel_id", hostelIds);
     const { data: videos } = await admin
       .from("videos")
       .select("id")
-      .eq("hostel_id", hostelId)
+      .in("hostel_id", hostelIds)
       .eq("status", "approved");
     const approvedIds = new Set((videos ?? []).map((v) => v.id as string));
     return ((ratings ?? []) as Rating[]).filter(
