@@ -55,48 +55,42 @@ export const REWARD_CATEGORY_LABELS: Record<RewardCategory, string> = {
   food: "Food",
 };
 
-/** What points buy. Costs line up with earn rates: 1 video = a drink, a few videos = a night out. */
+/** Core spend ladder — Looksee marketing currency, not a payment system. */
 export const POINTS_REWARDS = [
   {
     points: 100,
-    title: "Schooner or house drink",
-    detail: "One approved Looksee = a cold one at a partner pub or bar.",
+    title: "Free schooner / house drink",
+    detail: "One approved Looksee. The bar’s cost is a couple of dollars; you walk in with mates.",
     category: "pub" as RewardCategory,
   },
   {
-    points: 150,
-    title: "Pizza + pint",
-    detail: "Late feed after the pub crawl. Typical $12–18 value.",
-    category: "food" as RewardCategory,
-  },
-  {
     points: 200,
-    title: "Nightclub or backpacker bar entry",
-    detail: "Skip the door charge at a partner club or hostel bar night.",
+    title: "Nightclub entry",
+    detail: "Door charge waived at a partner backpacker bar or club.",
     category: "nightclub" as RewardCategory,
   },
   {
     points: 250,
-    title: "Cocktail or two house wines",
-    detail: "A proper sit-down drink, not just the happy-hour tap.",
+    title: "Cocktail",
+    detail: "A proper drink, not just the tap special.",
     category: "bar" as RewardCategory,
   },
   {
     points: 400,
-    title: "Intro surf lesson",
-    detail: "Group lesson discount on the east coast — Bondi, Byron, Noosa, Coolangatta.",
+    title: "Surf lesson discount",
+    detail: "Typical $20 off an intro group lesson — Bondi, Byron, Noosa, Coolangatta.",
     category: "surf" as RewardCategory,
   },
   {
     points: 600,
-    title: "Snorkel or reef day add-on",
-    detail: "Whitsundays or Cairns reef trip credit. A few Looksees cover a chunk of the tour.",
+    title: "Reef / snorkel discount",
+    detail: "Credit off a Whitsundays or Cairns day trip. A few Looksees toward the boat.",
     category: "experience" as RewardCategory,
   },
   {
     points: 800,
-    title: "Harbour Bridge climb discount",
-    detail: "Serious Sydney bucket-list credit. Roughly a few nights of filming.",
+    title: "BridgeClimb discount",
+    detail: "Sydney bucket-list credit. Looksee created the points; the operator gives the deal.",
     category: "experience" as RewardCategory,
   },
 ] as const;
@@ -111,7 +105,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "pub",
     offer: "House schooner or basic spirit mix",
     pointsCost: 100,
-    valueLabel: "~$9",
+    valueLabel: "Free schooner",
     blurb: "Two minutes from Wake Up and Railway Square. The classic first-night pint.",
   },
   {
@@ -123,8 +117,8 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "nightclub",
     offer: "Guest-list / door charge waived",
     pointsCost: 200,
-    valueLabel: "~$15–25",
-    blurb: "Backpacker club night. Show your Looksee balance at the door when partners go live.",
+    valueLabel: "Entry waived",
+    blurb: "Backpacker club night. Show your Looksee code at the door when partners go live.",
   },
   {
     id: "syd-bondi-surf",
@@ -135,7 +129,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "surf",
     offer: "Group lesson discount",
     pointsCost: 400,
-    valueLabel: "~$25 off",
+    valueLabel: "$20 off",
     blurb: "Board, wetsuit, 2 hours. The reason people stay at Mad Monkey.",
   },
   {
@@ -147,20 +141,32 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "experience",
     offer: "Climb credit / discount",
     pointsCost: 800,
-    valueLabel: "~$40–60 off",
+    valueLabel: "Climb discount",
     blurb: "The big one. A handful of approved hostel videos toward a Sydney icon.",
   },
   {
-    id: "syd-late-pizza",
+    id: "syd-chinatown-pour",
     destinationSlug: "sydney",
     destinationName: "Sydney",
-    name: "Chinatown Late Slice",
+    name: "Chinatown House Pour",
     area: "Haymarket",
-    category: "food",
-    offer: "Pizza + pint combo",
-    pointsCost: 150,
-    valueLabel: "~$16",
+    category: "pub",
+    offer: "House schooner",
+    pointsCost: 100,
+    valueLabel: "Free schooner",
     blurb: "After the hostel bar shuts. Walking distance from Base Sydney.",
+  },
+  {
+    id: "syd-cocktail",
+    destinationSlug: "sydney",
+    destinationName: "Sydney",
+    name: "Darlinghurst Mixer",
+    area: "Darlinghurst",
+    category: "bar",
+    offer: "House cocktail",
+    pointsCost: 250,
+    valueLabel: "Cocktail",
+    blurb: "A proper drink after the hostel bar. Oxford Street, walking distance from most CBD dorms.",
   },
   {
     id: "byr-beach-hotel",
@@ -171,7 +177,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "pub",
     offer: "Schooner or share jug discount",
     pointsCost: 100,
-    valueLabel: "~$10",
+    valueLabel: "Free schooner",
     blurb: "The courtyard pint after a Nomads or Wake Up check-in.",
   },
   {
@@ -183,7 +189,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "surf",
     offer: "Intro group lesson",
     pointsCost: 400,
-    valueLabel: "~$25 off",
+    valueLabel: "$20 off",
     blurb: "Byron’s the surf town. Points should get you in the water, not just the pub.",
   },
   {
@@ -195,7 +201,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "nightclub",
     offer: "Entry or first drink",
     pointsCost: 200,
-    valueLabel: "~$15",
+    valueLabel: "Entry waived",
     blurb: "Backpacker night out without another $20 at the door.",
   },
   {
@@ -207,7 +213,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "nightclub",
     offer: "Club entry waived",
     pointsCost: 200,
-    valueLabel: "~$20",
+    valueLabel: "Entry waived",
     blurb: "The strip. If you filmed Surf & Sun or Nomads, this is the night.",
   },
   {
@@ -219,7 +225,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "surf",
     offer: "Group lesson discount",
     pointsCost: 400,
-    valueLabel: "~$25 off",
+    valueLabel: "$20 off",
     blurb: "Better waves than Surfers. Pairs with Coolangatta YHA stays.",
   },
   {
@@ -231,7 +237,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "pub",
     offer: "House schooner",
     pointsCost: 100,
-    valueLabel: "~$9",
+    valueLabel: "Free schooner",
     blurb: "Pre-club pint. One Looksee covers it.",
   },
   {
@@ -243,7 +249,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "nightclub",
     offer: "Door charge waived",
     pointsCost: 200,
-    valueLabel: "~$15–20",
+    valueLabel: "Entry waived",
     blurb: "Why people stay at Bunk. Film the hostel, spend it on the night out.",
   },
   {
@@ -255,7 +261,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "pub",
     offer: "House schooner",
     pointsCost: 100,
-    valueLabel: "~$9",
+    valueLabel: "Free schooner",
     blurb: "Handy for Brisbane City YHA and Base Uptown.",
   },
   {
@@ -267,7 +273,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "bar",
     offer: "House wine or cocktail",
     pointsCost: 250,
-    valueLabel: "~$18",
+    valueLabel: "Cocktail",
     blurb: "Chill night for Somewhere To Stay people who skip the Valley.",
   },
   {
@@ -279,7 +285,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "surf",
     offer: "Intro lesson discount",
     pointsCost: 400,
-    valueLabel: "~$25 off",
+    valueLabel: "$20 off",
     blurb: "Halse Lodge is a two-minute walk from the break.",
   },
   {
@@ -291,7 +297,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "bar",
     offer: "Cocktail or two house beers",
     pointsCost: 250,
-    valueLabel: "~$20",
+    valueLabel: "Cocktail",
     blurb: "The fancy strip. Points take the sting out of Noosa prices.",
   },
   {
@@ -303,7 +309,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "bar",
     offer: "First drink or schooner",
     pointsCost: 100,
-    valueLabel: "~$10",
+    valueLabel: "Free schooner",
     blurb: "Base and Beaches are on the lagoon. This is the 4pm ritual.",
   },
   {
@@ -315,7 +321,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "nightclub",
     offer: "Backpacker bar entry",
     pointsCost: 200,
-    valueLabel: "~$15",
+    valueLabel: "Entry waived",
     blurb: "Magnums energy without paying twice — once for the dorm, once for the door.",
   },
   {
@@ -327,7 +333,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "experience",
     offer: "Day-trip discount",
     pointsCost: 600,
-    valueLabel: "~$30–40 off",
+    valueLabel: "Tour discount",
     blurb: "The reason you came to Airlie. A few hostel videos toward the boat.",
   },
   {
@@ -339,7 +345,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "nightclub",
     offer: "Entry or first drink",
     pointsCost: 200,
-    valueLabel: "~$15",
+    valueLabel: "Entry waived",
     blurb: "The Cairns backpacker night. Film Gilligan’s, spend it downstairs.",
   },
   {
@@ -351,7 +357,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "experience",
     offer: "Tour discount",
     pointsCost: 600,
-    valueLabel: "~$30–40 off",
+    valueLabel: "Tour discount",
     blurb: "The expensive day. Points from hostel videos should chip the ticket.",
   },
   {
@@ -363,7 +369,7 @@ export const AFFILIATE_OFFERS: AffiliateOffer[] = [
     category: "pub",
     offer: "House schooner",
     pointsCost: 100,
-    valueLabel: "~$9",
+    valueLabel: "Free schooner",
     blurb: "Tropic Days territory. One Looksee, one beer, watch the bats.",
   },
 ];
@@ -375,23 +381,31 @@ export const HOME_FAQS = [
   },
   {
     q: "How do Looksee Points work?",
-    a: "Approved videos earn 100 points. Your first approved Looksee also gets a +100 bonus. If other travellers mark your video helpful, you can earn another 25 (at 10) and 50 (at 50). Spend points on backpacker stuff: pints, club entry, surf lessons, reef trips, a Bridge climb.",
+    a: "Upload a useful hostel video. If we approve it, you get 100 points (200 on your first). Helpful videos can earn extra. Spend those points on drinks, nights out, surf lessons and experiences while you travel. Points are Looksee’s backpacker currency — not cash, not a bank balance.",
   },
   {
-    q: "What can I actually get with points?",
-    a: "100 points is roughly a schooner. 200 is nightclub entry. 400 is an intro surf lesson. 600 is a snorkel/reef credit. 800 is a Harbour Bridge climb discount. Partners are rolling out city by city along the east coast.",
+    q: "What can I get with points?",
+    a: "100 = free schooner / house drink. 200 = nightclub entry. 250 = cocktail. 400 = surf lesson discount. 600 = reef/snorkel discount. 800 = BridgeClimb discount. Three useful videos is already a night out.",
   },
   {
-    q: "When can I redeem?",
-    a: "You can earn points now. Redemption goes live with each city’s partners — pubs, bars, clubs, surf schools and experiences. We’ll show a code or QR on your profile when a venue is live.",
+    q: "Do businesses buy or owe us points?",
+    a: "No. Looksee creates the points. The venue provides the reward (a beer, a discount, door entry). When you redeem, points leave your Looksee account. The bar doesn’t purchase 100 points from us — they give you a schooner that maybe cost them $2–$3, and they get a backpacker (and often their mates) in the door.",
+  },
+  {
+    q: "If a venue gives a free drink and pays Looksee, don’t they lose twice?",
+    a: "That’s the trap in the simple version, so we don’t sell points. The venue chooses a reward that’s cheap for them. Later we might charge a monthly listing or a small fee per customer we actually send — acquisition, not a second invoice for the beer. First partners are free until we can prove the foot traffic.",
+  },
+  {
+    q: "How do I redeem?",
+    a: "Earn points now. When a partner is live, you’ll get a code or QR on your profile. Show it at the venue, they give you the agreed reward, your points drop. We’re lining up the first venues for free to prove it works.",
   },
   {
     q: "Who can upload?",
     a: "Anyone who’s actually staying (or just stayed) at the hostel. Film in the last 14 days. Cap is 3 Looksees a day, 3 per hostel every 14 days, and one clip per area (dorm, bathroom, kitchen…) so the queue doesn’t fill with spam. We review before videos go public, and before points land.",
   },
   {
-    q: "Do hostels pay for this?",
-    a: "No. Hostels don’t buy rankings or hide bad rooms. Booking links may earn Looksee a commission. Points come from filming useful videos, not from the property.",
+    q: "Do hostels pay to be on Looksee?",
+    a: "No. Hostels don’t buy rankings or hide bad rooms. Booking links may earn Looksee a commission later. Points come from filming useful videos, not from the property.",
   },
   {
     q: "How recent are the videos?",

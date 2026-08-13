@@ -4,8 +4,10 @@ import { indexHostelsByAnyId, videoBelongsToHostel } from "@/lib/db/hostel-ids";
 import { buildRealitySummary } from "@/lib/utils/reality-summary";
 import { formatPointsLine, POINTS_LABELS } from "@/lib/db/points";
 import {
+  AFFILIATE_OFFERS,
   destinationSlugsWithAffiliates,
   POINTS_EARN,
+  POINTS_REWARDS,
 } from "@/lib/rewards/catalog";
 import { uploadLimitError } from "@/lib/uploads/limits";
 import type { Hostel, PointsTransaction } from "@/lib/types/database";
@@ -84,6 +86,17 @@ describe("points catalog", () => {
     expect(byId.first_upload_bonus).toBe(100);
     expect(byId.helpful_10).toBe(25);
     expect(byId.helpful_50).toBe(50);
+  });
+
+  it("keeps the spend ladder as backpacker marketing currency", () => {
+    expect(POINTS_REWARDS.map((row) => row.points)).toEqual([100, 200, 250, 400, 600, 800]);
+  });
+
+  it("prices every partner offer on that ladder", () => {
+    const ladder = new Set<number>(POINTS_REWARDS.map((row) => row.points));
+    for (const offer of AFFILIATE_OFFERS) {
+      expect(ladder.has(offer.pointsCost)).toBe(true);
+    }
   });
 
   it("has affiliates for every east-coast destination", () => {

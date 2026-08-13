@@ -92,7 +92,7 @@ export default async function DestinationPage({ params }: Props) {
           <div>
             <h2 className="text-lg font-bold tracking-tight">Spend points here</h2>
             <p className="mt-1 text-sm text-muted">
-              Pubs, clubs, surf and experiences in {destination.name}.
+              Looksee-only reasons to walk in. First partners join free.
             </p>
           </div>
           <Link href="/points" className="shrink-0 text-sm font-medium text-accent">

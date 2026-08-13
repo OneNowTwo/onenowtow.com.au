@@ -45,7 +45,7 @@ export function AffiliateList({
           </div>
           <p className="mt-2 text-sm leading-relaxed text-muted">{offer.blurb}</p>
           <p className="mt-2 text-xs text-muted">
-            About {offer.valueLabel} · Coming soon at the venue
+            {offer.valueLabel} · show a Looksee code when this partner goes live
           </p>
         </li>
       ))}
@@ -63,11 +63,11 @@ export function PointsPromoBanner() {
         Looksee Points
       </p>
       <p className="mt-1 text-lg font-extrabold tracking-tight">
-        Film a hostel. Get a pint. Or a surf lesson.
+        Upload useful stuff. Get the schooner — and the night out.
       </p>
       <p className="mt-2 max-w-md text-sm leading-relaxed text-white/75">
-        100 points per approved Looksee. Spend them on pubs, clubs, surf schools, reef trips and
-        a Harbour Bridge climb.
+        100 pts = house drink. 200 = club entry. 400 = surf discount. Looksee issues the points;
+        venues give the reward.
       </p>
       <span className="mt-3 inline-flex text-sm font-bold text-accent">See rewards →</span>
     </Link>
