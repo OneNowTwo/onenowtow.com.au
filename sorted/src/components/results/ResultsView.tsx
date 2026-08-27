@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DinnerCard } from "@/components/dinner/DinnerCard";
 import { EmptyState } from "@/components/empty/EmptyState";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { track } from "@/lib/analytics";
+import { labelAlternatives } from "@/lib/presentation/roles";
 import { readSession, subscribeSession, writeSession } from "@/lib/storage";
 import type { RecommendationSessionPayload } from "@/lib/types";
 
@@ -25,6 +26,11 @@ export function ResultsView() {
     }
     if (!searchParams.get("session")) router.replace("/sort");
   }, [router, searchParams, session]);
+
+  const roles = useMemo(
+    () => (session ? labelAlternatives(session.results) : new Map()),
+    [session],
+  );
 
   async function refresh() {
     if (!session) return;
@@ -72,31 +78,59 @@ export function ResultsView() {
     );
   }
 
+  const [primary, ...alternatives] = session.results;
+
+  function choose(bundleId: string, restaurant: string) {
+    track("dinner_selected", { bundleId, restaurant });
+    router.push(`/dinner/${bundleId}?session=${session!.id}`);
+  }
+
   return (
     <div>
-      <div className={`grid gap-6 ${refreshing ? "opacity-60" : ""}`}>
-        {session.results.map((result) => (
-          <DinnerCard
-            key={result.bundle.id}
-            restaurant={result.restaurant}
-            bundle={result.bundle}
-            reason={result.reason}
-            action={
-              <Button
-                className="w-full sm:w-auto"
-                onClick={() => {
-                  track("dinner_selected", {
-                    bundleId: result.bundle.id,
-                    restaurant: result.restaurant.name,
-                  });
-                  router.push(`/dinner/${result.bundle.id}?session=${session.id}`);
-                }}
-              >
-                Choose this
-              </Button>
-            }
-          />
-        ))}
+      <div className={refreshing ? "opacity-60" : undefined}>
+        <DinnerCard
+          variant="featured"
+          eyebrow="We'd go with"
+          restaurant={primary.restaurant}
+          bundle={primary.bundle}
+          reason={primary.reason}
+          reasonHeading="Why it fits tonight"
+          action={
+            <Button
+              size="lg"
+              className="w-full sm:w-auto"
+              onClick={() => choose(primary.bundle.id, primary.restaurant.name)}
+            >
+              Choose this
+            </Button>
+          }
+        />
+
+        <div className="mt-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+            Or one of these
+          </p>
+          <div className="mt-4 grid gap-4">
+            {alternatives.map((result) => (
+              <DinnerCard
+                key={result.bundle.id}
+                variant="compact"
+                eyebrow={roles.get(result.bundle.id)}
+                restaurant={result.restaurant}
+                bundle={result.bundle}
+                action={
+                  <Button
+                    variant="secondary"
+                    className="w-full sm:w-auto"
+                    onClick={() => choose(result.bundle.id, result.restaurant.name)}
+                  >
+                    Choose this
+                  </Button>
+                }
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="mt-10 text-center">
         <button

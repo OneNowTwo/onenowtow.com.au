@@ -7,14 +7,14 @@ export const metadata = {
 
 export default function ResultsPage() {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
         Three options. That&apos;s it.
       </p>
       <h1 className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
         Tonight, we&apos;d pick one of these.
       </h1>
-      <div className="mt-10">
+      <div className="mt-8">
         <Suspense>
           <ResultsView />
         </Suspense>

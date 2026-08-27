@@ -8,7 +8,7 @@ const items = [
   { href: "/sort", label: "Tonight" },
   { href: "/week", label: "My Week" },
   { href: "/favourites", label: "Favourites" },
-  { href: "/profile", label: "Profile" },
+  { href: "/profile", label: "You" },
 ];
 
 export function MobileNav() {
@@ -16,7 +16,7 @@ export function MobileNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-md lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-md md:hidden"
       style={{ paddingBottom: "var(--safe-bottom)" }}
       aria-label="Primary"
     >
@@ -26,7 +26,8 @@ export function MobileNav() {
             item.href === "/sort"
               ? pathname.startsWith("/sort") ||
                 pathname.startsWith("/results") ||
-                pathname.startsWith("/dinner")
+                pathname.startsWith("/dinner") ||
+                pathname.startsWith("/household")
               : pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (
             <li key={item.href} className="flex justify-center">

@@ -156,9 +156,23 @@ export function writeWeek(items: WeekPlanItem[]): void {
 
 // Stable default week reference
 const DEFAULT_WEEK: WeekPlanItem[] = [
-  { day: "MON", title: "Healthy Thai", price: 58, status: "sorted", bundleId: "00000000-0000-4000-b000-000000000001" },
+  {
+    day: "MON",
+    title: "Healthy Thai",
+    restaurant: "Bangkok Local",
+    price: 58,
+    status: "sorted",
+    bundleId: "00000000-0000-4000-b000-000000000001",
+  },
   { day: "TUE", title: "Cooking at home", status: "home" },
-  { day: "WED", title: "Italian Family Table", price: 64, status: "sorted", bundleId: "00000000-0000-4000-b000-000000000004" },
+  {
+    day: "WED",
+    title: "Italian Family Table",
+    restaurant: "Via Napoli Kitchen",
+    price: 64,
+    status: "sorted",
+    bundleId: "00000000-0000-4000-b000-000000000004",
+  },
   { day: "THU", title: "Not planned", status: "unplanned" },
   { day: "FRI", title: "Treat night", status: "unplanned" },
   { day: "SAT", title: "Not planned", status: "unplanned" },

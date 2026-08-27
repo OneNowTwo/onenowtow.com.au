@@ -84,6 +84,7 @@ export interface FavouriteRecord {
 export interface WeekPlanItem {
   day: string;
   title: string;
+  restaurant?: string;
   price?: number;
   status: "sorted" | "home" | "unplanned";
   bundleId?: string;

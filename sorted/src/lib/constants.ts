@@ -9,6 +9,17 @@ export const MOODS = [
   { id: "surprise", label: "Surprise me" },
 ] as const;
 
+/** Tonight UI only — ids still map to the existing recommendation moods. */
+export const TONIGHT_MOODS = [
+  { id: "quick", label: "Quick" },
+  { id: "healthy", label: "Healthy" },
+  { id: "cheap", label: "Cheap" },
+  { id: "kids", label: "Everyone will eat it" },
+  { id: "treat", label: "Treat" },
+  { id: "high-protein", label: "High protein" },
+  { id: "surprise", label: "Surprise me" },
+] as const;
+
 export type MoodId = (typeof MOODS)[number]["id"];
 
 export const DIETARY_OPTIONS = [

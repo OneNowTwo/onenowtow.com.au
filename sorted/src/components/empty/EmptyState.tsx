@@ -15,9 +15,9 @@ export function EmptyState({
   secondary?: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-md py-16 text-center">
+    <div className="mx-auto max-w-md py-20 text-center">
       <h2 className="font-display text-3xl tracking-tight">{title}</h2>
-      <p className="mt-3 text-muted leading-relaxed">{body}</p>
+      <p className="mt-4 text-base leading-relaxed text-muted">{body}</p>
       {actionHref && actionLabel ? (
         <ButtonLink href={actionHref} className="mt-8" size="lg">
           {actionLabel}

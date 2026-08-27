@@ -44,13 +44,13 @@ const exampleDinners = [
 export default function HomePage() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6 sm:pt-20 lg:pt-28">
+      <section className="mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 sm:pt-20 lg:pt-28">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-muted">Sorted</p>
         <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
           Dinner, sorted.
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-          Three dinner options. No endless scrolling.
+          Three good dinner options. No endless scrolling.
         </p>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">
           Tell us who you&apos;re feeding, what you feel like and what you want to spend.
@@ -99,10 +99,11 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {exampleDinners.map((dinner) => (
             <DinnerCard
               key={dinner.bundle.name}
+              variant="showcase"
               restaurant={dinner.restaurant}
               bundle={dinner.bundle}
             />

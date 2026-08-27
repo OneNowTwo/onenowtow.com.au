@@ -10,7 +10,8 @@ import { usePathname } from "next/navigation";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
-  const hideNav = isAdmin || pathname === "/login";
+  const isHome = pathname === "/";
+  const hideNav = isAdmin || pathname === "/login" || isHome;
 
   return (
     <HouseholdProvider>

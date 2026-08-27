@@ -9,9 +9,11 @@ export function DinnerCard({
   restaurant,
   bundle,
   reason,
+  reasonHeading = "Why we picked it",
   href,
   action,
-  featured = false,
+  variant = "default",
+  eyebrow,
 }: {
   restaurant: Pick<Restaurant, "name" | "suburb">;
   bundle: Pick<
@@ -19,33 +21,74 @@ export function DinnerCard({
     "name" | "description" | "price" | "feeds_people" | "estimated_minutes" | "image_url" | "tags"
   >;
   reason?: string;
+  reasonHeading?: string;
   href?: string;
   action?: ReactNode;
-  featured?: boolean;
+  variant?: "default" | "featured" | "compact" | "showcase";
+  eyebrow?: string;
 }) {
+  const compact = variant === "compact";
+  const featured = variant === "featured";
+  const showcase = variant === "showcase";
+
   const content = (
     <article
       className={cn(
-        "overflow-hidden rounded-3xl border border-border bg-card shadow-[0_10px_40px_rgba(26,21,16,0.05)]",
-        featured && "lg:grid lg:grid-cols-[1.1fr_1fr]",
+        "overflow-hidden rounded-3xl border border-border bg-card",
+        featured && "md:grid md:grid-cols-[1.15fr_1fr]",
+        compact && "grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9.5rem_1fr]",
       )}
     >
-      <div className={cn("relative bg-muted-bg", featured ? "aspect-[5/4] lg:aspect-auto lg:min-h-full" : "aspect-[16/10]")}>
+      <div
+        className={cn(
+          "relative bg-muted-bg",
+          compact && "min-h-full",
+          featured && "aspect-[4/3] md:aspect-auto md:min-h-[22rem]",
+          showcase && "aspect-[4/3] sm:aspect-[5/4]",
+          variant === "default" && "aspect-[16/10]",
+        )}
+      >
         <Image
           src={bundle.image_url}
-          alt=""
+          alt={bundle.name}
           fill
           className="object-cover"
-          sizes="(min-width: 1024px) 360px, 100vw"
+          sizes={
+            featured
+              ? "(min-width: 768px) 520px, 100vw"
+              : compact
+                ? "160px"
+                : "(min-width: 1024px) 380px, 100vw"
+          }
+          priority={featured || showcase}
         />
       </div>
-      <div className="p-5 sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+      <div className={cn("p-5 sm:p-6", compact && "p-4 sm:p-5")}>
+        {eyebrow ? (
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
+            {eyebrow}
+          </p>
+        ) : null}
+        <p
+          className={cn(
+            "text-xs font-semibold uppercase tracking-[0.18em] text-muted",
+            eyebrow && "mt-2",
+          )}
+        >
           {restaurant.name}
         </p>
-        <h3 className="mt-2 font-display text-2xl tracking-tight">{bundle.name}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-ink-soft">{bundle.description}</p>
-        <dl className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
+        <h3
+          className={cn(
+            "mt-2 font-display tracking-tight",
+            featured ? "text-3xl sm:text-[2.15rem]" : compact ? "text-xl" : "text-2xl",
+          )}
+        >
+          {bundle.name}
+        </h3>
+        {compact ? null : (
+          <p className="mt-2 text-sm leading-relaxed text-ink-soft">{bundle.description}</p>
+        )}
+        <dl className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
           <div>
             <dt className="sr-only">Feeds</dt>
             <dd>Feeds {bundle.feeds_people}</dd>
@@ -60,8 +103,8 @@ export function DinnerCard({
           </div>
         </dl>
         {bundle.tags.length > 0 ? (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {bundle.tags.slice(0, 3).map((tag) => (
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {bundle.tags.slice(0, compact ? 2 : 3).map((tag) => (
               <li
                 key={tag}
                 className="rounded-full bg-muted-bg px-3 py-1 text-xs font-medium capitalize text-ink-soft"
@@ -71,15 +114,15 @@ export function DinnerCard({
             ))}
           </ul>
         ) : null}
-        {reason ? (
+        {reason && !compact ? (
           <div className="mt-5 border-t border-border pt-4">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-              Why we picked it
+              {reasonHeading}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-ink-soft">{reason}</p>
           </div>
         ) : null}
-        {action ? <div className="mt-5">{action}</div> : null}
+        {action ? <div className={cn("mt-5", compact && "mt-4")}>{action}</div> : null}
       </div>
     </article>
   );

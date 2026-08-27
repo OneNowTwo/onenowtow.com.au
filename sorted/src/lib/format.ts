@@ -9,6 +9,30 @@ export function formatPeople(adults: number, children: number): string {
   return `${adultLabel}, ${childLabel}`;
 }
 
+export function formatPeopleTotal(adults: number, children: number): string {
+  const total = Math.max(1, adults + children);
+  return total === 1 ? "1 person" : `${total} people`;
+}
+
+export function formatBudgetLabel(id: string): string {
+  switch (id) {
+    case "under-40":
+      return "Under $40";
+    case "40-60":
+      return "$40–$60";
+    case "60-80":
+      return "$60–$80";
+    case "80-100":
+      return "$80–$100";
+    case "100-plus":
+      return "$100+";
+    case "no-preference":
+      return "No preference";
+    default:
+      return id;
+  }
+}
+
 export function formatFeeds(n: number): string {
   return `Feeds ${n}`;
 }

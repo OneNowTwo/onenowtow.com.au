@@ -9,9 +9,9 @@ export default function SortPage() {
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-16">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">Tonight</p>
       <h1 className="mt-3 font-display text-4xl tracking-tight sm:text-5xl">
-        What&apos;s tonight looking like?
+        What are we eating tonight?
       </h1>
-      <div className="mt-10">
+      <div className="mt-8">
         <SortForm />
       </div>
     </div>

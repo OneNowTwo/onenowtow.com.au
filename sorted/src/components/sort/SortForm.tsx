@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { Chip } from "@/components/ui/Chip";
 import { useHousehold } from "@/components/providers/HouseholdProvider";
 import { track } from "@/lib/analytics";
-import { MOODS, TONIGHT_BUDGET_OPTIONS } from "@/lib/constants";
-import { formatPeople } from "@/lib/format";
+import { BUDGET_OPTIONS, TONIGHT_MOODS } from "@/lib/constants";
+import { formatBudgetLabel, formatPeopleTotal } from "@/lib/format";
 import { suburbForPostcode } from "@/lib/postcodes";
 import { writeSession } from "@/lib/storage";
 import type { RecommendationSessionPayload } from "@/lib/types";
@@ -15,32 +15,31 @@ import type { RecommendationSessionPayload } from "@/lib/types";
 export function SortForm() {
   const router = useRouter();
   const { household, ready } = useHousehold();
-  const [adultsOverride, setAdults] = useState<number | null>(null);
-  const [childrenOverride, setChildren] = useState<number | null>(null);
-  const [editingWho, setEditingWho] = useState(false);
-  const [moods, setMoods] = useState<string[]>(["quick", "healthy"]);
-  const [budgetOverride, setBudgetId] = useState<string | null>(null);
-  const [notes, setNotes] = useState("");
+  const [moods, setMoods] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const adults = adultsOverride ?? household?.adults ?? 2;
-  const children = childrenOverride ?? household?.children ?? 2;
-  const budgetId =
-    budgetOverride ??
-    (household?.typical_budget && household.typical_budget !== "100-plus"
-      ? household.typical_budget
-      : "60-80");
 
   useEffect(() => {
     if (!ready) return;
     if (!household) router.replace("/household?next=/sort");
   }, [household, ready, router]);
 
-  const budget = useMemo(
-    () => TONIGHT_BUDGET_OPTIONS.find((option) => option.id === budgetId) ?? TONIGHT_BUDGET_OPTIONS[2],
-    [budgetId],
-  );
+  const budget = useMemo(() => {
+    return (
+      BUDGET_OPTIONS.find((option) => option.id === household?.typical_budget) ?? {
+        min: 60,
+        max: 80,
+      }
+    );
+  }, [household?.typical_budget]);
+
+  const summary = useMemo(() => {
+    if (!household) return "";
+    const suburb = suburbForPostcode(household.postcode) ?? household.postcode;
+    const people = formatPeopleTotal(household.adults, household.children);
+    const spend = formatBudgetLabel(household.typical_budget);
+    return `${people} · ${suburb} · ${spend}`;
+  }, [household]);
 
   function toggleMood(id: string) {
     setMoods((current) => {
@@ -54,19 +53,23 @@ export function SortForm() {
     if (!household) return;
     setLoading(true);
     setError(null);
-    track("sort_started", { moods, budgetId, adults, children });
+    track("sort_started", {
+      moods,
+      budgetId: household.typical_budget,
+      adults: household.adults,
+      children: household.children,
+    });
     const input = {
       postcode: household.postcode,
       suburb: suburbForPostcode(household.postcode),
-      adults,
-      children,
+      adults: household.adults,
+      children: household.children,
       dietaryRequirements: household.dietary_requirements,
       favouriteCuisines: household.favourite_cuisines,
       avoidedFoods: household.avoided_foods,
       moodTags: moods,
       budgetMin: budget.min,
       budgetMax: budget.max,
-      notes,
       householdId: household.id,
     };
 
@@ -100,57 +103,25 @@ export function SortForm() {
         </div>
       ) : null}
 
-      <section>
-        <h2 className="font-display text-2xl tracking-tight">Who are we feeding?</h2>
-        <p className="mt-2 text-muted">{household.household_name}</p>
-        <p className="mt-1 text-lg">{formatPeople(adults, children)}</p>
-        {editingWho ? (
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <label className="text-sm font-semibold">
-              Adults
-              <input
-                type="number"
-                min={1}
-                max={8}
-                value={adults}
-                onChange={(event) => setAdults(Number(event.target.value))}
-                className="mt-2 h-11 w-full rounded-2xl border border-border bg-card px-3"
-              />
-            </label>
-            <label className="text-sm font-semibold">
-              Children
-              <input
-                type="number"
-                min={0}
-                max={8}
-                value={children}
-                onChange={(event) => setChildren(Number(event.target.value))}
-                className="mt-2 h-11 w-full rounded-2xl border border-border bg-card px-3"
-              />
-            </label>
-          </div>
-        ) : (
-          <button
-            type="button"
-            className="mt-3 text-sm font-semibold text-accent underline-offset-4 hover:underline"
-            onClick={() => setEditingWho(true)}
-          >
-            Edit
-          </button>
-        )}
-      </section>
+      <p className="text-lg text-ink-soft">{summary}</p>
+      <Link
+        href="/household?next=/sort"
+        className="mt-2 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline"
+      >
+        Change
+      </Link>
 
       <section className="mt-10">
-        <h2 className="font-display text-2xl tracking-tight">Tonight feels like...</h2>
-        <p className="mt-2 text-sm text-muted">Choose up to two.</p>
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {MOODS.map((mood) => (
+        <h2 className="sr-only">Tonight feels like</h2>
+        <p className="text-sm text-muted">Choose up to two.</p>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {TONIGHT_MOODS.map((mood) => (
             <button
               key={mood.id}
               type="button"
               aria-pressed={moods.includes(mood.id)}
               onClick={() => toggleMood(mood.id)}
-              className={`min-h-20 rounded-3xl border px-4 py-4 text-left text-base font-semibold transition ${
+              className={`min-h-[4.75rem] rounded-3xl border px-4 py-4 text-left text-base font-semibold transition ${
                 moods.includes(mood.id)
                   ? "border-foreground bg-foreground text-background"
                   : "border-border bg-card hover:border-foreground/30"
@@ -162,38 +133,10 @@ export function SortForm() {
         </div>
       </section>
 
-      <section className="mt-10">
-        <h2 className="font-display text-2xl tracking-tight">Budget</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {TONIGHT_BUDGET_OPTIONS.map((option) => (
-            <Chip
-              key={option.id}
-              selected={budgetId === option.id}
-              onClick={() => setBudgetId(option.id)}
-            >
-              {option.label}
-            </Chip>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-10">
-        <label className="block">
-          <span className="font-display text-2xl tracking-tight">Anything else?</span>
-          <textarea
-            value={notes}
-            onChange={(event) => setNotes(event.target.value)}
-            rows={3}
-            placeholder="Something light, preferably not pizza."
-            className="mt-4 w-full rounded-3xl border border-border bg-card px-4 py-3 outline-none"
-          />
-        </label>
-      </section>
-
       {error ? <p className="mt-6 text-sm text-danger">{error}</p> : null}
 
-      <Button size="lg" className="mt-8 w-full sm:w-auto" onClick={() => void submit()} disabled={loading}>
-        Sort my dinner
+      <Button size="lg" className="mt-10 w-full sm:w-auto" onClick={() => void submit()} disabled={loading}>
+        Sort dinner
       </Button>
     </div>
   );
