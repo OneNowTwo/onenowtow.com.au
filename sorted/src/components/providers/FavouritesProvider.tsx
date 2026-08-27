@@ -15,11 +15,14 @@ type FavouritesContextValue = {
 
 const FavouritesContext = createContext<FavouritesContextValue | null>(null);
 
+// Stable reference for SSR to avoid infinite loop
+const SSR_FAVOURITES: FavouriteRecord[] = [];
+
 export function FavouritesProvider({ children }: { children: ReactNode }) {
   const favourites = useSyncExternalStore(
     (onStoreChange) => subscribeKey(STORAGE_KEYS.favourites, onStoreChange),
     readFavourites,
-    () => [],
+    () => SSR_FAVOURITES,
   );
   const mounted = useSyncExternalStore(
     () => () => undefined,

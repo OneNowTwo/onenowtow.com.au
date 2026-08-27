@@ -49,55 +49,160 @@ export function getGuestId(): string {
   return id;
 }
 
+// Cache household to return stable reference
+let householdCache: HouseholdProfile | null | undefined = undefined;
+let householdCacheKey: string | null | undefined = undefined;
+
 export function readHousehold(): HouseholdProfile | null {
-  return readJson<HouseholdProfile | null>(STORAGE_KEYS.household, null);
+  if (typeof window === "undefined") {
+    return householdCache !== undefined ? householdCache : (householdCache = null);
+  }
+  
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEYS.household);
+    if (raw === householdCacheKey && householdCache !== undefined) {
+      return householdCache;
+    }
+    
+    householdCacheKey = raw;
+    if (!raw) {
+      householdCache = null;
+      return householdCache;
+    }
+    
+    householdCache = JSON.parse(raw) as HouseholdProfile;
+    return householdCache;
+  } catch {
+    householdCache = null;
+    return householdCache;
+  }
 }
 
 export function writeHousehold(profile: HouseholdProfile): void {
   writeJson(STORAGE_KEYS.household, profile);
+  householdCache = undefined;
+  householdCacheKey = undefined;
 }
 
+// Cache favourites to return stable reference
+let favouritesCache: FavouriteRecord[] | null = null;
+let favouritesCacheKey: string | null = null;
+
 export function readFavourites(): FavouriteRecord[] {
-  return readJson<FavouriteRecord[]>(STORAGE_KEYS.favourites, []);
+  if (typeof window === "undefined") {
+    return favouritesCache || (favouritesCache = []);
+  }
+  
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEYS.favourites);
+    if (raw === favouritesCacheKey && favouritesCache) {
+      return favouritesCache;
+    }
+    
+    favouritesCacheKey = raw;
+    if (!raw) {
+      favouritesCache = favouritesCache || [];
+      return favouritesCache;
+    }
+    
+    favouritesCache = JSON.parse(raw) as FavouriteRecord[];
+    return favouritesCache;
+  } catch {
+    favouritesCache = favouritesCache || [];
+    return favouritesCache;
+  }
 }
 
 export function writeFavourites(records: FavouriteRecord[]): void {
   writeJson(STORAGE_KEYS.favourites, records);
+  favouritesCache = null;
+  favouritesCacheKey = null;
 }
 
+// Cache week to return stable reference
+let weekCache: WeekPlanItem[] | null | undefined = undefined;
+let weekCacheKey: string | null | undefined = undefined;
+
 export function readWeek(): WeekPlanItem[] | null {
-  return readJson<WeekPlanItem[] | null>(STORAGE_KEYS.week, null);
+  if (typeof window === "undefined") {
+    return weekCache !== undefined ? weekCache : (weekCache = null);
+  }
+  
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEYS.week);
+    if (raw === weekCacheKey && weekCache !== undefined) {
+      return weekCache;
+    }
+    
+    weekCacheKey = raw;
+    if (!raw) {
+      weekCache = null;
+      return weekCache;
+    }
+    
+    weekCache = JSON.parse(raw) as WeekPlanItem[];
+    return weekCache;
+  } catch {
+    weekCache = null;
+    return weekCache;
+  }
 }
 
 export function writeWeek(items: WeekPlanItem[]): void {
   writeJson(STORAGE_KEYS.week, items);
+  weekCache = undefined;
+  weekCacheKey = undefined;
 }
+
+// Stable default week reference
+const DEFAULT_WEEK: WeekPlanItem[] = [
+  { day: "MON", title: "Healthy Thai", price: 58, status: "sorted", bundleId: "00000000-0000-4000-b000-000000000001" },
+  { day: "TUE", title: "Cooking at home", status: "home" },
+  { day: "WED", title: "Italian Family Table", price: 64, status: "sorted", bundleId: "00000000-0000-4000-b000-000000000004" },
+  { day: "THU", title: "Not planned", status: "unplanned" },
+  { day: "FRI", title: "Treat night", status: "unplanned" },
+  { day: "SAT", title: "Not planned", status: "unplanned" },
+  { day: "SUN", title: "Not planned", status: "unplanned" },
+];
 
 export function defaultWeek(): WeekPlanItem[] {
-  return [
-    { day: "MON", title: "Healthy Thai", price: 58, status: "sorted", bundleId: "00000000-0000-4000-b000-000000000001" },
-    { day: "TUE", title: "Cooking at home", status: "home" },
-    { day: "WED", title: "Italian Family Table", price: 64, status: "sorted", bundleId: "00000000-0000-4000-b000-000000000004" },
-    { day: "THU", title: "Not planned", status: "unplanned" },
-    { day: "FRI", title: "Treat night", status: "unplanned" },
-    { day: "SAT", title: "Not planned", status: "unplanned" },
-    { day: "SUN", title: "Not planned", status: "unplanned" },
-  ];
+  return DEFAULT_WEEK;
 }
 
+// Cache session to return stable reference
+let sessionCache: RecommendationSessionPayload | null | undefined = undefined;
+let sessionCacheKey: string | null | undefined = undefined;
+
 export function readSession(): RecommendationSessionPayload | null {
-  if (typeof window === "undefined") return null;
+  if (typeof window === "undefined") {
+    return sessionCache !== undefined ? sessionCache : (sessionCache = null);
+  }
+  
   try {
     const raw = window.sessionStorage.getItem(STORAGE_KEYS.lastSession);
-    return raw ? (JSON.parse(raw) as RecommendationSessionPayload) : null;
+    if (raw === sessionCacheKey && sessionCache !== undefined) {
+      return sessionCache;
+    }
+    
+    sessionCacheKey = raw;
+    if (!raw) {
+      sessionCache = null;
+      return sessionCache;
+    }
+    
+    sessionCache = JSON.parse(raw) as RecommendationSessionPayload;
+    return sessionCache;
   } catch {
-    return null;
+    sessionCache = null;
+    return sessionCache;
   }
 }
 
 export function writeSession(session: RecommendationSessionPayload): void {
   if (typeof window === "undefined") return;
   window.sessionStorage.setItem(STORAGE_KEYS.lastSession, JSON.stringify(session));
+  sessionCache = undefined;
+  sessionCacheKey = undefined;
   emit(STORAGE_KEYS.lastSession);
 }
 

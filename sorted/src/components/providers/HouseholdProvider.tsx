@@ -15,11 +15,14 @@ type HouseholdContextValue = {
 
 const HouseholdContext = createContext<HouseholdContextValue | null>(null);
 
+// Stable reference for SSR to avoid infinite loop
+const SSR_HOUSEHOLD = null;
+
 export function HouseholdProvider({ children }: { children: ReactNode }) {
   const household = useSyncExternalStore(
     (onStoreChange) => subscribeKey(STORAGE_KEYS.household, onStoreChange),
     readHousehold,
-    () => null,
+    () => SSR_HOUSEHOLD,
   );
   const mounted = useSyncExternalStore(
     () => () => undefined,
