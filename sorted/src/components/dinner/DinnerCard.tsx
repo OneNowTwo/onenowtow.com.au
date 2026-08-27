@@ -88,20 +88,17 @@ export function DinnerCard({
         {compact ? null : (
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">{bundle.description}</p>
         )}
-        <dl className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
-          <div>
-            <dt className="sr-only">Feeds</dt>
-            <dd>Feeds {bundle.feeds_people}</dd>
-          </div>
-          <div>
-            <dt className="sr-only">Price</dt>
-            <dd>{formatPrice(bundle.price)}</dd>
-          </div>
-          <div>
-            <dt className="sr-only">Time</dt>
-            <dd>{formatMinutes(bundle.estimated_minutes)}</dd>
-          </div>
-        </dl>
+        <p className="mt-3 text-sm text-muted">
+          Feeds {bundle.feeds_people}
+          <span aria-hidden className="mx-2">
+            ·
+          </span>
+          {formatPrice(bundle.price)}
+          <span aria-hidden className="mx-2">
+            ·
+          </span>
+          {formatMinutes(bundle.estimated_minutes)}
+        </p>
         {bundle.tags.length > 0 ? (
           <ul className="mt-3 flex flex-wrap gap-2">
             {bundle.tags.slice(0, compact ? 2 : 3).map((tag) => (
