@@ -654,7 +654,7 @@ const concepts: PackConcept[][] = [
     pack(
       "Veggie Pizza Pair",
       "Two vegetable-topped pizzas and a tomato salad make an easy meat-free meal.",
-      46,
+      48,
       4,
       25,
       "pizza",
@@ -851,7 +851,7 @@ const concepts: PackConcept[][] = [
     pack(
       "Tofu Home-Style Set",
       "Tofu rice bowls, steamed vegetables, edamame and miso form a quick meat-free dinner.",
-      46,
+      48,
       4,
       25,
       "veg",
