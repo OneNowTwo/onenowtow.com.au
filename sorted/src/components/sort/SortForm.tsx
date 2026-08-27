@@ -2,17 +2,23 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { useHousehold } from "@/components/providers/HouseholdProvider";
 import { track } from "@/lib/analytics";
 import { BUDGET_OPTIONS, TONIGHT_MOODS } from "@/lib/constants";
 import { formatBudgetLabel, formatPeopleTotal } from "@/lib/format";
 import { suburbForPostcode } from "@/lib/postcodes";
-import { writeSession } from "@/lib/storage";
+import { clearSession, writeSession } from "@/lib/storage";
 import type { RecommendationSessionPayload } from "@/lib/types";
 
 export function SortForm() {
+  const searchParams = useSearchParams();
+  const tonightKey = searchParams.get("new") ?? "fresh";
+  return <SortFormFields key={tonightKey} resetSession={searchParams.has("new")} />;
+}
+
+function SortFormFields({ resetSession }: { resetSession: boolean }) {
   const router = useRouter();
   const { household, ready } = useHousehold();
   const [moods, setMoods] = useState<string[]>([]);
@@ -23,6 +29,10 @@ export function SortForm() {
     if (!ready) return;
     if (!household) router.replace("/household?next=/sort");
   }, [household, ready, router]);
+
+  useEffect(() => {
+    if (resetSession) clearSession();
+  }, [resetSession]);
 
   const budget = useMemo(() => {
     return (
@@ -106,7 +116,7 @@ export function SortForm() {
       <p className="text-lg text-ink-soft">{summary}</p>
       <Link
         href="/household?next=/sort"
-        className="mt-2 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline"
+        className="mt-2 inline-block cursor-pointer text-sm font-semibold text-accent underline-offset-4 hover:underline"
       >
         Change
       </Link>
@@ -121,10 +131,10 @@ export function SortForm() {
               type="button"
               aria-pressed={moods.includes(mood.id)}
               onClick={() => toggleMood(mood.id)}
-              className={`min-h-[4.75rem] rounded-3xl border px-4 py-4 text-left text-base font-semibold transition ${
+              className={`min-h-12 cursor-pointer rounded-3xl border px-4 py-4 text-left text-base font-semibold transition ${
                 moods.includes(mood.id)
                   ? "border-foreground bg-foreground text-background"
-                  : "border-border bg-card hover:border-foreground/30"
+                  : "border-border bg-card hover:border-foreground/40 hover:bg-muted-bg"
               }`}
             >
               {mood.label}

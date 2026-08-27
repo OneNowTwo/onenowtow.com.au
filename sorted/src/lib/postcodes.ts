@@ -1,26 +1,24 @@
-export const LOWER_NORTH_SHORE: Record<
-  string,
-  { suburb: string; nearby: string[] }
-> = {
-  "2089": { suburb: "Neutral Bay", nearby: ["2090", "2060", "2062", "2088", "2065"] },
-  "2090": { suburb: "Cremorne", nearby: ["2089", "2088", "2060", "2062"] },
-  "2060": { suburb: "North Sydney", nearby: ["2065", "2089", "2062", "2067"] },
-  "2065": { suburb: "Crows Nest", nearby: ["2060", "2067", "2062", "2089"] },
-  "2067": { suburb: "Chatswood", nearby: ["2065", "2060"] },
-  "2088": { suburb: "Mosman", nearby: ["2089", "2090"] },
-  "2062": { suburb: "Cammeray", nearby: ["2060", "2089", "2065"] },
+export const MANLY_CATCHMENT: Record<string, { suburb: string; nearby: string[] }> = {
+  "2095": { suburb: "Manly", nearby: ["2094", "2093", "2096", "2092"] },
+  "2094": { suburb: "Fairlight", nearby: ["2095", "2093", "2092"] },
+  "2093": { suburb: "Balgowlah", nearby: ["2095", "2094", "2092"] },
+  "2096": { suburb: "Freshwater", nearby: ["2095", "2094"] },
+  "2092": { suburb: "Seaforth", nearby: ["2095", "2094", "2093"] },
 };
 
-export const REGION_POSTCODES = Object.keys(LOWER_NORTH_SHORE);
+/** @deprecated Use MANLY_CATCHMENT. Kept so older tests/imports keep compiling. */
+export const LOWER_NORTH_SHORE = MANLY_CATCHMENT;
+
+export const REGION_POSTCODES = Object.keys(MANLY_CATCHMENT);
 
 export function suburbForPostcode(postcode: string): string | undefined {
-  return LOWER_NORTH_SHORE[postcode]?.suburb;
+  return MANLY_CATCHMENT[postcode]?.suburb;
 }
 
 export function nearbyPostcodes(postcode: string): string[] {
-  return LOWER_NORTH_SHORE[postcode]?.nearby ?? [];
+  return MANLY_CATCHMENT[postcode]?.nearby ?? [];
 }
 
 export function isInRegion(postcode: string): boolean {
-  return postcode in LOWER_NORTH_SHORE;
+  return postcode in MANLY_CATCHMENT;
 }

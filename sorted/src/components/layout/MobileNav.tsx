@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { TonightLink } from "@/components/TonightLink";
 import { cn } from "@/lib/cn";
 
 const items = [
@@ -29,17 +30,19 @@ export function MobileNav() {
                 pathname.startsWith("/dinner") ||
                 pathname.startsWith("/household")
               : pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const className = cn(
+            "flex min-h-12 min-w-16 cursor-pointer flex-col items-center justify-center rounded-xl px-2 text-[11px] font-semibold tracking-wide uppercase transition hover:text-foreground",
+            active ? "text-accent" : "text-muted",
+          );
           return (
             <li key={item.href} className="flex justify-center">
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex min-h-12 min-w-16 flex-col items-center justify-center rounded-xl px-2 text-[11px] font-semibold tracking-wide uppercase",
-                  active ? "text-accent" : "text-muted",
-                )}
-              >
-                {item.label}
-              </Link>
+              {item.href === "/sort" ? (
+                <TonightLink className={className}>{item.label}</TonightLink>
+              ) : (
+                <Link href={item.href} className={className}>
+                  {item.label}
+                </Link>
+              )}
             </li>
           );
         })}

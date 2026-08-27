@@ -5,12 +5,13 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { HouseholdProvider } from "@/components/providers/HouseholdProvider";
 import { FavouritesProvider } from "@/components/providers/FavouritesProvider";
+import { PrototypeNotice } from "@/components/brand/PrototypeNotice";
 import { usePathname } from "next/navigation";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
-  const isHome = pathname === "/";
+  const isHome = pathname === "/" || pathname.startsWith("/how-it-works");
   const hideNav = isAdmin || pathname === "/login" || isHome;
 
   return (
@@ -25,6 +26,11 @@ export function AppShell({ children }: { children: ReactNode }) {
         </a>
         <main id="content" className={hideNav ? "min-h-full" : "pb-nav min-h-full"}>
           {children}
+          {hideNav || isAdmin ? null : (
+            <div className="mx-auto max-w-6xl px-4 pb-2 pt-8 sm:px-6">
+              <PrototypeNotice />
+            </div>
+          )}
         </main>
         {hideNav ? null : <MobileNav />}
       </FavouritesProvider>

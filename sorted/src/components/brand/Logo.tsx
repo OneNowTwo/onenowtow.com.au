@@ -9,7 +9,7 @@ export function Logo({
   href?: string;
 }) {
   return (
-    <Link href={href} className={cn("font-display text-2xl tracking-tight", className)}>
+    <Link href={href} className={cn("cursor-pointer font-display text-2xl tracking-tight transition hover:opacity-80", className)}>
       Sorted
     </Link>
   );

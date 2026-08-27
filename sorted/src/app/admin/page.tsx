@@ -10,11 +10,15 @@ const emptyRestaurant = (): Restaurant => ({
   slug: "",
   description: "",
   address: "",
-  suburb: "",
-  postcode: "",
+  suburb: "Manly",
+  postcode: "2095",
   cuisine: "",
   image_url: "",
   ordering_url: "",
+  official_url: "",
+  verified: true,
+  dinner_suitable: true,
+  opening_hours: "",
   active: true,
   created_at: "",
 });
@@ -32,6 +36,7 @@ const emptyBundle = (): DinnerBundle => ({
   available_days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
   tags: [],
   dietary_tags: [],
+  is_concept_bundle: true,
   created_at: "",
 });
 
@@ -119,7 +124,7 @@ export default function AdminPage() {
             size="sm"
             onClick={() => setTab("bundles")}
           >
-            Bundles
+            Prototype Sorted Packs
           </Button>
         </div>
       </div>
@@ -133,6 +138,8 @@ export default function AdminPage() {
                 <th className="p-2">Name</th>
                 <th className="p-2">Suburb</th>
                 <th className="p-2">Cuisine</th>
+                <th className="p-2">Dinner</th>
+                <th className="p-2">Verified</th>
                 <th className="p-2">Active</th>
               </tr>
             </thead>
@@ -146,6 +153,8 @@ export default function AdminPage() {
                   <td className="p-2">{item.name}</td>
                   <td className="p-2">{item.suburb}</td>
                   <td className="p-2">{item.cuisine}</td>
+                  <td className="p-2">{item.dinner_suitable === false ? "no" : "yes"}</td>
+                  <td className="p-2">{item.verified === false ? "no" : "yes"}</td>
                   <td className="p-2">{item.active ? "yes" : "no"}</td>
                 </tr>
               ))}
@@ -168,7 +177,9 @@ export default function AdminPage() {
                 ["cuisine", "Cuisine"],
                 ["address", "Address"],
                 ["image_url", "Image URL"],
-                ["ordering_url", "Ordering URL"],
+                ["official_url", "Official URL"],
+                ["ordering_url", "Ordering URL (verified only)"],
+                ["opening_hours", "Opening hours"],
               ] as const
             ).map(([key, label]) => (
               <label key={key} className="block">
@@ -202,6 +213,26 @@ export default function AdminPage() {
               />
               Active
             </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={restaurant.verified !== false}
+                onChange={(event) =>
+                  setRestaurant((current) => ({ ...current, verified: event.target.checked }))
+                }
+              />
+              Restaurant verified
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={restaurant.dinner_suitable !== false}
+                onChange={(event) =>
+                  setRestaurant((current) => ({ ...current, dinner_suitable: event.target.checked }))
+                }
+              />
+              Dinner suitable
+            </label>
             <div className="flex gap-2">
               <Button type="submit" size="sm">Save</Button>
               <Button type="button" size="sm" variant="secondary" onClick={() => setRestaurant(emptyRestaurant())}>
@@ -215,9 +246,10 @@ export default function AdminPage() {
           <table className="w-full border bg-white text-left">
             <thead>
               <tr className="border-b bg-neutral-50">
-                <th className="p-2">Bundle</th>
+                <th className="p-2">Prototype Sorted Pack</th>
                 <th className="p-2">Restaurant</th>
-                <th className="p-2">Price</th>
+                <th className="p-2">Concept price</th>
+                <th className="p-2">Concept</th>
                 <th className="p-2">Active</th>
               </tr>
             </thead>
@@ -231,6 +263,7 @@ export default function AdminPage() {
                   <td className="p-2">{item.name}</td>
                   <td className="p-2">{restaurantName(item.restaurant_id)}</td>
                   <td className="p-2">${item.price}</td>
+                  <td className="p-2">{item.is_concept_bundle !== false ? "yes" : "no"}</td>
                   <td className="p-2">{item.active ? "yes" : "no"}</td>
                 </tr>
               ))}
@@ -243,7 +276,9 @@ export default function AdminPage() {
               void saveBundle();
             }}
           >
-            <h2 className="font-semibold">{bundle.id ? "Edit bundle" : "Add bundle"}</h2>
+            <h2 className="font-semibold">
+              {bundle.id ? "Edit prototype Sorted Pack" : "Add prototype Sorted Pack"}
+            </h2>
             <label className="block">
               Restaurant
               <select
@@ -280,7 +315,7 @@ export default function AdminPage() {
               />
             </label>
             <label className="block">
-              Price
+              Concept price
               <input
                 type="number"
                 className="mt-1 w-full border px-2 py-1"
@@ -355,6 +390,23 @@ export default function AdminPage() {
                 }
               />
             </label>
+            <label className="block">
+              Available days (comma)
+              <input
+                className="mt-1 w-full border px-2 py-1"
+                value={
+                  Array.isArray(bundle.available_days)
+                    ? bundle.available_days.join(", ")
+                    : String(bundle.available_days)
+                }
+                onChange={(event) =>
+                  setBundle((current) => ({
+                    ...current,
+                    available_days: event.target.value.split(",").map((item) => item.trim()) as string[],
+                  }))
+                }
+              />
+            </label>
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -364,6 +416,16 @@ export default function AdminPage() {
                 }
               />
               Active
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={bundle.is_concept_bundle !== false}
+                onChange={(event) =>
+                  setBundle((current) => ({ ...current, is_concept_bundle: event.target.checked }))
+                }
+              />
+              Concept bundle
             </label>
             <div className="flex gap-2">
               <Button type="submit" size="sm">Save</Button>

@@ -17,11 +17,11 @@ export function Chip({ selected, children, onClick, disabled, className }: ChipP
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 text-sm font-medium transition",
+        "min-h-11 cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition",
         selected
           ? "border-foreground bg-foreground text-background"
-          : "border-border bg-card text-ink-soft hover:border-foreground/30",
-        disabled && "opacity-50",
+          : "border-border bg-card text-ink-soft hover:border-foreground/40 hover:bg-muted-bg",
+        disabled && "cursor-not-allowed opacity-50",
         className,
       )}
     >

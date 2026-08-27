@@ -9,6 +9,10 @@ export interface Restaurant {
   cuisine: string;
   image_url: string;
   ordering_url: string;
+  official_url?: string;
+  verified?: boolean;
+  dinner_suitable?: boolean;
+  opening_hours?: string;
   active: boolean;
   created_at: string;
 }
@@ -26,6 +30,7 @@ export interface DinnerBundle {
   available_days: string[];
   tags: string[];
   dietary_tags: string[];
+  is_concept_bundle?: boolean;
   created_at: string;
 }
 
@@ -98,4 +103,13 @@ export interface Catalog {
 export interface JoinedBundle {
   bundle: DinnerBundle;
   restaurant: Restaurant;
+}
+
+export interface RecommendationFeedback {
+  id: string;
+  bundleId: string;
+  restaurantName: string;
+  positive: boolean;
+  reasons: string[];
+  createdAt: string;
 }

@@ -39,7 +39,7 @@ export function HouseholdForm() {
   const { household, saveHousehold } = useHousehold();
 
   const [name, setName] = useState(household?.household_name || "The Taylors");
-  const [postcode, setPostcode] = useState(household?.postcode || "2089");
+  const [postcode, setPostcode] = useState(household?.postcode || "2095");
   const [adults, setAdults] = useState(household?.adults ?? 2);
   const [children, setChildren] = useState(household?.children ?? 2);
   const [dietary, setDietary] = useState<string[]>(household?.dietary_requirements ?? []);
@@ -75,7 +75,7 @@ export function HouseholdForm() {
   function submit(asGuest: boolean) {
     const profile = saveHousehold({
       household_name: name.trim() || "Our household",
-      postcode: postcode.trim() || "2089",
+      postcode: postcode.trim() || "2095",
       adults,
       children,
       dietary_requirements: dietary,
@@ -127,7 +127,7 @@ export function HouseholdForm() {
             value={postcode}
             onChange={(event) => setPostcode(event.target.value)}
             className="mt-2 h-12 w-full rounded-2xl border border-border bg-card px-4 outline-none"
-            placeholder="2089"
+            placeholder="2095"
             inputMode="numeric"
           />
           {suburb ? <p className="mt-2 text-sm text-muted">{suburb}</p> : null}

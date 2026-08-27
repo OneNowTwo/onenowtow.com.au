@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { formatMinutes, formatPrice } from "@/lib/format";
+import { FoodImage } from "@/components/dinner/FoodImage";
+import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import type { DinnerBundle, Restaurant } from "@/lib/types";
 
@@ -15,7 +15,7 @@ export function DinnerCard({
   variant = "default",
   eyebrow,
 }: {
-  restaurant: Pick<Restaurant, "name" | "suburb">;
+  restaurant: Pick<Restaurant, "name" | "suburb" | "cuisine">;
   bundle: Pick<
     DinnerBundle,
     "name" | "description" | "price" | "feeds_people" | "estimated_minutes" | "image_url" | "tags"
@@ -35,6 +35,7 @@ export function DinnerCard({
     <article
       className={cn(
         "overflow-hidden rounded-3xl border border-border bg-card",
+        href && "transition hover:border-foreground/25",
         featured && "md:grid md:grid-cols-[1.15fr_1fr]",
         compact && "grid grid-cols-[7.5rem_1fr] sm:grid-cols-[9.5rem_1fr]",
       )}
@@ -48,11 +49,9 @@ export function DinnerCard({
           variant === "default" && "aspect-[16/10]",
         )}
       >
-        <Image
+        <FoodImage
           src={bundle.image_url}
-          alt={bundle.name}
-          fill
-          className="object-cover"
+          alt=""
           sizes={
             featured
               ? "(min-width: 768px) 520px, 100vw"
@@ -69,35 +68,35 @@ export function DinnerCard({
             {eyebrow}
           </p>
         ) : null}
-        <p
-          className={cn(
-            "text-xs font-semibold uppercase tracking-[0.18em] text-muted",
-            eyebrow && "mt-2",
-          )}
-        >
-          {restaurant.name}
-        </p>
         <h3
           className={cn(
-            "mt-2 font-display tracking-tight",
+            "font-display tracking-tight",
+            eyebrow ? "mt-2" : "mt-0",
             featured ? "text-3xl sm:text-[2.15rem]" : compact ? "text-xl" : "text-2xl",
           )}
         >
           {bundle.name}
         </h3>
+        <p className="mt-2 text-sm font-semibold text-ink-soft">
+          {restaurant.name}
+          {restaurant.suburb ? ` · ${restaurant.suburb}` : ""}
+        </p>
+        {restaurant.cuisine && !compact ? (
+          <p className="mt-0.5 text-xs text-muted">{restaurant.cuisine}</p>
+        ) : null}
         {compact ? null : (
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">{bundle.description}</p>
         )}
         <p className="mt-3 text-sm text-muted">
-          Feeds {bundle.feeds_people}
-          <span aria-hidden className="mx-2">
-            ·
-          </span>
           {formatPrice(bundle.price)}
           <span aria-hidden className="mx-2">
             ·
           </span>
-          {formatMinutes(bundle.estimated_minutes)}
+          feeds {bundle.feeds_people}
+          <span aria-hidden className="mx-2">
+            ·
+          </span>
+          approx. {bundle.estimated_minutes} mins
         </p>
         {bundle.tags.length > 0 ? (
           <ul className="mt-3 flex flex-wrap gap-2">
@@ -126,7 +125,7 @@ export function DinnerCard({
 
   if (!href) return content;
   return (
-    <Link href={href} className="block transition hover:-translate-y-0.5">
+    <Link href={href} className="block cursor-pointer rounded-3xl transition hover:-translate-y-0.5">
       {content}
     </Link>
   );

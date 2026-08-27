@@ -176,12 +176,15 @@ export function scoreBundle(row: JoinedBundle, input: RecommendationInput): numb
     if (tags.has("quick")) score += 8;
   }
   if (moods.has("healthy")) {
-    if (tags.has("healthy")) score += 22;
-    else score -= 4;
+    if (tags.has("healthy")) score += 36;
+    else score -= 28;
+    if (tags.has("burgers") || tags.has("pizza") || tags.has("fried")) score -= 24;
   }
   if (moods.has("cheap")) {
-    if (tags.has("cheap") || bundle.price <= 50) score += 18;
-    if (input.budgetMax != null && bundle.price > input.budgetMax * 0.85) score -= 8;
+    if (tags.has("cheap") || bundle.price <= 52) score += 22;
+    score += Math.max(0, Math.round((70 - bundle.price) / 3));
+    if (input.budgetMax != null && bundle.price > input.budgetMax * 0.85) score -= 12;
+    if (tags.has("treat")) score -= 10;
   }
   if (moods.has("comfort") && tags.has("comfort")) score += 18;
   if (moods.has("treat")) {
@@ -192,8 +195,10 @@ export function scoreBundle(row: JoinedBundle, input: RecommendationInput): numb
     if (tags.has("kids") || tags.has("family")) score += 20;
     else score -= 6;
   }
-  if (moods.has("high-protein") && (tags.has("high-protein") || tags.has("healthy"))) {
-    score += 20;
+  if (moods.has("high-protein")) {
+    if (tags.has("high-protein")) score += 26;
+    else if (tags.has("healthy")) score += 8;
+    else score -= 6;
   }
   if (moods.has("surprise")) {
     const seed = `${input.postcode}-${people}-${input.moodTags.join(",")}`;
@@ -224,6 +229,9 @@ export function buildReason(row: JoinedBundle, input: RecommendationInput): stri
   if (preferred && max && feedsEnough(bundle, people)) {
     return `Fits your ${max} budget, feeds ${wordPeople(people)} and matches your preference for ${restaurant.cuisine} food.`;
   }
+  if (moods.includes("healthy") && bundle.tags.includes("healthy")) {
+    return `A lighter pick from ${restaurant.name} that still feeds ${wordPeople(people)}.`;
+  }
   if (moods.includes("healthy") && bundle.tags.includes("high-protein")) {
     return "Higher-protein option that still stays within your normal dinner spend.";
   }
@@ -245,10 +253,15 @@ export function buildReason(row: JoinedBundle, input: RecommendationInput): stri
   return `A solid match for ${people} in ${restaurant.suburb} tonight.`;
 }
 
-function pickDiverse(scored: RecommendedDinner[], limit: number): RecommendedDinner[] {
+function pickDiverse(
+  scored: RecommendedDinner[],
+  limit: number,
+  input: RecommendationInput,
+): RecommendedDinner[] {
   const picked: RecommendedDinner[] = [];
   const usedRestaurants = new Set<string>();
   const usedCuisines = new Set<string>();
+  const moods = new Set(input.moodTags);
 
   const tryPick = (predicate: (item: RecommendedDinner) => boolean) => {
     for (const item of scored) {
@@ -260,6 +273,40 @@ function pickDiverse(scored: RecommendedDinner[], limit: number): RecommendedDin
       usedCuisines.add(item.restaurant.cuisine);
     }
   };
+
+  const healthyAvailable = scored.filter((item) => item.bundle.tags.includes("healthy")).length;
+  if (moods.has("healthy") && healthyAvailable >= 2) {
+    if (moods.has("quick")) {
+      tryPick(
+        (item) =>
+          item.bundle.tags.includes("healthy") &&
+          item.bundle.estimated_minutes <= 35 &&
+          !usedRestaurants.has(item.restaurant.id),
+      );
+      tryPick(
+        (item) =>
+          item.bundle.tags.includes("healthy") && item.bundle.estimated_minutes <= 35,
+      );
+    }
+    tryPick((item) => item.bundle.tags.includes("healthy") && !usedRestaurants.has(item.restaurant.id));
+    tryPick((item) => item.bundle.tags.includes("healthy"));
+  }
+
+  if (moods.has("cheap") && picked.length < limit) {
+    tryPick(
+      (item) =>
+        (item.bundle.tags.includes("cheap") || item.bundle.price <= 55) &&
+        !usedRestaurants.has(item.restaurant.id),
+    );
+    tryPick((item) => item.bundle.tags.includes("cheap") || item.bundle.price <= 55);
+  }
+
+  if (moods.has("quick") && picked.length < limit) {
+    tryPick(
+      (item) =>
+        item.bundle.estimated_minutes <= 30 && !usedRestaurants.has(item.restaurant.id),
+    );
+  }
 
   tryPick(
     (item) =>
@@ -312,7 +359,11 @@ export function recommend(
   const excluded = new Set(input.excludeBundleIds ?? []);
 
   const candidates = joinCatalog(catalog).filter(
-    (row) => row.bundle.active && row.restaurant.active && !excluded.has(row.bundle.id),
+    (row) =>
+      row.bundle.active &&
+      row.restaurant.active &&
+      row.restaurant.dinner_suitable !== false &&
+      !excluded.has(row.bundle.id),
   );
 
   const passes: Array<Parameters<typeof applyPass>[3]> = [
@@ -340,7 +391,7 @@ export function recommend(
     }))
     .sort((a, b) => b.score - a.score || a.bundle.price - b.bundle.price);
 
-  return pickDiverse(scored, limit);
+  return pickDiverse(scored, limit, input);
 }
 
 export const recommendationEngine = {

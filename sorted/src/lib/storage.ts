@@ -158,23 +158,30 @@ export function writeWeek(items: WeekPlanItem[]): void {
 const DEFAULT_WEEK: WeekPlanItem[] = [
   {
     day: "MON",
-    title: "Healthy Thai",
-    restaurant: "Bangkok Local",
-    price: 58,
+    title: "Family Thai Night",
+    restaurant: "Manly Thai Gourmet",
+    price: 62,
     status: "sorted",
     bundleId: "00000000-0000-4000-b000-000000000001",
   },
   { day: "TUE", title: "Cooking at home", status: "home" },
   {
     day: "WED",
-    title: "Italian Family Table",
-    restaurant: "Via Napoli Kitchen",
-    price: 64,
+    title: "Jipang Family Rice Table",
+    restaurant: "Jipang",
+    price: 56,
     status: "sorted",
-    bundleId: "00000000-0000-4000-b000-000000000004",
+    bundleId: "00000000-0000-4000-b000-000000000046",
   },
   { day: "THU", title: "Not planned", status: "unplanned" },
-  { day: "FRI", title: "Treat night", status: "unplanned" },
+  {
+    day: "FRI",
+    title: "Cibaria Family Pasta & Pizza",
+    restaurant: "Cibaria Manly",
+    price: 68,
+    status: "sorted",
+    bundleId: "00000000-0000-4000-b000-000000000016",
+  },
   { day: "SAT", title: "Not planned", status: "unplanned" },
   { day: "SUN", title: "Not planned", status: "unplanned" },
 ];
@@ -217,6 +224,14 @@ export function writeSession(session: RecommendationSessionPayload): void {
   window.sessionStorage.setItem(STORAGE_KEYS.lastSession, JSON.stringify(session));
   sessionCache = undefined;
   sessionCacheKey = undefined;
+  emit(STORAGE_KEYS.lastSession);
+}
+
+export function clearSession(): void {
+  if (typeof window === "undefined") return;
+  window.sessionStorage.removeItem(STORAGE_KEYS.lastSession);
+  sessionCache = null;
+  sessionCacheKey = null;
   emit(STORAGE_KEYS.lastSession);
 }
 

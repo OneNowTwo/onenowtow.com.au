@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DinnerCard } from "@/components/dinner/DinnerCard";
+import { FavouriteButton } from "@/components/dinner/FavouriteButton";
 import { EmptyState } from "@/components/empty/EmptyState";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { track } from "@/lib/analytics";
@@ -80,8 +81,7 @@ export function ResultsView() {
 
   const [primary, ...alternatives] = session.results;
 
-  function choose(bundleId: string, restaurant: string) {
-    track("dinner_selected", { bundleId, restaurant });
+  function choose(bundleId: string) {
     router.push(`/dinner/${bundleId}?session=${session!.id}`);
   }
 
@@ -96,13 +96,16 @@ export function ResultsView() {
           reason={primary.reason}
           reasonHeading="Why it fits tonight"
           action={
-            <Button
-              size="lg"
-              className="w-full sm:w-auto"
-              onClick={() => choose(primary.bundle.id, primary.restaurant.name)}
-            >
-              Choose this
-            </Button>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto"
+                onClick={() => choose(primary.bundle.id)}
+              >
+                Choose this
+              </Button>
+              <FavouriteButton bundleId={primary.bundle.id} />
+            </div>
           }
         />
 
@@ -119,13 +122,16 @@ export function ResultsView() {
                 restaurant={result.restaurant}
                 bundle={result.bundle}
                 action={
-                  <Button
-                    variant="secondary"
-                    className="w-full sm:w-auto"
-                    onClick={() => choose(result.bundle.id, result.restaurant.name)}
-                  >
-                    Choose this
-                  </Button>
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                    <Button
+                      variant="secondary"
+                      className="w-full sm:w-auto"
+                      onClick={() => choose(result.bundle.id)}
+                    >
+                      Choose this
+                    </Button>
+                    <FavouriteButton bundleId={result.bundle.id} />
+                  </div>
                 }
               />
             ))}
@@ -136,7 +142,7 @@ export function ResultsView() {
         <button
           type="button"
           onClick={() => void refresh()}
-          className="text-sm font-semibold text-ink-soft underline-offset-4 hover:underline"
+          className="cursor-pointer text-sm font-semibold text-ink-soft underline-offset-4 transition hover:text-foreground hover:underline"
         >
           None of these? Give me three more.
         </button>

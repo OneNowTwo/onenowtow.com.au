@@ -54,6 +54,7 @@ export default function ProfilePage() {
           <p className="mt-3 text-lg text-ink-soft">
             {formatPeopleTotal(household.adults, household.children)}
             {suburb ? ` · ${suburb}` : null}
+            {household.postcode ? ` · ${household.postcode}` : null}
           </p>
           <p className="mt-1 text-muted">{formatPeople(household.adults, household.children)}</p>
           <dl className="mt-6 space-y-3 text-sm">

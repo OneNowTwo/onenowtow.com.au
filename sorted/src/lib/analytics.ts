@@ -8,7 +8,9 @@ export type AnalyticsEventName =
   | "order_clicked"
   | "favourite_saved"
   | "weekly_plan_viewed"
-  | "sorted_3_waitlist_joined";
+  | "sorted_3_waitlist_joined"
+  | "recommendation_feedback_positive"
+  | "recommendation_feedback_negative";
 
 export interface AnalyticsEvent {
   name: AnalyticsEventName;

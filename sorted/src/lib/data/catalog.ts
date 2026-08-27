@@ -334,14 +334,14 @@ export const restaurants: Restaurant[] = [
   ),
   restaurant(
     22,
-    "The Pantry Manly",
-    "the-pantry",
-    "Modern Australian, beachfront.",
-    "Ocean Promenade",
+    "Ripples Little Manly",
+    "ripples-little-manly",
+    "Beachfront coastal dining at Little Manly Cove.",
+    "On the Beach, Stuart Street",
     "Modern Australian",
-    "https://www.thepantrymanly.com/",
+    "https://srghospitality.com.au/venue/ripples-little-manly/",
     "salad",
-    "Daily breakfast through dinner",
+    "Breakfast and lunch daily; dinner Wed–Sun",
   ),
   restaurant(
     23,
@@ -387,7 +387,7 @@ const concepts: PackConcept[][] = [
       4,
       30,
       "thai",
-      ["family", "quick", "thai"],
+      ["family", "kids", "quick", "thai"],
     ),
     pack(
       "Vegetable Thai Table",
@@ -609,7 +609,7 @@ const concepts: PackConcept[][] = [
       4,
       35,
       "salad",
-      ["healthy", "vegetarian", "family", "italian"],
+      ["vegetarian", "family", "italian"],
       ["vegetarian"],
     ),
     pack(
@@ -677,7 +677,7 @@ const concepts: PackConcept[][] = [
       6,
       35,
       "salad",
-      ["healthy", "family", "high-protein", "pizza"],
+      ["family", "high-protein", "pizza"],
     ),
   ],
   [
@@ -1395,7 +1395,7 @@ const concepts: PackConcept[][] = [
       4,
       40,
       "steak",
-      ["healthy", "high-protein", "treat", "steak"],
+      ["high-protein", "treat", "steak"],
       ["gluten-free"],
     ),
     pack(
@@ -1441,7 +1441,7 @@ const concepts: PackConcept[][] = [
   ],
   [
     pack(
-      "Pantry Balanced Family Table",
+      "Little Manly Chicken Table",
       "Grilled chicken, grains, seasonal vegetables and salad make a bright family dinner.",
       66,
       4,
@@ -1461,7 +1461,7 @@ const concepts: PackConcept[][] = [
       ["gluten-free", "dairy-free", "seafood"],
     ),
     pack(
-      "Pantry Vegetable Bowls",
+      "Cove Vegetable Bowls",
       "Grains, beans, roast vegetables and leafy greens make colourful plant-based bowls.",
       52,
       4,
@@ -1481,7 +1481,7 @@ const concepts: PackConcept[][] = [
       ["gluten-free"],
     ),
     pack(
-      "Pantry Family Supper",
+      "Ripples Family Beach Table",
       "Chicken, fish, vegetables, grains and salad give six diners flexible choices.",
       94,
       6,
@@ -1653,6 +1653,7 @@ const LIMITED_DAYS: Partial<Record<number, string[]>> = {
   14: ["tue", "wed", "thu", "fri", "sat", "sun"],
   18: ["tue", "wed", "thu", "fri", "sat"],
   19: ["wed", "thu", "fri", "sat", "sun"],
+  22: ["wed", "thu", "fri", "sat", "sun"],
 };
 
 export const bundles: DinnerBundle[] = concepts.flatMap(

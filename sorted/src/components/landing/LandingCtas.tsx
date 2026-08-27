@@ -21,7 +21,7 @@ export function LandingCtas() {
       >
         Sort tonight&apos;s dinner
       </ButtonLink>
-      <ButtonLink href="#how-it-works" variant="secondary" size="lg">
+      <ButtonLink href="/how-it-works" variant="secondary" size="lg">
         How it works
       </ButtonLink>
     </div>
@@ -36,7 +36,7 @@ export function LandingFooterCta() {
     <ButtonLink
       href={href}
       size="lg"
-      className="bg-background text-foreground hover:bg-background/90"
+      variant="inverse"
       onClick={() => track("landing_cta_clicked", { source: "footer" })}
     >
       Sort dinner

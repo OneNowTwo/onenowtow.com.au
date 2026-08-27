@@ -10,10 +10,12 @@ export const buttonClasses = {
     sm: "h-9 px-4 text-sm",
   },
   variants: {
-    primary: "bg-accent text-white hover:bg-accent-hover",
-    secondary: "border border-foreground/15 bg-card text-foreground hover:border-foreground/30",
-    ghost: "text-ink-soft hover:bg-muted-bg",
-    danger: "bg-danger text-white hover:opacity-90",
+    primary: "cursor-pointer bg-accent text-white hover:bg-accent-hover",
+    secondary:
+      "cursor-pointer border border-foreground/15 bg-card text-foreground hover:border-foreground/40 hover:bg-muted-bg",
+    ghost: "cursor-pointer text-ink-soft hover:bg-muted-bg hover:text-foreground",
+    danger: "cursor-pointer bg-danger text-white hover:opacity-90",
+    inverse: "cursor-pointer bg-card text-foreground hover:bg-white",
   },
 } as const;
 
@@ -65,6 +67,8 @@ export function ButtonLink({
   size = "md",
   children,
   onClick,
+  target,
+  rel,
 }: {
   href: string;
   className?: string;
@@ -72,9 +76,17 @@ export function ButtonLink({
   size?: Size;
   children: ReactNode;
   onClick?: () => void;
+  target?: string;
+  rel?: string;
 }) {
   return (
-    <Link href={href} onClick={onClick} className={buttonClassName({ variant, size, className })}>
+    <Link
+      href={href}
+      onClick={onClick}
+      target={target}
+      rel={rel}
+      className={buttonClassName({ variant, size, className })}
+    >
       {children}
     </Link>
   );

@@ -68,6 +68,6 @@ describe("labelAlternatives", () => {
     ];
     const labels = labelAlternatives(results);
     expect(labels.get("fast")).toBe("Quickest");
-    expect(labels.get("family")).toBe("Safe family pick");
+    expect(labels.get("family")).toBe("Family favourite");
   });
 });

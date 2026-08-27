@@ -1,4 +1,4 @@
-/** Tasteful Unsplash food photography — replace with original photography later. */
+/** Tasteful Unsplash cuisine photography — generic, not restaurant dishes. */
 export const IMAGES = {
   thai: "https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=1400&q=80",
   thaiCurry: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1400&q=80",
@@ -12,7 +12,6 @@ export const IMAGES = {
   indian: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1400&q=80",
   naan: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1400&q=80",
   vietnamese: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=1400&q=80",
-  banhmi: "https://images.unsplash.com/photo-1509722747041-616f39b575ee?auto=format&fit=crop&w=1400&q=80",
   greek: "https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&w=1400&q=80",
   salad: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1400&q=80",
   mexican: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1400&q=80",
@@ -20,10 +19,14 @@ export const IMAGES = {
   burger: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1400&q=80",
   fries: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1400&q=80",
   middleEastern: "https://images.unsplash.com/photo-1529006557810-274b0b6def40?auto=format&fit=crop&w=1400&q=80",
-  falafel: "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=1400&q=80",
   modern: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80",
   steak: "https://images.unsplash.com/photo-1544025162-d766d81c359c?auto=format&fit=crop&w=1400&q=80",
   chinese: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1400&q=80",
   dumplings: "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=1400&q=80",
   family: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=80",
+  fish: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=1400&q=80",
+  grill: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=80",
+  veg: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1400&q=80",
 } as const;
+
+export type ImageKey = keyof typeof IMAGES;

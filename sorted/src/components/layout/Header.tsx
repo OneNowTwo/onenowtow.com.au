@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/brand/Logo";
+import { TonightLink } from "@/components/TonightLink";
 import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -15,17 +16,17 @@ const productLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isPublic = pathname === "/" || pathname.startsWith("/how-it-works");
 
-  if (isHome) {
+  if (isPublic) {
     return (
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Logo />
           <nav className="flex items-center gap-3 sm:gap-5" aria-label="Primary">
             <Link
-              href="#how-it-works"
-              className="text-sm font-medium text-ink-soft transition hover:text-foreground"
+              href="/how-it-works"
+              className="cursor-pointer text-sm font-semibold text-ink-soft transition hover:text-foreground"
             >
               How it works
             </Link>
@@ -47,25 +48,32 @@ export function Header() {
           aria-label="Primary"
         >
           {productLinks.map((link) => {
+            const tonightActive =
+              pathname.startsWith("/sort") ||
+              pathname.startsWith("/results") ||
+              pathname.startsWith("/dinner") ||
+              pathname.startsWith("/order") ||
+              pathname.startsWith("/household");
             const active =
               link.href === "/sort"
-                ? pathname.startsWith("/sort") ||
-                  pathname.startsWith("/results") ||
-                  pathname.startsWith("/dinner") ||
-                  pathname.startsWith("/household")
+                ? tonightActive
                 : pathname === link.href || pathname.startsWith(`${link.href}/`);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn("transition hover:text-foreground", active && "text-foreground")}
-              >
+            const className = cn(
+              "cursor-pointer transition hover:text-foreground",
+              active && "text-foreground",
+            );
+            return link.href === "/sort" ? (
+              <TonightLink key={link.href} className={className}>
+                {link.label}
+              </TonightLink>
+            ) : (
+              <Link key={link.href} href={link.href} className={className}>
                 {link.label}
               </Link>
             );
           })}
         </nav>
-        <span className="hidden md:block w-20" />
+        <span className="hidden w-20 md:block" />
       </div>
     </header>
   );

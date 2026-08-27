@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { SortForm } from "@/components/sort/SortForm";
 
 export const metadata = {
@@ -12,7 +13,9 @@ export default function SortPage() {
         What are we eating tonight?
       </h1>
       <div className="mt-8">
-        <SortForm />
+        <Suspense fallback={<p className="text-muted">Loading tonight…</p>}>
+          <SortForm />
+        </Suspense>
       </div>
     </div>
   );

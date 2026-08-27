@@ -11,8 +11,8 @@ const catalog = getLocalCatalog();
 
 function baseInput(overrides: Partial<RecommendationInput> = {}): RecommendationInput {
   return {
-    postcode: "2089",
-    suburb: "Neutral Bay",
+    postcode: "2095",
+    suburb: "Manly",
     adults: 2,
     children: 2,
     dietaryRequirements: [],
@@ -190,7 +190,7 @@ describe("recommendation engine", () => {
     expect(results.length).toBeLessThan(3);
   });
 
-  it("scores a Neutral Bay Thai family bundle well for the Taylor-style household", () => {
+  it("scores a Manly Thai family bundle well for the Taylor-style household", () => {
     const thaiFamily = catalog.bundles.find((b) => b.name === "Family Thai Night");
     const restaurant = catalog.restaurants.find((r) => r.id === thaiFamily?.restaurant_id);
     expect(thaiFamily && restaurant).toBeTruthy();
@@ -201,5 +201,114 @@ describe("recommendation engine", () => {
     if (!burger || !burgerRest) return;
     const burgerScore = scoreBundle({ bundle: burger, restaurant: burgerRest }, baseInput());
     expect(score).toBeGreaterThan(burgerScore);
+  });
+
+  it("keeps recommendations in the Manly restaurant pool", () => {
+    const results = recommend(baseInput(), catalog);
+    expect(results.every((item) => item.restaurant.postcode === "2095")).toBe(true);
+    expect(results.every((item) => item.restaurant.suburb === "Manly")).toBe(true);
+  });
+
+  it("returns at least two clearly healthy packs when Healthy is selected", () => {
+    const results = recommend(
+      baseInput({
+        moodTags: ["healthy"],
+        favouriteCuisines: [],
+        budgetMin: 60,
+        budgetMax: 80,
+      }),
+      catalog,
+    );
+    expect(results).toHaveLength(3);
+    expect(results.filter((item) => item.bundle.tags.includes("healthy")).length).toBeGreaterThanOrEqual(2);
+    expect(
+      results.every(
+        (item) => !item.bundle.tags.includes("pizza") && !item.bundle.tags.includes("burgers"),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not return burgers or pizza first for Healthy + Quick", () => {
+    const results = recommend(
+      baseInput({
+        moodTags: ["healthy", "quick"],
+        favouriteCuisines: [],
+        budgetMin: 60,
+        budgetMax: 80,
+      }),
+      catalog,
+    );
+    expect(results).toHaveLength(3);
+    expect(results.filter((item) => item.bundle.tags.includes("healthy")).length).toBeGreaterThanOrEqual(2);
+    expect(results[0]?.bundle.tags.includes("healthy")).toBe(true);
+  });
+
+  it("prioritises cheaper packs when Cheap is selected", () => {
+    const cheap = recommend(
+      baseInput({ moodTags: ["cheap"], favouriteCuisines: [], budgetMin: 0, budgetMax: 80 }),
+      catalog,
+    );
+    const treat = recommend(
+      baseInput({ moodTags: ["treat"], favouriteCuisines: [], budgetMin: 0, budgetMax: 110 }),
+      catalog,
+    );
+    const cheapAvg = cheap.reduce((sum, item) => sum + item.bundle.price, 0) / cheap.length;
+    const treatAvg = treat.reduce((sum, item) => sum + item.bundle.price, 0) / treat.length;
+    expect(cheapAvg).toBeLessThan(treatAvg);
+  });
+
+  it("excludes seafood when the household asks for no seafood", () => {
+    const results = recommend(
+      baseInput({
+        dietaryRequirements: ["no-seafood"],
+        favouriteCuisines: [],
+        moodTags: ["healthy"],
+      }),
+      catalog,
+    );
+    expect(results.every((item) => !item.bundle.dietary_tags.includes("seafood"))).toBe(true);
+  });
+
+  it("excludes breakfast-only venues from dinner recommendations", () => {
+    const breakfast: Catalog = {
+      restaurants: [
+        {
+          id: "cafe",
+          name: "Breakfast Only Cafe",
+          slug: "breakfast-only",
+          description: "Closes at 3pm",
+          address: "1 Test St",
+          suburb: "Manly",
+          postcode: "2095",
+          cuisine: "Cafe",
+          image_url: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+          ordering_url: "https://example.com",
+          dinner_suitable: false,
+          active: true,
+          created_at: "2026-01-01T00:00:00.000Z",
+        },
+        ...tinyCatalog().restaurants,
+      ],
+      bundles: [
+        {
+          id: "breakfast-pack",
+          restaurant_id: "cafe",
+          name: "Avocado Toast Box",
+          description: "Breakfast",
+          price: 42,
+          feeds_people: 4,
+          estimated_minutes: 20,
+          image_url: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+          active: true,
+          available_days: ["mon"],
+          tags: ["healthy", "quick"],
+          dietary_tags: ["vegetarian"],
+          created_at: "2026-01-01T00:00:00.000Z",
+        },
+        ...tinyCatalog().bundles,
+      ],
+    };
+    const results = recommend(baseInput({ favouriteCuisines: [], moodTags: [] }), breakfast);
+    expect(results.every((item) => item.restaurant.id !== "cafe")).toBe(true);
   });
 });

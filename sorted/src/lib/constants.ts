@@ -81,6 +81,7 @@ export const STORAGE_KEYS = {
   week: "sorted.week",
   lastSession: "sorted.lastSession",
   guestId: "sorted.guestId",
+  feedback: "sorted.feedback",
 } as const;
 
 export const ADMIN_COOKIE = "sorted_admin";
