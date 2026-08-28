@@ -1,4 +1,4 @@
-import { IMAGES, type ImageKey } from "@/lib/data/images";
+import { IMAGES, createImageAssigner, type ImageKey } from "@/lib/data/images";
 import type { Catalog, DinnerBundle, Restaurant } from "@/lib/types";
 
 const AT = "2026-08-01T00:00:00.000Z";
@@ -76,10 +76,13 @@ function pack(
   };
 }
 
+const packImages = createImageAssigner();
+
 function bundle(
   n: number,
   restaurantN: number,
   concept: PackConcept,
+  cuisine: string,
   availableDays: string[] = ALL,
 ): DinnerBundle {
   return {
@@ -90,7 +93,7 @@ function bundle(
     price: concept.price,
     feeds_people: concept.feedsPeople,
     estimated_minutes: concept.estimatedMinutes,
-    image_url: IMAGES[concept.image],
+    image_url: packImages.claim(concept.image, cuisine),
     active: true,
     available_days: availableDays,
     tags: concept.tags,
@@ -1660,12 +1663,13 @@ export const bundles: DinnerBundle[] = concepts.flatMap(
   (restaurantConcepts, restaurantIndex) =>
     restaurantConcepts.map((concept, conceptIndex) => {
       const restaurantN = restaurantIndex + 1;
+      const cuisine = restaurants[restaurantIndex]?.cuisine ?? "Modern Australian";
       const bundleN = restaurantIndex * 5 + conceptIndex + 1;
       const availableDays = LIMITED_DAYS[restaurantN];
 
       return availableDays
-        ? bundle(bundleN, restaurantN, concept, availableDays)
-        : bundle(bundleN, restaurantN, concept);
+        ? bundle(bundleN, restaurantN, concept, cuisine, availableDays)
+        : bundle(bundleN, restaurantN, concept, cuisine);
     }),
 );
 

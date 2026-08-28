@@ -58,4 +58,22 @@ describe("Manly catalog", () => {
   it("does not recommend lunch-only venues in the dinner pool", () => {
     expect(catalog.restaurants.every((item) => item.dinner_suitable !== false)).toBe(true);
   });
+
+  it("gives every concept pack its own photo", () => {
+    const urls = catalog.bundles.map((item) => item.image_url);
+    expect(urls.every((url) => url.startsWith("https://"))).toBe(true);
+    expect(new Set(urls).size).toBe(urls.length);
+  });
+
+  it("does not reuse a photo across one restaurant's five packs", () => {
+    const byRestaurant = new Map<string, string[]>();
+    for (const bundle of catalog.bundles) {
+      const urls = byRestaurant.get(bundle.restaurant_id) ?? [];
+      urls.push(bundle.image_url);
+      byRestaurant.set(bundle.restaurant_id, urls);
+    }
+    for (const urls of byRestaurant.values()) {
+      expect(new Set(urls).size).toBe(urls.length);
+    }
+  });
 });
