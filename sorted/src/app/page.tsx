@@ -25,7 +25,7 @@ const exampleDinners = [
       price: 56,
       feeds_people: 4,
       estimated_minutes: 30,
-      image_url: IMAGES.japanese,
+      image_url: IMAGES.protein,
       tags: ["Healthy", "Quick", "Family"],
     },
   },
