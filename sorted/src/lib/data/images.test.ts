@@ -12,7 +12,8 @@ describe("food photo library", () => {
     expect(new Set(urls).size).toBe(urls.length);
     expect(urls.every((url) => url.startsWith("https://images."))).toBe(true);
     expect(IMAGES.family).not.toBe(IMAGES.grill);
-    expect(IMAGES.mexican).not.toContain("1565299585323");
+    expect(IMAGES.greek).not.toContain("1544124499");
+    expect(IMAGES.mexican).toContain("1565299585323");
   });
 
   it("does not put the same URL in two cuisine pools", () => {
