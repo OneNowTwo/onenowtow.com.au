@@ -110,8 +110,8 @@ function HeroSection() {
 
   return (
     <>
-      {/* Video sits below the sticky cream nav — full landscape frame, no side crop */}
-      <section className="bg-black pt-[4.75rem] md:pt-[5.25rem]">
+      {/* Cream band under sticky nav; video sits below in its own black frame */}
+      <section className="bg-[var(--bg)] pt-[4.75rem] md:pt-[5.25rem]">
         <div className="relative w-full aspect-video bg-black overflow-hidden">
           {preferStill ? (
             <img

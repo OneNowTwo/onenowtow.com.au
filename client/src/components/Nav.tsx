@@ -56,7 +56,7 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-30 bg-[var(--cream)]/95 border-b border-[var(--hairline)] backdrop-blur-md transition-shadow duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-30 bg-[var(--cream)] border-b border-[var(--hairline)] transition-shadow duration-200 ${
         scrolled ? "shadow-sm" : ""
       }`}
     >
