@@ -108,57 +108,61 @@ function HeroSection() {
     return () => mq.removeEventListener("change", apply);
   }, []);
 
-  return (
-    <section className="relative min-h-[100svh] flex items-end md:items-center overflow-hidden bg-black">
-      {preferStill ? (
-        <img
-          src={HERO_STILL}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        <>
-          <img
-            src={HERO_POSTER}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={HERO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover hero-iframe"
-            style={{
-              opacity: videoLoaded ? 1 : 0,
-              transition: "opacity 1.2s ease-in-out",
-            }}
-            onLoadedData={() => {
-              setTimeout(() => setVideoLoaded(true), 200);
-            }}
-          >
-            <source src={HERO_VIDEO} type="video/mp4" />
-          </video>
-        </>
-      )}
-
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-black/25"
+  const media = preferStill ? (
+    <img
+      src={HERO_STILL}
+      alt=""
+      className="w-full h-full object-contain md:object-cover md:absolute md:inset-0"
+    />
+  ) : (
+    <>
+      <img
+        src={HERO_POSTER}
+        alt=""
+        className="absolute inset-0 w-full h-full object-contain md:object-cover"
         aria-hidden="true"
       />
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={HERO_POSTER}
+        className="relative z-[1] w-full h-full object-contain md:absolute md:inset-0 md:object-cover hero-iframe"
+        style={{
+          opacity: videoLoaded ? 1 : 0,
+          transition: "opacity 1.2s ease-in-out",
+        }}
+        onLoadedData={() => {
+          setTimeout(() => setVideoLoaded(true), 200);
+        }}
+      >
+        <source src={HERO_VIDEO} type="video/mp4" />
+      </video>
+    </>
+  );
 
-      <div className="relative w-full max-w-4xl mx-auto px-6 pt-32 pb-16 md:py-28 text-center md:text-left">
+  return (
+    <section className="relative bg-black overflow-hidden md:min-h-[100svh] md:flex md:items-center">
+      {/* Mobile: full landscape frame. Desktop: full-bleed cover. */}
+      <div className="relative w-full aspect-video bg-black md:absolute md:inset-0 md:aspect-auto">
+        {media}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 md:from-black/75 md:via-black/40 md:to-black/25"
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="relative w-full max-w-4xl mx-auto px-6 py-10 md:py-28 text-center md:text-left z-[2]">
         <h1
-          className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-5 text-white"
+          className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 md:mb-5 text-white"
           data-testid="text-hero-title"
         >
           Commercial property. Captured properly.
         </h1>
         <p
-          className="text-white/85 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl md:mx-0 mx-auto"
+          className="text-white/85 text-base md:text-xl leading-relaxed mb-6 md:mb-8 max-w-2xl md:mx-0 mx-auto"
           data-testid="text-hero-subtitle"
         >
           Video, drone and photography for commercial property campaigns. Based

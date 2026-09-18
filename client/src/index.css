@@ -170,10 +170,15 @@
     opacity: 0.92;
   }
 
-  /* Hero */
+  /* Hero — only scale/crop on desktop full-bleed; mobile shows full frame */
   .hero-iframe {
     filter: contrast(1.05) brightness(1.0);
-    transform: scale(1.02);
+  }
+
+  @media (min-width: 768px) {
+    .hero-iframe {
+      transform: scale(1.02);
+    }
   }
 
   .hero-veil {
@@ -181,9 +186,9 @@
   }
 
   /* Mobile optimizations */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .hero-iframe {
-      transform: scale(1.05);
+      transform: none;
       object-position: center;
     }
   }
