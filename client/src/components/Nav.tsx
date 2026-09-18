@@ -23,7 +23,6 @@ const serviceLinks = [
 
 export default function Nav() {
   const [location] = useLocation();
-  const isHome = location === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -31,7 +30,7 @@ export default function Nav() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 48);
+      setScrolled(window.scrollY > 8);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -52,20 +51,13 @@ export default function Nav() {
     closeTimer.current = setTimeout(() => setServicesOpen(false), 200);
   };
 
-  /** Transparent over home hero until scroll; solid cream elsewhere / when scrolled */
-  const overDarkHero = isHome && !scrolled && !mobileOpen;
-  const solid = !overDarkHero;
-
-  const linkClass = overDarkHero
-    ? "text-white/90 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-    : "nav-link focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]";
+  const linkClass =
+    "nav-link focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-30 transition-colors duration-200 ${
-        solid
-          ? "bg-[var(--cream)]/95 border-b border-[var(--hairline)] backdrop-blur-md shadow-sm"
-          : "nav-on-hero"
+      className={`fixed top-0 left-0 right-0 z-30 bg-[var(--cream)]/95 border-b border-[var(--hairline)] backdrop-blur-md transition-shadow duration-200 ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -79,11 +71,7 @@ export default function Nav() {
             <img
               src={logoUrl}
               alt="One Now Two commercial property video production Sydney"
-              className={`w-auto transition-opacity opacity-95 hover:opacity-100 ${
-                overDarkHero
-                  ? "h-20 md:h-28 lg:h-32"
-                  : "h-16 md:h-20 invert"
-              }`}
+              className="w-auto h-16 md:h-20 invert transition-opacity opacity-95 hover:opacity-100"
             />
           </Link>
 
@@ -143,7 +131,7 @@ export default function Nav() {
             </Link>
             <Link
               href="/enquire"
-              className={overDarkHero ? "btn-outline-light" : "btn-outline"}
+              className="btn-outline"
               data-testid="button-enquire-header"
             >
               Enquire
@@ -151,9 +139,7 @@ export default function Nav() {
           </div>
 
           <button
-            className={`lg:hidden p-2 min-h-11 min-w-11 ${
-              overDarkHero ? "text-white" : "text-[var(--ink)]"
-            }`}
+            className="lg:hidden p-2 min-h-11 min-w-11 text-[var(--ink)]"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
