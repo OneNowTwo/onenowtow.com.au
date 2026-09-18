@@ -16,7 +16,7 @@ export default function CaseStudies() {
       />
       <Nav />
 
-      <main className="pt-32 pb-20">
+      <main className="pt-28 md:pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-10">
             <h1 className="font-serif text-4xl md:text-5xl mb-4">
@@ -45,7 +45,8 @@ export default function CaseStudies() {
                 />
                 <div className="p-6">
                   <p className="text-soft-grey text-sm mb-2">
-                    {study.sector} • {study.location}
+                    {study.client ? `${study.client} · ` : ""}
+                    {study.sector} · {study.location}
                   </p>
                   <h2 className="font-serif text-2xl group-hover:text-[var(--navy)] transition-colors">
                     {study.title}

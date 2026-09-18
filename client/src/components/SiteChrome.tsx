@@ -38,6 +38,12 @@ export function SiteFooter() {
           <Link href="/enquire" className={footerLinkClass}>
             Contact
           </Link>
+          <a
+            href="mailto:hello@onenowtwo.com.au"
+            className={footerLinkClass}
+          >
+            hello@onenowtwo.com.au
+          </a>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div>© {new Date().getFullYear()} One Now Two — Sydney, Australia</div>

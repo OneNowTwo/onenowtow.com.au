@@ -5,6 +5,13 @@ import { VimeoThumbnail } from "@/components/VimeoThumbnail";
 
 const portfolioItems = [
   {
+    id: 21,
+    title: "Gibbons Group — Industrial",
+    vimeoId: "1225814922",
+    category: "Industrial & Logistics",
+    location: "Sydney"
+  },
+  {
     id: 1,
     title: "Hilton Hotel Sydney",
     vimeoId: "1159058515",

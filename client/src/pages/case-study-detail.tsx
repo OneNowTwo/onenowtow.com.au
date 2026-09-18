@@ -14,28 +14,35 @@ export default function CaseStudyDetail() {
     return <NotFound />;
   }
 
+  const displayTitle = study.client
+    ? `${study.title} — ${study.client}`
+    : study.title;
+
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <SeoHead
-        title={`${study.title} | Commercial Property Video Case Study | One Now Two`}
+        title={`${displayTitle} | Commercial Property Video Case Study | One Now Two`}
         description={study.metaDescription}
         path={`/case-studies/${study.slug}`}
         schema={videoObjectSchema({
-          name: study.title,
+          name: displayTitle,
           description: study.metaDescription,
           vimeoId: study.vimeoId,
         })}
       />
       <Nav />
 
-      <main className="pt-32 pb-20">
+      <main className="pt-28 md:pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-6">
           <p className="text-soft-grey text-sm tracking-wider uppercase mb-4">
             Case Study
           </p>
-          <h1 className="font-serif text-4xl md:text-5xl mb-4">{study.title}</h1>
+          <h1 className="font-serif text-4xl md:text-5xl mb-3 leading-tight">
+            {study.title}
+          </h1>
           <p className="text-soft-grey mb-10">
-            {study.sector} • {study.location}
+            {study.client ? `${study.client} · ` : ""}
+            {study.sector} · {study.location}
           </p>
 
           <div className="mb-12">
@@ -47,16 +54,23 @@ export default function CaseStudyDetail() {
 
           <div className="space-y-10 text-lg leading-relaxed">
             <div>
-              <h2 className="font-serif text-2xl mb-3">Campaign goal</h2>
+              <h2 className="font-serif text-2xl mb-3">The brief</h2>
               <p className="text-soft-grey">{study.campaignGoal}</p>
             </div>
 
             <div>
               <h2 className="font-serif text-2xl mb-3">
-                What the video needed to explain
+                What the film needed to communicate
               </h2>
               <p className="text-soft-grey">{study.whatVideoNeeded}</p>
             </div>
+
+            {study.productionApproach && (
+              <div>
+                <h2 className="font-serif text-2xl mb-3">Production approach</h2>
+                <p className="text-soft-grey">{study.productionApproach}</p>
+              </div>
+            )}
 
             <div>
               <p className="text-soft-grey">{study.body}</p>
@@ -72,17 +86,22 @@ export default function CaseStudyDetail() {
             </div>
           </div>
 
-          <div className="text-center py-16">
+          <div className="text-center py-16 border border-[var(--hairline)] rounded-lg mt-12 px-6">
             <h2 className="font-serif text-3xl mb-4">
-              Planning a commercial property campaign?
+              Discuss a similar campaign
             </h2>
-            <p className="text-soft-grey text-lg mb-8">
-              Send through the listing or brief and we&apos;ll recommend the right
-              video approach.
+            <p className="text-soft-grey text-lg mb-8 max-w-xl mx-auto">
+              Send through the listing or brief and we&apos;ll recommend the
+              right video approach.
             </p>
-            <Link href="/enquire" className="btn-primary">
-              Enquire
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Link href="/enquire" className="btn-primary">
+                Enquire
+              </Link>
+              <a href="mailto:hello@onenowtwo.com.au" className="btn-outline">
+                Email the team
+              </a>
+            </div>
           </div>
         </div>
 

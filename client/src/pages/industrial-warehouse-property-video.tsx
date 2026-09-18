@@ -115,8 +115,8 @@ export default function IndustrialWarehousePropertyVideo() {
             },
             { href: "/case-studies", label: "Case Studies" },
             {
-              href: "/case-studies/198-power-street-glendenning",
-              label: "198 Power Street Case Study",
+              href: "/case-studies/gibbons-group-industrial",
+              label: "Gibbons Group Case Study",
             },
           ]}
         />

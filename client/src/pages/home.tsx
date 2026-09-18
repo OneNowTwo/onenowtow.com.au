@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 import { SiteFooter } from "@/components/SiteChrome";
@@ -16,143 +16,176 @@ import rydgesLogo from "@assets/Rydges_Hotels_&_Resorts_Logo_1769577580217.png";
 import asheMorganLogo from "@assets/sponslogos4_1769577580217.png";
 import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 
-function HeroSection() {
-  const [videoLoaded, setVideoLoaded] = useState(false);
+const HERO_VIDEO = "/media/hero/property-portfolio-aug26-short.mp4?v=20260810";
+const HERO_POSTER = "/media/hero/hero-poster.jpg";
+/** Clean still for reduced-motion / no-autoplay fallback */
+const HERO_STILL = hospitalityPhotos.pairA.src;
 
-  return (
-    <>
-      <section className="relative bg-black overflow-hidden">
-        <div className="relative w-full aspect-video md:aspect-auto md:min-h-[70vh] lg:min-h-screen">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover hero-iframe"
-            style={{
-              opacity: videoLoaded ? 1 : 0,
-              transition: "opacity 1.5s ease-in-out",
-              filter: "saturate(0.9) contrast(1.05) brightness(1.0)",
-            }}
-            onLoadedData={() => {
-              setTimeout(() => setVideoLoaded(true), 300);
-            }}
-          >
-            <source
-              src="/media/hero/property-portfolio-aug26-short.mp4?v=20260810"
-              type="video/mp4"
-            />
-          </video>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 section-border">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h1
-            className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-5 text-[var(--ink)]"
-            data-testid="text-hero-title"
-          >
-            Commercial property video for assets that need more than stills
-          </h1>
-          <p
-            className="text-soft-grey text-lg md:text-xl leading-relaxed mb-6"
-            data-testid="text-hero-subtitle"
-          >
-            One Now Two creates cinematic campaign content for commercial
-            property teams across industrial, retail, hospitality, tourism and
-            development projects.
-          </p>
-          <div
-            className="text-sm text-soft-grey tracking-wider uppercase mb-8"
-            data-testid="text-hero-location"
-          >
-            Sydney • Australia-Wide
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center">
-            <Link
-              href="/enquire"
-              className="btn-primary"
-              data-testid="button-hero-quote"
-            >
-              Enquire
-            </Link>
-            <Link
-              href="/portfolio"
-              className="btn-outline"
-              data-testid="button-hero-portfolio"
-            >
-              View Portfolio
-            </Link>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-const portfolioPreview = [
-  {
-    id: 1,
-    title: "Hilton Hotel Sydney",
-    vimeoId: "1159058515"
-  },
-  {
-    id: 2,
-    title: "Rydges Hotel",
-    vimeoId: "1159058749"
-  },
-  {
-    id: 3,
-    title: "JLL - Longueville Hotel",
-    vimeoId: "1159066187"
-  },
-  {
-    id: 4,
-    title: "Rhodes Central Shopping Centre",
-    vimeoId: "1159058719"
-  },
-  {
-    id: 5,
-    title: "CBRE - Emu Plains Development",
-    vimeoId: "1172749465"
-  },
-  {
-    id: 6,
-    title: "Parsons Creek Farm",
-    vimeoId: "396407744"
-  }
+const clientLogos = [
+  { src: jllLogo, alt: "JLL" },
+  { src: cbreLogo, alt: "CBRE" },
+  { src: rydgesLogo, alt: "Rydges Hotels & Resorts" },
+  { src: arissaLogo, alt: "Arissa" },
+  { src: asheMorganLogo, alt: "Ashe Morgan" },
 ];
 
-const serviceCategories = [
+const featuredProjects = [
+  {
+    id: "gibbons",
+    title: "Industrial Campaign",
+    client: "Gibbons Group",
+    sector: "Industrial & Logistics",
+    description:
+      "Industrial campaign film produced for Gibbons Group.",
+    vimeoId: "1225814922",
+    href: "/case-studies/gibbons-group-industrial",
+    cta: "View case study",
+  },
+  {
+    id: "jll-hotels",
+    title: "Social Collective",
+    client: "JLL Hotels",
+    sector: "Hotels & Hospitality",
+    description:
+      "Hospitality campaign and social content focused on character, ambience and investor appeal.",
+    vimeoId: "1195210804",
+    href: "/case-studies/jll-hotels-social-collective",
+    cta: "View case study",
+  },
+  {
+    id: "emu-plains",
+    title: "Emu Plains Development",
+    client: "CBRE",
+    sector: "Industrial / Development",
+    description:
+      "Industrial campaign video showing how the site works on the ground — access, layout and surrounding connectivity.",
+    vimeoId: "1172749465",
+    href: "/case-studies/emu-plains-industrial",
+    cta: "View case study",
+  },
+];
+
+const sectors = [
   {
     href: "/industrial-warehouse-property-video",
-    title: "Industrial & Warehouse",
+    title: "Industrial & Logistics",
     description:
       "Scale, access, truck movement, hardstand, clearance and connectivity.",
+    image: industrialPhotos.hero,
   },
   {
     href: "/retail-shopping-precinct-video",
     title: "Retail & Shopping Precincts",
     description:
       "Location, tenant mix, foot traffic, trade area and future upside.",
+    image: retailPhotos.hero,
   },
   {
     href: "/hotel-hospitality-property-video",
     title: "Hotels, Hospitality & Tourism",
     description:
       "Character, heritage, atmosphere, guest experience and investor appeal.",
+    image: hospitalityPhotos.hero,
   },
   {
     href: "/property-development-video",
     title: "Property Developments",
     description:
       "Scale, context, infrastructure, progress and future potential.",
+    image: developmentPhotos.hero,
   },
 ];
 
-export default function Home() {
-  const [selectedVideo, setSelectedVideo] = useState<typeof portfolioPreview[0] | null>(null);
+function HeroSection() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [preferStill, setPreferStill] = useState(false);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => setPreferStill(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  return (
+    <section className="relative min-h-[100svh] flex items-end md:items-center overflow-hidden bg-black">
+      {preferStill ? (
+        <img
+          src={HERO_STILL}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      ) : (
+        <>
+          <img
+            src={HERO_POSTER}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
+          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={HERO_POSTER}
+            className="absolute inset-0 w-full h-full object-cover hero-iframe"
+            style={{
+              opacity: videoLoaded ? 1 : 0,
+              transition: "opacity 1.2s ease-in-out",
+            }}
+            onLoadedData={() => {
+              setTimeout(() => setVideoLoaded(true), 200);
+            }}
+          >
+            <source src={HERO_VIDEO} type="video/mp4" />
+          </video>
+        </>
+      )}
+
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-black/25"
+        aria-hidden="true"
+      />
+
+      <div className="relative w-full max-w-4xl mx-auto px-6 pt-32 pb-16 md:py-28 text-center md:text-left">
+        <h1
+          className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-5 text-white"
+          data-testid="text-hero-title"
+        >
+          Commercial property. Captured properly.
+        </h1>
+        <p
+          className="text-white/85 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl md:mx-0 mx-auto"
+          data-testid="text-hero-subtitle"
+        >
+          Video, drone and photography for commercial property campaigns. Based
+          in Sydney. Working Australia-wide.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start items-stretch sm:items-center">
+          <Link
+            href="/portfolio"
+            className="btn-outline-light"
+            data-testid="button-hero-portfolio"
+          >
+            View our work
+          </Link>
+          <Link
+            href="/enquire"
+            className="btn-primary !bg-[var(--cream)] !text-[var(--navy)] !border-[var(--cream)]"
+            data-testid="button-hero-enquire"
+          >
+            Discuss a project
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
   return (
     <div className="min-h-screen w-full">
       <SeoHead
@@ -166,243 +199,231 @@ export default function Home() {
       <main id="top">
         <HeroSection />
 
-        <section id="proof" className="py-16 section-border">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <p className="text-[var(--ink)] text-xl md:text-2xl leading-relaxed font-serif" data-testid="text-proof">
-              Stills show what the asset looks like.
-              <br />
-              Video helps people understand why it matters.
+        <section
+          id="clients"
+          className="py-10 md:py-12 section-border"
+          aria-label="Clients"
+        >
+          <div className="max-w-5xl mx-auto px-6">
+            <p className="text-center text-soft-grey text-sm tracking-wider uppercase mb-6">
+              Trusted by property teams
             </p>
+            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+              {clientLogos.map((logo) => (
+                <div
+                  key={logo.alt}
+                  className="bg-white rounded-md px-5 py-3 h-14 md:h-16 flex items-center justify-center min-w-[7.5rem]"
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="h-7 md:h-8 w-auto max-w-[7rem] object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="categories" className="py-20 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center mb-14">
-            <h2
-              className="font-serif text-3xl md:text-4xl mb-6"
-              data-testid="text-services-title"
-            >
-              Commercial property video for assets that need more than stills
-            </h2>
-            <p className="text-soft-grey text-lg leading-relaxed mb-4">
-              One Now Two creates cinematic campaign content for commercial property
-              teams across industrial, retail, hospitality, tourism and development
-              projects.
-            </p>
-            <p className="text-soft-grey text-lg leading-relaxed">
-              Stills show what the asset looks like. Video helps buyers, occupiers
-              and investors understand the scale, setting, story and opportunity.
-            </p>
-          </div>
-
+        <section id="featured-work" className="py-14 md:py-16 section-border">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {serviceCategories.map((category) => (
-                <Link
-                  key={category.href}
-                  href={category.href}
-                  className="p-7 border border-[var(--hairline)] rounded-lg bg-[var(--cream)]/60 group hover:border-[var(--navy)]/30 hover:bg-[var(--cream)] transition-colors no-underline block"
+            <div className="text-center mb-10">
+              <h2
+                className="font-serif text-3xl md:text-4xl mb-2"
+                data-testid="text-works-title"
+              >
+                Selected campaign work
+              </h2>
+              <p className="text-soft-grey" data-testid="text-works-subtitle">
+                A mix of industrial, hospitality and development campaigns.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featuredProjects.map((project) => (
+                <article
+                  key={project.id}
+                  className="flex flex-col border border-[var(--hairline)] rounded-lg overflow-hidden bg-[var(--cream)]/50"
                 >
-                  <h3 className="font-serif text-xl mb-3 text-[var(--ink)] group-hover:text-[var(--navy)] transition-colors">
-                    {category.title}
-                  </h3>
-                  <p className="text-soft-grey text-sm mb-4 leading-relaxed">
-                    {category.description}
-                  </p>
-                  <span className="text-soft-grey text-sm group-hover:text-[var(--navy)] transition-colors">
-                    → Learn more
-                  </span>
+                  <Link
+                    href={project.href}
+                    className="group block no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]"
+                  >
+                    <VimeoThumbnail
+                      vimeoId={project.vimeoId}
+                      title={`${project.title} campaign video`}
+                    />
+                  </Link>
+                  <div className="p-5 flex flex-col flex-1">
+                    <p className="text-xs uppercase tracking-wider text-soft-grey mb-1">
+                      {project.sector}
+                      {project.client ? ` · ${project.client}` : ""}
+                    </p>
+                    <h3 className="font-serif text-xl mb-2 text-[var(--ink)]">
+                      {project.title}
+                    </h3>
+                    <p className="text-soft-grey text-sm leading-relaxed mb-4 flex-1">
+                      {project.description}
+                    </p>
+                    <Link
+                      href={project.href}
+                      className="text-sm text-[var(--navy)] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--navy)]"
+                    >
+                      {project.cta} →
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="text-center mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/portfolio" className="btn-outline">
+                View full portfolio
+              </Link>
+              <Link href="/case-studies" className="btn-outline">
+                All case studies
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section id="sectors" className="py-14 md:py-16 section-border">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-10">
+              <h2
+                className="font-serif text-3xl md:text-4xl mb-3"
+                data-testid="text-services-title"
+              >
+                Sectors we work across
+              </h2>
+              <p className="text-soft-grey max-w-2xl mx-auto">
+                Campaign content for commercial property teams — video, drone,
+                photography and social cutdowns.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {sectors.map((sector) => (
+                <Link
+                  key={sector.href}
+                  href={sector.href}
+                  className="group relative block overflow-hidden rounded-lg border border-[var(--hairline)] no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]"
+                >
+                  <div className="aspect-[16/10] bg-[var(--surface)]">
+                    <img
+                      src={sector.image.src}
+                      alt={sector.image.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-white">
+                    <h3 className="font-serif text-xl md:text-2xl mb-1">
+                      {sector.title}
+                    </h3>
+                    <p className="text-white/85 text-sm leading-relaxed">
+                      {sector.description}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-16 section-border">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
-                <img
-                  src={industrialPhotos.hero.src}
-                  alt={industrialPhotos.hero.alt}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
-                <img
-                  src={retailPhotos.hero.src}
-                  alt={retailPhotos.hero.alt}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
-                <img
-                  src={hospitalityPhotos.hero.src}
-                  alt={hospitalityPhotos.hero.alt}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[var(--surface)]">
-                <img
-                  src={developmentPhotos.hero.src}
-                  alt={developmentPhotos.hero.alt}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <p className="text-center text-soft-grey text-sm mt-8">
-              Looking for the broader overview?{" "}
-              <Link
-                href="/commercial-property-video-production-sydney"
-                className="text-[var(--navy)] underline-offset-2 hover:underline"
-              >
-                Commercial property video production in Sydney
-              </Link>
+        <section id="approach" className="py-14 md:py-16 section-border">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-serif text-3xl md:text-4xl mb-6 text-center">
+              How we work
+            </h2>
+            <p className="text-soft-grey text-lg leading-relaxed mb-6 text-center">
+              One Now Two is a Sydney-based production company focused on
+              commercial property campaigns — video, drone, photography and social
+              cutdowns for agents, vendors and property sales teams.
             </p>
-          </div>
-        </section>
+            <p className="text-soft-grey leading-relaxed mb-10 text-center">
+              The process is practical: understand the brief and the audience,
+              plan the shoot, capture the asset properly, then deliver
+              campaign-ready content.
+            </p>
 
-        <section id="portfolio-preview" className="py-20 section-border">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl mb-2" data-testid="text-works-title">Selected Works</h2>
-              <p className="text-soft-grey" data-testid="text-works-subtitle">A handful only. The rest—by request.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-              {portfolioPreview.map((work) => (
-                <button 
-                  key={work.id}
-                  onClick={() => setSelectedVideo(work)}
-                  className="block w-full text-left cursor-pointer group"
-                  data-testid={`button-portfolio-${work.id}`}
-                >
-                  <figure className="m-0">
-                    <VimeoThumbnail
-                      vimeoId={work.vimeoId}
-                      title={`${work.title} commercial property campaign video`}
-                      className="rounded-lg"
-                    />
-                    <figcaption className="mt-3 text-soft-grey group-hover:text-[var(--navy)] transition-colors">
-                      {work.title}
-                    </figcaption>
-                  </figure>
-                </button>
-              ))}
-            </div>
-
-            <div className="text-center mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/portfolio" className="btn-outline">
-                View Full Portfolio
-              </Link>
-              <Link href="/case-studies" className="btn-outline">
-                Case Studies
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 section-border">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="font-serif text-3xl mb-8">How It Works</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-4xl mb-4 opacity-50">01</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              <div className="border border-[var(--hairline)] rounded-lg p-5">
+                <p className="text-xs uppercase tracking-wider text-soft-grey mb-2">
+                  01
+                </p>
+                <h3 className="font-serif text-xl mb-2">Brief & planning</h3>
+                <p className="text-soft-grey text-sm leading-relaxed">
+                  Confirm the asset, audience and channels so the shoot covers
+                  what the campaign actually needs.
+                </p>
+              </div>
+              <div className="border border-[var(--hairline)] rounded-lg p-5">
+                <p className="text-xs uppercase tracking-wider text-soft-grey mb-2">
+                  02
+                </p>
                 <h3 className="font-serif text-xl mb-2">Shoot</h3>
-                <p className="text-soft-grey text-sm">We come to you, capture the property with precision and style.</p>
+                <p className="text-soft-grey text-sm leading-relaxed">
+                  On-site capture with ground and aerial coverage matched to the
+                  property type and campaign brief.
+                </p>
               </div>
-              <div>
-                <div className="text-4xl mb-4 opacity-50">02</div>
-                <h3 className="font-serif text-xl mb-2">Edit</h3>
-                <p className="text-soft-grey text-sm">Fast turnaround editing with colour grading and music.</p>
+              <div className="border border-[var(--hairline)] rounded-lg p-5">
+                <p className="text-xs uppercase tracking-wider text-soft-grey mb-2">
+                  03
+                </p>
+                <h3 className="font-serif text-xl mb-2">Edit & delivery</h3>
+                <p className="text-soft-grey text-sm leading-relaxed">
+                  Edited campaign film and cutdowns delivered ready for listings,
+                  decks, websites and social.
+                </p>
               </div>
-              <div>
-                <div className="text-4xl mb-4 opacity-50">03</div>
-                <h3 className="font-serif text-xl mb-2">Deliver</h3>
-                <p className="text-soft-grey text-sm">Files delivered in all formats you need, ready to publish.</p>
-              </div>
+            </div>
+
+            <div className="text-center">
+              <Link href="/about" className="btn-outline">
+                About us
+              </Link>
             </div>
           </div>
         </section>
 
-        <section className="py-16 section-border">
-          <div className="max-w-5xl mx-auto px-6">
-            <h2 className="font-serif text-xl text-center mb-10 text-soft-grey">Trusted by leading brands</h2>
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-              <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={jllLogo} alt="JLL commercial property video client" className="h-8 md:h-10 w-auto object-contain" />
-              </div>
-              <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={cbreLogo} alt="CBRE industrial warehouse property video client" className="h-6 md:h-8 w-auto object-contain" />
-              </div>
-              <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={rydgesLogo} alt="Rydges Hotels hospitality property video client" className="h-8 md:h-10 w-auto object-contain" />
-              </div>
-              <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={arissaLogo} alt="Arissa commercial property campaign client" className="h-6 md:h-8 w-auto object-contain" />
-              </div>
-              <div className="bg-white/90 rounded-lg px-6 py-4">
-                <img src={asheMorganLogo} alt="Ashe Morgan commercial property video client" className="h-8 md:h-10 w-auto object-contain" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="cta" className="py-20 section-border bg-[var(--navy)] text-[var(--cream)]">
+        <section
+          id="cta"
+          className="py-16 md:py-20 section-border bg-[var(--navy)] text-[var(--cream)]"
+        >
           <div className="max-w-2xl mx-auto px-6 text-center">
             <h2 className="font-serif text-3xl mb-4">
-              Ready to brief the next campaign?
+              Discuss your next campaign
             </h2>
-            <p className="text-[var(--cream)]/75 text-lg mb-8">
-              Tell us the asset, the audience and the timeline — we&apos;ll recommend
-              the right video approach.
+            <p className="text-[var(--cream)]/80 text-lg mb-8">
+              Send through the asset, audience and timing — we&apos;ll recommend
+              a practical approach.
             </p>
-            <Link 
-              href="/enquire"
-              className="inline-block bg-[var(--cream)] text-[var(--navy)] no-underline px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 transition-all"
-              data-testid="button-enquire-cta"
-            >
-              Enquire
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6">
+              <Link
+                href="/enquire"
+                className="inline-flex items-center justify-center min-h-[2.875rem] px-6 py-3 rounded-[0.4rem] text-sm font-medium bg-[var(--cream)] text-[var(--navy)] no-underline hover:opacity-90"
+                data-testid="button-enquire-cta"
+              >
+                Enquire
+              </Link>
+            </div>
+            <p className="text-[var(--cream)]/70 text-sm">
+              Prefer to email?{" "}
+              <a
+                href="mailto:hello@onenowtwo.com.au"
+                className="text-[var(--cream)] underline underline-offset-2 hover:opacity-90"
+              >
+                hello@onenowtwo.com.au
+              </a>
+            </p>
           </div>
         </section>
       </main>
 
       <SiteFooter />
-
-      {selectedVideo && (
-        <div 
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedVideo(null)}
-          data-testid="modal-video-overlay"
-        >
-          <div 
-            className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedVideo(null)}
-              className="absolute top-4 right-4 z-10 text-white/70 hover:text-white text-2xl w-8 h-8 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 transition-all"
-              data-testid="button-close-modal"
-            >
-              ×
-            </button>
-            <iframe
-              src={`https://player.vimeo.com/video/${selectedVideo.vimeoId}?autoplay=1&color=ffffff&title=0&byline=0&portrait=0&autopause=0`}
-              className="w-full h-full"
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              data-testid="iframe-video-player"
-              title={`${selectedVideo.title} commercial property campaign video`}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
