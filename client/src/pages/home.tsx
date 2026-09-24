@@ -17,7 +17,7 @@ import asheMorganLogo from "@assets/sponslogos4_1769577580217.png";
 import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 
 const HERO_VIDEO = "/media/hero/property-portfolio-aug26-short.mp4?v=20260810";
-const HERO_POSTER = "/media/hero/hero-poster.jpg";
+const HERO_POSTER = "/media/hero/hero-poster.jpg?v=20260924";
 /** Clean still for reduced-motion / no-autoplay fallback */
 const HERO_STILL = hospitalityPhotos.pairA.src;
 
