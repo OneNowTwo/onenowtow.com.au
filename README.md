@@ -2,6 +2,8 @@
 
 Cinematic video production for commercial and industrial real estate. A minimalist, monochrome portfolio website showcasing high-end property video content with elegant, understated design language.
 
+The **Sorted** dinner-discovery MVP lives in [`sorted/`](./sorted/README.md). From that folder: `npm install` then `npm run dev`.
+
 ## Tech Stack
 
 - **Frontend**: React 18 + TypeScript + Vite
