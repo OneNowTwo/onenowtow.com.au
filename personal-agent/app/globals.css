@@ -1,0 +1,265 @@
+@import "tailwindcss";
+@source "../node_modules/streamdown/dist/*.js";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Not inline: font utilities must read the variables so each host's font loader can override them. */
+@theme {
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: light;
+  /* Warm paper + eucalyptus — calm conversation surface, not AI purple. */
+  --background: #f3efe6;
+  --foreground: #1c2421;
+  --card: #fbf8f1;
+  --card-foreground: #1c2421;
+  --popover: #fbf8f1;
+  --popover-foreground: #1c2421;
+  --primary: #1f4a3a;
+  --primary-foreground: #f7f3ea;
+  --secondary: #e6dfd0;
+  --secondary-foreground: #1c2421;
+  --muted: #e8e1d3;
+  --muted-foreground: #5c655f;
+  --accent: #dfece4;
+  --accent-foreground: #1f4a3a;
+  --destructive: #9b3b2e;
+  --border: #d5cebf;
+  --input: #d5cebf;
+  --ring: #3d7a62;
+  --radius: 0.5rem;
+  --pa-ink: #1c2421;
+  --pa-moss: #1f4a3a;
+  --pa-wash: #e7f0ea;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, var(--pa-wash), transparent 55%),
+    linear-gradient(180deg, #f7f2e8 0%, var(--background) 40%, #ebe4d6 100%);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.pa-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pa-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.pa-brand {
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+.pa-brand-mark {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  color: var(--pa-moss);
+}
+
+.pa-brand-sub {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.pa-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.pa-nav-link {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.pa-nav-link:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.pa-nav-link-active {
+  color: var(--primary-foreground);
+  background: var(--pa-moss);
+}
+
+.pa-user {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+.pa-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pa-panel {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.pa-panel h1 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.pa-panel h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+}
+
+.pa-lede,
+.pa-muted,
+.pa-meta {
+  color: var(--muted-foreground);
+}
+
+.pa-lede {
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+.pa-section {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.pa-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.pa-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+}
+
+.pa-form {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 28rem;
+}
+
+.pa-form input {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 0.45rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.pa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pa-error {
+  color: var(--destructive);
+}
+
+.pa-ack {
+  margin-top: 0.75rem;
+  color: var(--pa-moss);
+}
+
+.pa-login {
+  margin-top: 2rem;
+}
+
+@media (max-width: 640px) {
+  .pa-header {
+    align-items: flex-start;
+  }
+  .pa-user {
+    width: 100%;
+  }
+}
