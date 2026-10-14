@@ -15,14 +15,16 @@ Not Muse. Customer-funded incentives. Pause is real. Short openers, deeper only 
 ```bash
 cd personal-agent
 cp .env.example .env.local
-# set SESSION_SECRET and PILOT_EMAIL
+# set SESSION_SECRET, TOKEN_ENCRYPTION_KEY, PILOT_EMAIL
+# add GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET for real sign-in
 npm install
 npm test
-npm run db:seed   # labelled FIXTURE candidates only
 npm run dev       # http://localhost:3000
 ```
 
-Sign in at `/login` with `PILOT_EMAIL`. Chat at `/`. Memory, Connections and Controls are in the nav.
+Sign in at `/login` with **Continue with Google**. Then **Connections → Connect Google**.
+
+Pilot setup checklist: [docs/SETUP_FOR_MICHAEL.md](./docs/SETUP_FOR_MICHAEL.md).
 
 Agent REPL (optional):
 
@@ -43,22 +45,22 @@ tests/                 policy + feedback tests
 docs/                  brief + progress ledger
 ```
 
-## Milestone 1 done locally
+## Done so far
 
-- Authenticated pilot session (cookie)
-- Persistent controls (pause/resume/revision), preferences, facts
-- Chat UI (eve web channel) + Memory / Connections / Controls / Today
-- Deterministic feedback intents and delivery policy (tested)
-- Connections show **disconnected** honestly until OAuth exists
+- Google Sign-In (placeholder auth removed)
+- Connect Google → Gmail + Calendar + ONT CRM sheet sync (encrypted tokens)
+- Grounded candidates from real synced mail/CRM rows
+- Persistent pause/memory/feedback; Sydney-gated sync schedules
+- Chat UI ready for AI Gateway once credentials are linked
 
-## Next (needs your accounts)
+## Needs your accounts (then Cursor finishes deploy)
 
-1. Google Cloud OAuth client + redirect URI for this app
-2. Selected ONT CRM sheet access
-3. AI Gateway / model for live chat
-4. Prefer a **private** GitHub repo before connecting real mail
+1. Private GitHub repo URL (ONT site stays separate)
+2. Google OAuth client secrets
+3. ONT CRM sheet URL/ID
+4. Vercel + AI Gateway authorisation
 
-See [docs/PROGRESS.md](./docs/PROGRESS.md).
+See [docs/PROGRESS.md](./docs/PROGRESS.md) and [docs/SETUP_FOR_MICHAEL.md](./docs/SETUP_FOR_MICHAEL.md).
 
 ## Privacy principles (operational)
 

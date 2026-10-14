@@ -238,6 +238,178 @@ export async function listConnections(userId: string) {
   return db.select().from(connections).where(eq(connections.userId, userId));
 }
 
+export async function getConnection(userId: string, provider: string) {
+  const db = await getDb();
+  const rows = await db
+    .select()
+    .from(connections)
+    .where(and(eq(connections.userId, userId), eq(connections.provider, provider)))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export async function markGoogleConnected(input: {
+  userId: string;
+  accountRef: string;
+  scopes: string[];
+  credentialBlob: string;
+}) {
+  const db = await getDb();
+  await ensurePilotUser();
+  const providers = ["gmail", "google_calendar", "ont_crm"] as const;
+  for (const provider of providers) {
+    const existing = await getConnection(input.userId, provider);
+    if (!existing) {
+      await db.insert(connections).values({
+        id: `conn_${provider}`,
+        userId: input.userId,
+        provider,
+        status: "connected",
+        accountRef: input.accountRef,
+        scopes: input.scopes,
+        credentialBlob: input.credentialBlob,
+        fixture: false,
+        errorMessage: null,
+        lastSuccessAt: null,
+      });
+    } else {
+      await db
+        .update(connections)
+        .set({
+          status: "connected",
+          accountRef: input.accountRef,
+          scopes: input.scopes,
+          credentialBlob: input.credentialBlob,
+          fixture: false,
+          errorMessage: null,
+          updatedAt: new Date(),
+        })
+        .where(eq(connections.id, existing.id));
+    }
+  }
+  await db.insert(auditEvents).values({
+    id: randomUUID(),
+    userId: input.userId,
+    action: "google_connected",
+    actor: input.userId,
+    details: { accountRef: input.accountRef, scopes: input.scopes },
+  });
+}
+
+export async function updateConnectionCredentials(
+  userId: string,
+  provider: string,
+  credentialBlob: string,
+) {
+  const db = await getDb();
+  await db
+    .update(connections)
+    .set({ credentialBlob, updatedAt: new Date() })
+    .where(and(eq(connections.userId, userId), eq(connections.provider, provider)));
+}
+
+export async function markConnectionSyncSuccess(
+  userId: string,
+  provider: string,
+  cursor?: string,
+) {
+  const db = await getDb();
+  await db
+    .update(connections)
+    .set({
+      status: "connected",
+      lastSuccessAt: new Date(),
+      syncCursor: cursor,
+      errorMessage: null,
+      updatedAt: new Date(),
+    })
+    .where(and(eq(connections.userId, userId), eq(connections.provider, provider)));
+}
+
+export async function markConnectionError(userId: string, provider: string, message: string) {
+  const db = await getDb();
+  await db
+    .update(connections)
+    .set({
+      status: "error",
+      errorMessage: message,
+      updatedAt: new Date(),
+    })
+    .where(and(eq(connections.userId, userId), eq(connections.provider, provider)));
+}
+
+export async function disconnectGoogle(userId: string) {
+  const db = await getDb();
+  for (const provider of ["gmail", "google_calendar", "ont_crm"]) {
+    await db
+      .update(connections)
+      .set({
+        status: "disconnected",
+        credentialBlob: null,
+        accountRef: null,
+        scopes: [],
+        syncCursor: null,
+        errorMessage: null,
+        updatedAt: new Date(),
+      })
+      .where(and(eq(connections.userId, userId), eq(connections.provider, provider)));
+  }
+}
+
+export async function upsertSourceRecord(input: {
+  userId: string;
+  connectionId: string;
+  provider: string;
+  externalId: string;
+  recordType: string;
+  content: unknown;
+  sourceTimestamp?: Date | null;
+}) {
+  const db = await getDb();
+  const id = `${input.provider}:${input.externalId}`;
+  const existing = await db
+    .select()
+    .from(schema.sourceRecords)
+    .where(eq(schema.sourceRecords.id, id))
+    .limit(1);
+  if (existing[0]) {
+    await db
+      .update(schema.sourceRecords)
+      .set({
+        content: input.content as object,
+        sourceTimestamp: input.sourceTimestamp ?? null,
+        fetchedAt: new Date(),
+        deleted: false,
+        recordType: input.recordType,
+        connectionId: input.connectionId,
+      })
+      .where(eq(schema.sourceRecords.id, id));
+  } else {
+    await db.insert(schema.sourceRecords).values({
+      id,
+      userId: input.userId,
+      connectionId: input.connectionId,
+      provider: input.provider,
+      externalId: input.externalId,
+      recordType: input.recordType,
+      content: input.content as object,
+      sourceTimestamp: input.sourceTimestamp ?? null,
+      fetchedAt: new Date(),
+      deleted: false,
+    });
+  }
+  return id;
+}
+
+export async function updatePilotProfile(displayName: string, email: string) {
+  const db = await getDb();
+  await ensurePilotUser();
+  await db
+    .update(users)
+    .set({ displayName, email: email.toLowerCase() })
+    .where(eq(users.id, PILOT_USER_ID));
+}
+
 export async function applyFeedbackCommand(input: {
   userId: string;
   text: string;

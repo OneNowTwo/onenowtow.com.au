@@ -1,16 +1,23 @@
 # Progress ledger
 
-Updated: 2026-10-14 (agent run)
+Updated: 2026-10-14 (pilot wiring run)
 
 ## Milestone status
 
 | Milestone | Status | Evidence |
 | --- | --- | --- |
-| 1 — Foundation and conversation | Implemented (local) | eve+Next scaffold; policy+feedback tests; PGlite schema; pilot cookie auth; chat UI shell; memory/controls/connections pages; pause/feedback persistence APIs; agent tools |
-| 2 — Real work context | Not started | Google OAuth + CRM adapters stubbed; needs Michael's OAuth client + sheet access |
-| 3 — Work and play discovery | Partial (fixtures) | Labelled FIXTURE candidates + policy selection tool; no live research yet |
-| 4 — Proactive external delivery | Not started | Outbox table present; no web-push/SMS transport |
-| 5 — Deployment and daily pilot | Not started | Deploy after OAuth + model credentials |
+| 1 — Foundation and conversation | Implemented | eve+Next; policy/feedback tests; PGlite; chat UI; memory/controls |
+| 2 — Real work context | Implemented (awaiting credentials) | Google Sign-In + Connect Google OAuth; Gmail/Calendar/Sheets sync; CRM sheet reader; encrypted tokens; schedules; **placeholderAuth removed** |
+| 3 — Work and play discovery | Partial | Live candidates from Gmail/CRM sync; play research still limited |
+| 4 — Proactive external delivery | Not started | Schedules sync; no web-push/SMS yet |
+| 5 — Deployment and daily pilot | Blocked on you | Private repo URL + Google OAuth secrets + Vercel/AI Gateway auth |
+
+## Auth (fixed)
+
+- Sign-in is **Continue with Google** (`/api/auth/google/*`).
+- Eve channel: `appSession` → `vercelOidc` → `localDev` → production hard reject. **No `placeholderAuth()`.**
+- `proxy.ts` redirects unauthenticated browsers to `/login`.
+- Email login only on localhost when Google is not configured (or `ALLOW_DEV_EMAIL_LOGIN=1`).
 
 ## Tests
 
@@ -18,20 +25,15 @@ Updated: 2026-10-14 (agent run)
 cd personal-agent && npm test
 ```
 
-17 tests passing (policy, feedback, persistent pause/idempotency).
+19 tests passing (policy, feedback, store, crypto/oauth state).
 
-Local smoke (2026-10-14):
+## Waiting on Michael
 
-- `POST /api/auth/login` → pilot session
-- `GET /api/controls` → balanced defaults
-- `POST /api/feedback` `"pause"` → `paused: true`, revision increments
-- `/`, `/login`, `/memory` → HTTP 200
-- `eve info` → status ready; tools: apply_feedback, pause/resume, memory, connections, fixture suggestion, web_search/fetch (no bash/write_file)
+See [SETUP_FOR_MICHAEL.md](./SETUP_FOR_MICHAEL.md):
 
-## Honest gaps
+1. Private GitHub repo URL + Cursor App access
+2. `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (+ session/encryption secrets)
+3. ONT CRM sheet URL/ID
+4. Vercel MCP + AI Gateway
 
-- Starter ZIP was not in the repo; policy module was recreated from the brief and tested.
-- Chat model turns need AI Gateway / `eve login` credentials.
-- Live Gmail/Calendar/CRM not connected until OAuth secrets exist for this deployment.
-- Production should remove or tighten `placeholderAuth()` on the eve channel.
-- Nested under `onenowtow.com.au` monorepo for now — prefer a private repo before any personal data flows.
+Cursor cannot create the private repo with the current GitHub App token (no org/user create rights). The extract script is `scripts/push-private-repo.sh` once you paste the URL.

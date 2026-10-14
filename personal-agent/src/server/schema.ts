@@ -156,9 +156,32 @@ export const connections = pgTable("connections", {
   status: text("status").notNull().default("disconnected"),
   lastSuccessAt: timestamp("last_success_at", { withTimezone: true }),
   syncCursor: text("sync_cursor"),
+  credentialBlob: text("credential_blob"),
+  errorMessage: text("error_message"),
   fixture: boolean("fixture").notNull().default(false),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+export const sourceRecords = pgTable(
+  "source_records",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    connectionId: text("connection_id")
+      .notNull()
+      .references(() => connections.id),
+    provider: text("provider").notNull(),
+    externalId: text("external_id").notNull(),
+    recordType: text("record_type").notNull(),
+    content: jsonb("content").notNull(),
+    sourceTimestamp: timestamp("source_timestamp", { withTimezone: true }),
+    fetchedAt: timestamp("fetched_at", { withTimezone: true }).notNull().defaultNow(),
+    deleted: boolean("deleted").notNull().default(false),
+  },
+  (t) => [uniqueIndex("source_records_user_provider_ext").on(t.userId, t.provider, t.externalId)],
+);
 
 export const outbox = pgTable("outbox", {
   id: text("id").primaryKey(),

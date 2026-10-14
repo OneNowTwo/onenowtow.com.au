@@ -1,10 +1,10 @@
 import { eveChannel } from "eve/channels/eve";
 import {
   localDev,
-  placeholderAuth,
   vercelOidc,
   type AuthFn,
   withAuthChallenges,
+  UnauthenticatedError,
 } from "eve/channels/auth";
 import { sessionFromRequest } from "../../src/server/auth-core";
 
@@ -21,14 +21,25 @@ function appSession(): AuthFn<Request> {
   }, [{ scheme: "Bearer" }]);
 }
 
+/** Fail closed in production: no placeholderAuth that admits anonymous browsers. */
+function productionGate(): AuthFn<Request> {
+  return async () => {
+    if (process.env.NODE_ENV === "production" || process.env.VERCEL === "1") {
+      throw new UnauthenticatedError({
+        code: "authentication_required",
+        message: "Sign in with Google to use Personal Agent.",
+      });
+    }
+    return null;
+  };
+}
+
 export default eveChannel({
   auth: [
     appSession(),
-    // Lets the eve TUI and Vercel deployments reach the deployed agent.
     vercelOidc(),
-    // Open on localhost for `eve dev` and the REPL.
     localDev(),
-    // Browser placeholder for local Next without cookie yet — replace in production.
-    placeholderAuth(),
+    // Local-only fallthrough for eve REPL; production rejects above.
+    productionGate(),
   ],
 });

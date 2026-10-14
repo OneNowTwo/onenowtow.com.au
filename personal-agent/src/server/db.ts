@@ -16,9 +16,12 @@ declare global {
 }
 
 async function bootstrapSchema(client: PGlite): Promise<void> {
-  const sqlPath = path.join(process.cwd(), "db", "migrations", "0000_init.sql");
-  const sql = readFileSync(sqlPath, "utf8");
-  await client.exec(sql);
+  const migrations = ["0000_init.sql", "0001_google_credentials.sql"];
+  for (const file of migrations) {
+    const sqlPath = path.join(process.cwd(), "db", "migrations", file);
+    const sql = readFileSync(sqlPath, "utf8");
+    await client.exec(sql);
+  }
 }
 
 async function createPgliteDb(): Promise<AppDb> {
