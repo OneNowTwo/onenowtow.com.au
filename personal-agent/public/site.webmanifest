@@ -1,0 +1,10 @@
+{
+  "name": "Personal Agent",
+  "short_name": "Personal Agent",
+  "description": "Independent personal agent for work and play",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3efe6",
+  "theme_color": "#1f4a3a",
+  "lang": "en-AU"
+}
