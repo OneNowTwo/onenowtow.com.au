@@ -1,7 +1,9 @@
 /**
- * Google adapter contracts for Milestone 2.
- * Real OAuth credentials are environment-specific and not portable from ChatGPT.
+ * Google connection surface for the UI/API.
+ * Live sync lives in google-sync.ts; OAuth in server/google-oauth.ts.
  */
+
+import { googleConfigured } from "../server/google-oauth";
 
 export type ConnectionStatus =
   | "disconnected"
@@ -10,51 +12,14 @@ export type ConnectionStatus =
   | "error"
   | "fixture";
 
-export interface SourceAdapter {
-  provider: string;
-  status(): Promise<{
-    status: ConnectionStatus;
-    accountRef?: string;
-    lastSuccessAt?: string;
-    fixture: boolean;
-  }>;
-  connectUrl?(returnTo: string): string;
-  disconnect?(): Promise<void>;
-}
-
-export function gmailAdapter(): SourceAdapter {
+export function googleSetupStatus(): {
+  configured: boolean;
+  connectPath: string;
+  loginPath: string;
+} {
   return {
-    provider: "gmail",
-    async status() {
-      const hasCreds = Boolean(
-        process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET,
-      );
-      return {
-        status: hasCreds ? "needs_auth" : "disconnected",
-        fixture: false,
-      };
-    },
-    connectUrl(returnTo: string) {
-      // Placeholder — real OAuth registered against this deployment.
-      return `/api/connections/google/start?provider=gmail&returnTo=${encodeURIComponent(returnTo)}`;
-    },
-  };
-}
-
-export function calendarAdapter(): SourceAdapter {
-  return {
-    provider: "google_calendar",
-    async status() {
-      const hasCreds = Boolean(
-        process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET,
-      );
-      return {
-        status: hasCreds ? "needs_auth" : "disconnected",
-        fixture: false,
-      };
-    },
-    connectUrl(returnTo: string) {
-      return `/api/connections/google/start?provider=google_calendar&returnTo=${encodeURIComponent(returnTo)}`;
-    },
+    configured: googleConfigured(),
+    connectPath: "/api/connections/google/start?returnTo=/connections",
+    loginPath: "/api/auth/google/start?returnTo=/",
   };
 }
