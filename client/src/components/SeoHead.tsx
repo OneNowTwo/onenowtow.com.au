@@ -101,7 +101,7 @@ export function videoObjectSchema({
     "@type": "VideoObject",
     name,
     description,
-    thumbnailUrl: `https://vumbnail.com/${vimeoId}.jpg`,
+    thumbnailUrl: `${SITE_URL}/media/thumbs/${vimeoId}.jpg`,
     embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
     contentUrl: `https://vimeo.com/${vimeoId}`,
     uploadDate: uploadDate || "2025-01-01",

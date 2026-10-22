@@ -1,6 +1,6 @@
 /** Lightweight Vimeo thumbnail — avoids loading the player until the user engages. */
 export function vimeoThumbUrl(vimeoId: string) {
-  return `https://vumbnail.com/${vimeoId}.jpg`;
+  return `/media/thumbs/${vimeoId}.jpg`;
 }
 
 export function VimeoThumbnail({
