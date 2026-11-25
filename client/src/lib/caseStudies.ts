@@ -18,6 +18,32 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "investa-sydney-office-towers",
+    title: "10–20 Bond Street & 100 Mount Street",
+    client: "Investa",
+    sector: "Commercial Offices",
+    location: "Sydney CBD & North Sydney",
+    campaignGoal:
+      "Present two premium Sydney office assets in a single film and make their relationship across Sydney Harbour clear to an investor audience.",
+    whatVideoNeeded:
+      "Capture each building's architecture, arrival, workplace interiors, amenities and surrounding transport connections, while clearly locating both assets on opposite sides of the harbour.",
+    productionApproach:
+      "Ground-level cinematography at both properties, Sydney CBD and North Sydney drone footage, AI-assisted harbour transitions, aerial mapping and tracked building callouts.",
+    body: "Two buildings, two sides of Sydney Harbour, one connected story. Our film combines detailed architectural and workplace coverage with aerial footage and purposeful motion graphics, allowing viewers to appreciate each property individually and understand how closely the two locations relate.",
+    deliverables: [
+      "Cinematic office property film",
+      "Ground-level architectural and workplace footage",
+      "Drone aerial footage",
+      "AI-assisted cross-harbour transitions",
+      "Animated location mapping and tracked building callouts",
+    ],
+    vimeoId: "1250145290",
+    relatedServiceHref: "/commercial-office-video-sydney",
+    relatedServiceLabel: "Commercial Office Video",
+    metaDescription:
+      "Investa office film by One Now Two showcasing 10–20 Bond Street in Sydney CBD and 100 Mount Street in North Sydney through drone, ground cinematography and motion graphics.",
+  },
+  {
     slug: "gibbons-group-industrial",
     title: "Industrial Campaign",
     client: "Gibbons Group",
