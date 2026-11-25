@@ -104,7 +104,7 @@ export function videoObjectSchema({
     thumbnailUrl: `${SITE_URL}/media/thumbs/${vimeoId}.jpg`,
     embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
     contentUrl: `https://vimeo.com/${vimeoId}`,
-    uploadDate: uploadDate || "2025-01-01",
+    ...(uploadDate ? { uploadDate } : {}),
     publisher: {
       "@type": "Organization",
       name: "One Now Two",

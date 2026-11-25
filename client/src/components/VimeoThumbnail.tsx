@@ -37,7 +37,7 @@ export function VimeoThumbnail({
       })
       .then((data) => {
         if (!data.thumbnail_url) throw new Error("Vimeo thumbnail missing");
-        setThumbnail(data.thumbnail_url);
+        setThumbnail(data.thumbnail_url.replace(/_\d+x\d+/, "_1280x720"));
       })
       .catch(() => setMissingThumbnail(true));
   };

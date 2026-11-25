@@ -13,7 +13,7 @@ const portfolioItems = [
   },
   {
     id: 23,
-    title: "Victoria & Brown — 475 Victoria Avenue",
+    title: "Victoria & Brown — 475 Victoria Avenue, Chatswood",
     vimeoId: "1250147393",
     category: "Commercial Offices",
     location: "Chatswood, Sydney"

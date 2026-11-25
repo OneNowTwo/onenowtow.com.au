@@ -14,6 +14,8 @@ export type CaseStudy = {
   relatedServiceHref: string;
   relatedServiceLabel: string;
   metaDescription: string;
+  /** ISO date from a verified Vimeo upload. Omit when unknown. */
+  uploadDate?: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -42,10 +44,11 @@ export const caseStudies: CaseStudy[] = [
     relatedServiceLabel: "Commercial Office Video",
     metaDescription:
       "Investa office film by One Now Two showcasing 10–20 Bond Street in Sydney CBD and 100 Mount Street in North Sydney through drone, ground cinematography and motion graphics.",
+    uploadDate: "2026-11-25",
   },
   {
     slug: "victoria-brown-chatswood",
-    title: "Victoria & Brown — 475 Victoria Avenue",
+    title: "Victoria & Brown — 475 Victoria Avenue, Chatswood",
     client: "Victoria & Brown",
     sector: "Commercial Offices",
     location: "Chatswood, Sydney",
@@ -67,6 +70,7 @@ export const caseStudies: CaseStudy[] = [
     relatedServiceLabel: "Commercial Office Video",
     metaDescription:
       "Victoria & Brown at 475 Victoria Avenue, Chatswood. A cinematic commercial office and workplace film produced by One Now Two with Alanplace.",
+    uploadDate: "2026-11-25",
   },
   {
     slug: "gibbons-group-industrial",

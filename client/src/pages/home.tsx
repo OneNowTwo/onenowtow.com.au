@@ -32,7 +32,7 @@ const clientLogos = [
 const featuredProjects = [
   {
     id: "investa-sydney-office-towers",
-    title: "Two Sydney Office Towers",
+    title: "Investa — Two Sydney Office Towers",
     client: "Investa",
     sector: "Commercial Offices",
     description:
@@ -43,7 +43,7 @@ const featuredProjects = [
   },
   {
     id: "victoria-brown-chatswood",
-    title: "Victoria & Brown — 475 Victoria Avenue",
+    title: "Victoria & Brown — 475 Victoria Avenue, Chatswood",
     client: "Victoria & Brown",
     sector: "Commercial Offices",
     description:
@@ -248,7 +248,7 @@ export default function Home() {
                 Selected campaign work
               </h2>
               <p className="text-soft-grey" data-testid="text-works-subtitle">
-                A mix of industrial, hospitality and development campaigns.
+                Recent office, hospitality and industrial campaign films.
               </p>
             </div>
 
