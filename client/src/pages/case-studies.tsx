@@ -42,6 +42,7 @@ export default function CaseStudies() {
                 <VimeoThumbnail
                   vimeoId={study.vimeoId}
                   title={`${study.title} commercial property campaign video`}
+                  showPlay={false}
                 />
                 <div className="p-6">
                   <p className="text-soft-grey text-sm mb-2">

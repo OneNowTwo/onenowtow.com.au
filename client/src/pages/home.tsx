@@ -265,6 +265,7 @@ export default function Home() {
                     <VimeoThumbnail
                       vimeoId={project.vimeoId}
                       title={`${project.title} campaign video`}
+                      showPlay={false}
                     />
                   </Link>
                   <div className="p-5 flex flex-col flex-1">
