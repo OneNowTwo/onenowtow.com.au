@@ -31,14 +31,14 @@ const clientLogos = [
 
 const featuredProjects = [
   {
-    id: "gibbons",
-    title: "Industrial Campaign",
-    client: "Gibbons Group",
-    sector: "Industrial & Logistics",
+    id: "investa-sydney-office-towers",
+    title: "Two Sydney Office Towers",
+    client: "Investa",
+    sector: "Commercial Offices",
     description:
-      "Industrial campaign film produced for Gibbons Group.",
-    vimeoId: "1225814922",
-    href: "/case-studies/gibbons-group-industrial",
+      "10–20 Bond Street and 100 Mount Street. Ground and drone cinematography, animated location callouts and an AI-assisted journey across Sydney Harbour.",
+    vimeoId: "1250145290",
+    href: "/case-studies/investa-sydney-office-towers",
     cta: "View case study",
   },
   {
