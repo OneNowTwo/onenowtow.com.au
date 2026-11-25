@@ -42,6 +42,17 @@ const featuredProjects = [
     cta: "View case study",
   },
   {
+    id: "victoria-brown-chatswood",
+    title: "Victoria & Brown — 475 Victoria Avenue",
+    client: "Victoria & Brown",
+    sector: "Commercial Offices",
+    description:
+      "A workplace and lifestyle film at 475 Victoria Avenue, Chatswood, created with Alanplace. Architecture, amenities and the surrounding precinct, brought together in one cinematic story.",
+    vimeoId: "1250147393",
+    href: "/case-studies/victoria-brown-chatswood",
+    cta: "View case study",
+  },
+  {
     id: "jll-hotels",
     title: "Social Collective",
     client: "JLL Hotels",
@@ -241,7 +252,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredProjects.map((project) => (
                 <article
                   key={project.id}
