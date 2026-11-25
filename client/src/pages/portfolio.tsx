@@ -5,6 +5,13 @@ import { VimeoThumbnail } from "@/components/VimeoThumbnail";
 
 const portfolioItems = [
   {
+    id: 22,
+    title: "Investa — 10–20 Bond St & 100 Mount St",
+    vimeoId: "1250145290",
+    category: "Commercial Offices",
+    location: "Sydney CBD / North Sydney"
+  },
+  {
     id: 21,
     title: "Gibbons Group — Industrial",
     vimeoId: "1225814922",
