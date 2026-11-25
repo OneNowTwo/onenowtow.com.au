@@ -9,10 +9,12 @@ export function VimeoThumbnail({
   vimeoId,
   title,
   className = "",
+  size = "card",
 }: {
   vimeoId: string;
   title: string;
   className?: string;
+  size?: "card" | "player";
 }) {
   const [thumbnail, setThumbnail] = useState(vimeoThumbUrl(vimeoId));
   const [missingThumbnail, setMissingThumbnail] = useState(false);
@@ -58,18 +60,30 @@ export function VimeoThumbnail({
           decoding="async"
         />
       )}
-      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <span className="inline-flex items-center gap-2.5 rounded-full bg-white pl-4 pr-5 py-3 text-[var(--navy)] shadow-lg group-hover:scale-105 transition-transform">
+      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
+        <span
+          className={`inline-flex items-center justify-center rounded-full bg-white text-black shadow-[0_8px_30px_rgba(0,0,0,0.45)] group-hover:scale-105 transition-transform ${
+            size === "player"
+              ? "h-20 w-20 md:h-24 md:w-24"
+              : "h-16 w-16 md:h-[4.5rem] md:w-[4.5rem]"
+          }`}
+        >
           <svg
             viewBox="0 0 24 24"
-            className="w-5 h-5 ml-0.5"
+            className={`ml-1 ${size === "player" ? "w-9 h-9 md:w-11 md:h-11" : "w-7 h-7 md:w-8 md:h-8"}`}
             fill="currentColor"
             aria-hidden="true"
           >
             <path d="M8 5.5v13l11-6.5L8 5.5z" />
           </svg>
-          <span className="text-sm font-medium tracking-wide">Play</span>
+        </span>
+        <span
+          className={`text-white font-semibold tracking-[0.18em] uppercase drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)] ${
+            size === "player" ? "text-sm md:text-base" : "text-xs md:text-sm"
+          }`}
+        >
+          Play
         </span>
       </div>
     </div>

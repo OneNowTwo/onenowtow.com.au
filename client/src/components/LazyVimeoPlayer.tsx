@@ -19,7 +19,12 @@ export function LazyVimeoPlayer({
         className="block w-full text-left group cursor-pointer border-0 p-0 bg-transparent"
         aria-label={`Play ${title}`}
       >
-        <VimeoThumbnail vimeoId={vimeoId} title={title} className="rounded-lg" />
+        <VimeoThumbnail
+          vimeoId={vimeoId}
+          title={title}
+          className="rounded-lg"
+          size="player"
+        />
       </button>
     );
   }
