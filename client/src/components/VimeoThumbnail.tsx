@@ -58,9 +58,9 @@ export function VimeoThumbnail({
           decoding="async"
         />
       )}
-      <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors" />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/92 text-[var(--navy)] shadow-sm">
+      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span className="inline-flex items-center gap-2.5 rounded-full bg-white pl-4 pr-5 py-3 text-[var(--navy)] shadow-lg group-hover:scale-105 transition-transform">
           <svg
             viewBox="0 0 24 24"
             className="w-5 h-5 ml-0.5"
@@ -69,6 +69,7 @@ export function VimeoThumbnail({
           >
             <path d="M8 5.5v13l11-6.5L8 5.5z" />
           </svg>
+          <span className="text-sm font-medium tracking-wide">Play</span>
         </span>
       </div>
     </div>
