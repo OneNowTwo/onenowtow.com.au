@@ -12,6 +12,13 @@ const portfolioItems = [
     location: "Sydney CBD / North Sydney"
   },
   {
+    id: 23,
+    title: "Victoria & Brown — 475 Victoria Avenue",
+    vimeoId: "1250147393",
+    category: "Commercial Offices",
+    location: "Chatswood, Sydney"
+  },
+  {
     id: 21,
     title: "Gibbons Group — Industrial",
     vimeoId: "1225814922",
