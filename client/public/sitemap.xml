@@ -86,6 +86,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.onenowtwo.com.au/case-studies/investa-sydney-office-towers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.onenowtwo.com.au/case-studies/victoria-brown-chatswood</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.onenowtwo.com.au/case-studies/gibbons-group-industrial</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

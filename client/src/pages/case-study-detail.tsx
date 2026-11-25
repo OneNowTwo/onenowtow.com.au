@@ -14,9 +14,10 @@ export default function CaseStudyDetail() {
     return <NotFound />;
   }
 
-  const displayTitle = study.client
-    ? `${study.title} — ${study.client}`
-    : study.title;
+  const displayTitle =
+    study.client && !study.title.startsWith(study.client)
+      ? `${study.title} — ${study.client}`
+      : study.title;
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
@@ -28,6 +29,7 @@ export default function CaseStudyDetail() {
           name: displayTitle,
           description: study.metaDescription,
           vimeoId: study.vimeoId,
+          uploadDate: study.uploadDate,
         })}
       />
       <Nav />
@@ -41,7 +43,9 @@ export default function CaseStudyDetail() {
             {study.title}
           </h1>
           <p className="text-soft-grey mb-10">
-            {study.client ? `${study.client} · ` : ""}
+            {study.client && !study.title.startsWith(study.client)
+              ? `${study.client} · `
+              : ""}
             {study.sector} · {study.location}
           </p>
 

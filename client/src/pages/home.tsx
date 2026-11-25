@@ -31,14 +31,25 @@ const clientLogos = [
 
 const featuredProjects = [
   {
-    id: "gibbons",
-    title: "Industrial Campaign",
-    client: "Gibbons Group",
-    sector: "Industrial & Logistics",
+    id: "investa-sydney-office-towers",
+    title: "Investa — Two Sydney Office Towers",
+    client: "Investa",
+    sector: "Commercial Offices",
     description:
-      "Industrial campaign film produced for Gibbons Group.",
-    vimeoId: "1225814922",
-    href: "/case-studies/gibbons-group-industrial",
+      "10–20 Bond Street and 100 Mount Street. Ground and drone cinematography, animated location callouts and an AI-assisted journey across Sydney Harbour.",
+    vimeoId: "1250145290",
+    href: "/case-studies/investa-sydney-office-towers",
+    cta: "View case study",
+  },
+  {
+    id: "victoria-brown-chatswood",
+    title: "Victoria & Brown — 475 Victoria Avenue, Chatswood",
+    client: "Victoria & Brown",
+    sector: "Commercial Offices",
+    description:
+      "A workplace and lifestyle film at 475 Victoria Avenue, Chatswood, created with Alanplace. Architecture, amenities and the surrounding precinct, brought together in one cinematic story.",
+    vimeoId: "1250147393",
+    href: "/case-studies/victoria-brown-chatswood",
     cta: "View case study",
   },
   {
@@ -237,11 +248,11 @@ export default function Home() {
                 Selected campaign work
               </h2>
               <p className="text-soft-grey" data-testid="text-works-subtitle">
-                A mix of industrial, hospitality and development campaigns.
+                Recent office, hospitality and industrial campaign films.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredProjects.map((project) => (
                 <article
                   key={project.id}

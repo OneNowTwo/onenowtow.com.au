@@ -14,9 +14,64 @@ export type CaseStudy = {
   relatedServiceHref: string;
   relatedServiceLabel: string;
   metaDescription: string;
+  /** ISO date from a verified Vimeo upload. Omit when unknown. */
+  uploadDate?: string;
 };
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "investa-sydney-office-towers",
+    title: "10–20 Bond Street & 100 Mount Street",
+    client: "Investa",
+    sector: "Commercial Offices",
+    location: "Sydney CBD & North Sydney",
+    campaignGoal:
+      "Present two premium Sydney office assets in a single film and make their relationship across Sydney Harbour clear to an investor audience.",
+    whatVideoNeeded:
+      "Capture each building's architecture, arrival, workplace interiors, amenities and surrounding transport connections, while clearly locating both assets on opposite sides of the harbour.",
+    productionApproach:
+      "Ground-level cinematography at both properties, Sydney CBD and North Sydney drone footage, AI-assisted harbour transitions, aerial mapping and tracked building callouts.",
+    body: "Two buildings, two sides of Sydney Harbour, one connected story. Our film combines detailed architectural and workplace coverage with aerial footage and purposeful motion graphics, allowing viewers to appreciate each property individually and understand how closely the two locations relate.",
+    deliverables: [
+      "Cinematic office property film",
+      "Ground-level architectural and workplace footage",
+      "Drone aerial footage",
+      "AI-assisted cross-harbour transitions",
+      "Animated location mapping and tracked building callouts",
+    ],
+    vimeoId: "1250145290",
+    relatedServiceHref: "/commercial-office-video-sydney",
+    relatedServiceLabel: "Commercial Office Video",
+    metaDescription:
+      "Investa office film by One Now Two showcasing 10–20 Bond Street in Sydney CBD and 100 Mount Street in North Sydney through drone, ground cinematography and motion graphics.",
+    uploadDate: "2026-11-25",
+  },
+  {
+    slug: "victoria-brown-chatswood",
+    title: "Victoria & Brown — 475 Victoria Avenue, Chatswood",
+    client: "Victoria & Brown",
+    sector: "Commercial Offices",
+    location: "Chatswood, Sydney",
+    campaignGoal:
+      "Introduce 475 Victoria Avenue as a workplace destination in Chatswood, with the building, its amenities and everyday life at the centre of the story.",
+    whatVideoNeeded:
+      "Communicate the building's character and facilities alongside the street-level experience and surrounding precinct, rather than presenting rooms in isolation.",
+    productionApproach:
+      "Produced with Alanplace using location cinematography across the architecture, workplace amenities, community spaces and Chatswood surrounds.",
+    body: "475 Victoria Avenue is presented as more than an office address. This Victoria & Brown film, produced with Alanplace, connects the building's design and shared spaces with the everyday experience of working in Chatswood. The result is a destination-led property film built around the people, amenities and context of the place.",
+    deliverables: [
+      "Commercial property campaign film",
+      "Architectural and ground-level cinematography",
+      "Workplace and shared-amenity coverage",
+      "Chatswood location and precinct footage",
+    ],
+    vimeoId: "1250147393",
+    relatedServiceHref: "/commercial-office-video-sydney",
+    relatedServiceLabel: "Commercial Office Video",
+    metaDescription:
+      "Victoria & Brown at 475 Victoria Avenue, Chatswood. A cinematic commercial office and workplace film produced by One Now Two with Alanplace.",
+    uploadDate: "2026-11-25",
+  },
   {
     slug: "gibbons-group-industrial",
     title: "Industrial Campaign",
