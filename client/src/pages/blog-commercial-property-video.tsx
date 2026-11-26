@@ -1,13 +1,7 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import { usePageMeta } from "../hooks/use-page-meta";
 
 export default function BlogCommercialPropertyVideo() {
-  usePageMeta(
-    "Commercial Property Video Production Sydney — Why Agents Are Making the Switch | One Now Two",
-    "Why Sydney's top commercial real estate agents are investing in professional video production for their property listings — and what it's doing for their campaigns."
-  );
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <Nav />

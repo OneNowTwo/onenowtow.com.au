@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import { usePageMeta } from "../hooks/use-page-meta";
 
 const posts = [
   {
@@ -14,11 +13,6 @@ const posts = [
 ];
 
 export default function Blog() {
-  usePageMeta(
-    "Blog | One Now Two — Commercial Property Video Sydney",
-    "Insights on commercial property video production, marketing, and the Sydney real estate market from One Now Two."
-  );
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <Nav />

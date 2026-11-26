@@ -1,13 +1,7 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import { usePageMeta } from "../hooks/use-page-meta";
 
 export default function DevelopmentMarketingVideo() {
-  usePageMeta(
-    "Development Marketing Video Production Sydney | One Now Two",
-    "Video production for property developers in Sydney. One Now Two creates cinematic development marketing videos for commercial, mixed-use and industrial development projects."
-  );
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <Nav />

@@ -1,10 +1,11 @@
-import express, { type Express } from "express";
+import express, { type Express, type Request, type Response } from "express";
 import fs from "fs";
 import path from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
+import { applyPageMetaToHtml, getPageMeta, getRequestPath } from "../shared/pageMeta";
 
 const viteLogger = createLogger();
 
@@ -59,7 +60,9 @@ export async function setupVite(app: Express, server: Server) {
         `src="/src/main.tsx?v=${nanoid()}"`,
       );
       const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      const meta = getPageMeta(getRequestPath(url));
+      const html = applyPageMetaToHtml(page, meta);
+      res.status(meta.status).set({ "Content-Type": "text/html; charset=utf-8" }).end(html);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);
       next(e);
@@ -76,10 +79,27 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  const indexPath = path.resolve(distPath, "index.html");
+  const indexHtml = fs.readFileSync(indexPath, "utf-8");
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  const sendIndex = (req: Request, res: Response) => {
+    const meta = getPageMeta(getRequestPath(req.originalUrl));
+    const html = applyPageMetaToHtml(indexHtml, meta);
+    res.status(meta.status).set({ "Content-Type": "text/html; charset=utf-8" }).end(html);
+  };
+
+  app.use((req, res, next) => {
+    if (req.method !== "GET" && req.method !== "HEAD") return next();
+    const pathname = getRequestPath(req.path);
+    if (pathname === "/" || pathname === "/index.html") {
+      return sendIndex(req, res);
+    }
+    next();
+  });
+
+  app.use(express.static(distPath, { index: false }));
+
+  app.use("*", (req, res) => {
+    sendIndex(req, res);
   });
 }

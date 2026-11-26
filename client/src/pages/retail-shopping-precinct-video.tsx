@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
 import { retailPhotos } from "@/lib/photos";
 
@@ -26,11 +25,6 @@ const usefulFor = [
 export default function RetailShoppingPrecinctVideo() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Retail & Shopping Centre Video Sydney | One Now Two"
-        description="Video for retail centres, shopping precincts and mixed-use campaigns. Show location, tenant mix, foot traffic, trade area and future upside."
-        path="/retail-shopping-precinct-video"
-      />
       <Nav />
 
       <main className="pt-32 pb-20">

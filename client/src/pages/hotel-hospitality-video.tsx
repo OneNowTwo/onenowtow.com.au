@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
 import { hospitalityPhotos } from "@/lib/photos";
 
@@ -26,11 +25,6 @@ const usefulFor = [
 export default function HotelHospitalityVideo() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Hotel, Hospitality & Tourism Video Sydney | One Now Two"
-        description="Video production for hotels, pubs, hospitality venues and tourism precinct campaigns. Capture heritage, ambience, local story and investor appeal."
-        path="/hotel-hospitality-property-video"
-      />
       <Nav />
 
       <main className="pt-32 pb-20">

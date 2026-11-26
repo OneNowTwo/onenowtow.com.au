@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
 import { photos } from "@/lib/photos";
 
@@ -25,12 +24,6 @@ const sectors = [
 export default function CommercialPropertyVideoSydney() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Commercial Property Video Production Sydney | One Now Two"
-        description="Commercial property video production in Sydney for industrial, warehouse, office, hotel and hospitality campaigns. Strategy, filming, drone, editing, motion graphics and social cutdowns."
-        path="/commercial-property-video-production-sydney"
-        schema={localBusinessSchema}
-      />
       <Nav />
 
       <main className="pt-32 pb-20">
@@ -53,9 +46,23 @@ export default function CommercialPropertyVideoSydney() {
             vendors understand scale, location, access, movement and opportunity
             quickly.
           </p>
-          <p className="text-soft-grey text-lg leading-relaxed">
+          <p className="text-soft-grey text-lg leading-relaxed mb-6">
             Stills show what the asset looks like. Video helps people understand
             why it matters.
+          </p>
+          <p className="text-soft-grey text-lg leading-relaxed">
+            For office leasing campaigns, see our{" "}
+            <Link href="/commercial-office-video-sydney" className="text-[var(--navy)] hover:underline">
+              commercial office video
+            </Link>{" "}
+            work, including{" "}
+            <Link href="/case-studies/investa-sydney-office-towers" className="text-[var(--navy)] hover:underline">
+              Investa — Two Sydney Office Towers
+            </Link>{" "}
+            and{" "}
+            <Link href="/case-studies/victoria-brown-chatswood" className="text-[var(--navy)] hover:underline">
+              Victoria &amp; Brown — Chatswood
+            </Link>.
           </p>
         </section>
 
@@ -127,6 +134,18 @@ export default function CommercialPropertyVideoSydney() {
 
         <RelatedLinks
           links={[
+            {
+              href: "/commercial-office-video-sydney",
+              label: "Commercial Office Video",
+            },
+            {
+              href: "/case-studies/investa-sydney-office-towers",
+              label: "Investa — Two Sydney Office Towers",
+            },
+            {
+              href: "/case-studies/victoria-brown-chatswood",
+              label: "Victoria & Brown — Chatswood",
+            },
             {
               href: "/industrial-warehouse-property-video",
               label: "Industrial & Warehouse",

@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
 import { photos } from "@/lib/photos";
 
@@ -44,11 +43,6 @@ const captureOptions = [
 export default function CommercialPhotographyDrone() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Commercial Property Photography & Drone Sydney | One Now Two"
-        description="Ground photography, aerial stills, drone footage and video content for commercial property campaigns in Sydney. Package stills, drone and video into one efficient shoot."
-        path="/commercial-property-photography-drone"
-      />
       <Nav />
 
       <main className="pt-32 pb-20">

@@ -1,13 +1,7 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import { usePageMeta } from "../hooks/use-page-meta";
 
 export default function IndustrialWarehouseVideo() {
-  usePageMeta(
-    "Industrial & Warehouse Video Production Sydney | One Now Two",
-    "Video production for industrial properties, warehouses and logistics facilities across Sydney. One Now Two helps commercial agents showcase industrial assets with cinematic property videos."
-  );
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <Nav />

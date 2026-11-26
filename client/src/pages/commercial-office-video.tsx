@@ -1,13 +1,7 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import { usePageMeta } from "../hooks/use-page-meta";
 
 export default function CommercialOfficeVideo() {
-  usePageMeta(
-    "Commercial Office Video Production Sydney | One Now Two",
-    "Cinematic video production for commercial office buildings in Sydney. One Now Two helps agents and developers market office assets with high-quality property videos that attract tenants and investors."
-  );
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <Nav />
@@ -68,6 +62,16 @@ export default function CommercialOfficeVideo() {
               If you're an agent or developer with a commercial office listing in Sydney, we'd be glad to show you what
               we've produced for similar assets.
             </p>
+            <p>
+              Recent office films include{" "}
+              <Link href="/case-studies/investa-sydney-office-towers" className="text-[var(--navy)] hover:underline">
+                Investa — Two Sydney Office Towers
+              </Link>, covering 10–20 Bond Street and 100 Mount Street, and{" "}
+              <Link href="/case-studies/victoria-brown-chatswood" className="text-[var(--navy)] hover:underline">
+                Victoria &amp; Brown — Chatswood
+              </Link>{" "}
+              at 475 Victoria Avenue.
+            </p>
           </div>
 
           <div className="mt-12 p-6 border border-[var(--hairline)] rounded-lg">
@@ -81,6 +85,11 @@ export default function CommercialOfficeVideo() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-[var(--hairline)]">
+            <p className="text-soft-grey text-sm mb-4">Recent office films:</p>
+            <div className="flex flex-wrap gap-4 text-sm mb-8">
+              <Link href="/case-studies/investa-sydney-office-towers" className="text-soft-grey hover:text-[var(--navy)] transition-colors">Investa — Two Sydney Office Towers</Link>
+              <Link href="/case-studies/victoria-brown-chatswood" className="text-soft-grey hover:text-[var(--navy)] transition-colors">Victoria &amp; Brown — Chatswood</Link>
+            </div>
             <p className="text-soft-grey text-sm mb-4">Other services:</p>
             <div className="flex flex-wrap gap-4 text-sm">
               <Link href="/industrial-warehouse-property-video" className="text-soft-grey hover:text-[var(--navy)] transition-colors">Industrial &amp; Warehouse Video</Link>

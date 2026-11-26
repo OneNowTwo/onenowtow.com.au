@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
 import { developmentPhotos } from "@/lib/photos";
 
@@ -26,11 +25,6 @@ const usefulFor = [
 export default function PropertyDevelopmentVideo() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Property Development Video Sydney | One Now Two"
-        description="Video for property developments across Sydney. Scale, context, infrastructure, progress and future potential for investors, tenants and sales teams."
-        path="/property-development-video"
-      />
       <Nav />
 
       <main className="pt-32 pb-20">

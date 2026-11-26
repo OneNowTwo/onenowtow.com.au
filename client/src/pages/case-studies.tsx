@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage } from "@/components/SiteChrome";
 import { VimeoThumbnail } from "@/components/VimeoThumbnail";
 import { caseStudies } from "@/lib/caseStudies";
@@ -9,11 +8,6 @@ import { industrialPhotos } from "@/lib/photos";
 export default function CaseStudies() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Commercial Property Video Case Studies | One Now Two"
-        description="Recent commercial property video work by One Now Two across industrial, hospitality, office, retail and commercial real estate campaigns."
-        path="/case-studies"
-      />
       <Nav />
 
       <main className="pt-28 md:pt-32 pb-20">

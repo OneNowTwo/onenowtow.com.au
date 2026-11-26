@@ -1,13 +1,7 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import { usePageMeta } from "../hooks/use-page-meta";
 
 export default function DroneAerialVideo() {
-  usePageMeta(
-    "Drone & Aerial Property Video Sydney | One Now Two",
-    "Professional drone and aerial video for commercial property in Sydney. One Now Two provides CASA-certified drone filming for property listings, development sites and marketing campaigns."
-  );
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
       <Nav />

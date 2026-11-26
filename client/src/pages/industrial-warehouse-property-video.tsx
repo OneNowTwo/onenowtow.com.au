@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks, PageHeroImage, ImagePair } from "@/components/SiteChrome";
 import { industrialPhotos } from "@/lib/photos";
 
@@ -18,11 +17,6 @@ const explainItems = [
 export default function IndustrialWarehousePropertyVideo() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Industrial & Warehouse Property Video Sydney | One Now Two"
-        description="Industrial and warehouse property video production for Sydney commercial real estate campaigns. Show scale, truck access, loading, hardstand, clearance and connectivity."
-        path="/industrial-warehouse-property-video"
-      />
       <Nav />
 
       <main className="pt-32 pb-20">

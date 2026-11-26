@@ -1,6 +1,5 @@
 import { Link, useRoute } from "wouter";
 import Nav from "@/components/Nav";
-import { SeoHead, videoObjectSchema } from "@/components/SeoHead";
 import { SiteFooter, RelatedLinks } from "@/components/SiteChrome";
 import { LazyVimeoPlayer } from "@/components/LazyVimeoPlayer";
 import { getCaseStudy } from "@/lib/caseStudies";
@@ -14,24 +13,8 @@ export default function CaseStudyDetail() {
     return <NotFound />;
   }
 
-  const displayTitle =
-    study.client && !study.title.startsWith(study.client)
-      ? `${study.title} — ${study.client}`
-      : study.title;
-
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title={`${displayTitle} | Commercial Property Video Case Study | One Now Two`}
-        description={study.metaDescription}
-        path={`/case-studies/${study.slug}`}
-        schema={videoObjectSchema({
-          name: displayTitle,
-          description: study.metaDescription,
-          vimeoId: study.vimeoId,
-          uploadDate: study.uploadDate,
-        })}
-      />
       <Nav />
 
       <main className="pt-28 md:pt-32 pb-20">

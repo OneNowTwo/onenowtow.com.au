@@ -24,6 +24,7 @@ import DroneAerialVideo from "@/pages/drone-aerial-video";
 import BlogCommercialPropertyVideo from "@/pages/blog-commercial-property-video";
 import Blog from "@/pages/blog";
 import NotFound from "@/pages/not-found";
+import { SeoHead } from "@/components/SeoHead";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -66,6 +67,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <ScrollToTop />
+        <SeoHead />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>

@@ -1,17 +1,11 @@
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 import { SiteFooter } from "@/components/SiteChrome";
-import { SeoHead } from "@/components/SeoHead";
 import { industrialPhotos } from "@/lib/photos";
 
 export default function About() {
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="About | One Now Two"
-        description="One Now Two is a Sydney-based production company creating commercial property video, drone and photography for campaigns across Australia."
-        path="/about"
-      />
       <Nav />
 
       <main className="pt-28 md:pt-32 pb-20">

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
 import { SiteFooter } from "@/components/SiteChrome";
-import { SeoHead } from "@/components/SeoHead";
 
 export default function Enquire() {
   const [formData, setFormData] = useState({
@@ -65,11 +64,6 @@ export default function Enquire() {
 
   return (
     <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--ink)]">
-      <SeoHead
-        title="Enquire | One Now Two"
-        description="Discuss a commercial property video, drone or photography campaign with One Now Two."
-        path="/enquire"
-      />
       <Nav />
 
       <main className="pt-28 md:pt-32 pb-20">

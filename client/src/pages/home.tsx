@@ -9,7 +9,6 @@ import {
   hospitalityPhotos,
   developmentPhotos,
 } from "@/lib/photos";
-import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 
 const HERO_VIDEO = "/media/hero/property-portfolio-aug26-short.mp4?v=20260810";
 const HERO_POSTER = "/media/hero/hero-poster.jpg?v=20260924";
@@ -204,12 +203,6 @@ function HeroSection() {
 export default function Home() {
   return (
     <div className="min-h-screen w-full">
-      <SeoHead
-        title="One Now Two | Commercial Property Video Production Sydney"
-        description="Commercial property video, drone and photography for agents, vendors and property sales teams across Sydney and NSW. Industrial, warehouse, hotel and hospitality campaigns."
-        path="/"
-        schema={localBusinessSchema}
-      />
       <Nav />
 
       <main id="top">
