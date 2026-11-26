@@ -9,11 +9,6 @@ import {
   hospitalityPhotos,
   developmentPhotos,
 } from "@/lib/photos";
-import arissaLogo from "@assets/Arissa_1769577580214.png";
-import jllLogo from "@assets/JLL-Logo-Positive-10-29mm-RGB-1-002_1769577580216.png";
-import cbreLogo from "@assets/png-clipart-cbre-group-real-estate-commercial-property-busines_1769577580216.png";
-import rydgesLogo from "@assets/Rydges_Hotels_&_Resorts_Logo_1769577580217.png";
-import asheMorganLogo from "@assets/sponslogos4_1769577580217.png";
 import { SeoHead, localBusinessSchema } from "@/components/SeoHead";
 
 const HERO_VIDEO = "/media/hero/property-portfolio-aug26-short.mp4?v=20260810";
@@ -22,11 +17,19 @@ const HERO_POSTER = "/media/hero/hero-poster.jpg?v=20260924";
 const HERO_STILL = hospitalityPhotos.pairA.src;
 
 const clientLogos = [
-  { src: jllLogo, alt: "JLL" },
-  { src: cbreLogo, alt: "CBRE" },
-  { src: rydgesLogo, alt: "Rydges Hotels & Resorts" },
-  { src: arissaLogo, alt: "Arissa" },
-  { src: asheMorganLogo, alt: "Ashe Morgan" },
+  { src: "/media/logos/jll.png", alt: "JLL", className: "h-9 md:h-11" },
+  { src: "/media/logos/cbre.png", alt: "CBRE", className: "h-8 md:h-10" },
+  {
+    src: "/media/logos/rydges.png",
+    alt: "Rydges Hotels & Resorts",
+    className: "h-10 md:h-12",
+  },
+  { src: "/media/logos/arissa.png", alt: "Arissa", className: "h-8 md:h-10" },
+  {
+    src: "/media/logos/ashe-morgan.png",
+    alt: "Ashe Morgan",
+    className: "h-11 md:h-14 max-w-[12rem]",
+  },
 ];
 
 const featuredProjects = [
@@ -217,22 +220,18 @@ export default function Home() {
           className="py-10 md:py-12 section-border"
           aria-label="Clients"
         >
-          <div className="max-w-5xl mx-auto px-6">
-            <p className="text-center text-soft-grey text-sm tracking-wider uppercase mb-6">
+          <div className="max-w-6xl mx-auto px-6">
+            <p className="text-center text-soft-grey text-sm tracking-wider uppercase mb-8">
               Trusted by property teams
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center justify-items-center gap-x-8 gap-y-8 md:gap-x-10">
               {clientLogos.map((logo) => (
-                <div
+                <img
                   key={logo.alt}
-                  className="bg-white rounded-md px-5 py-3 h-14 md:h-16 flex items-center justify-center min-w-[7.5rem]"
-                >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="h-7 md:h-8 w-auto max-w-[7rem] object-contain"
-                  />
-                </div>
+                  src={logo.src}
+                  alt={logo.alt}
+                  className={`w-auto object-contain ${logo.className}`}
+                />
               ))}
             </div>
           </div>
