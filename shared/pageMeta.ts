@@ -37,25 +37,35 @@ export const localBusinessSchema = {
   },
 };
 
+export function videoThumbnailUrl(vimeoId: string) {
+  return `${SITE_URL}/media/thumbs/${vimeoId}.jpg`;
+}
+
 export function videoObjectSchema({
   name,
   description,
   vimeoId,
   uploadDate,
+  path,
 }: {
   name: string;
   description: string;
   vimeoId: string;
   uploadDate?: string;
+  /** Canonical case-study page hosting this video. */
+  path: string;
 }) {
+  const thumbnailUrl = videoThumbnailUrl(vimeoId);
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     name,
     description,
-    thumbnailUrl: `${SITE_URL}/media/thumbs/${vimeoId}.jpg`,
-    embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
+    thumbnailUrl,
     contentUrl: `https://vimeo.com/${vimeoId}`,
+    embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
+    url: `${SITE_URL}${path}`,
+    mainEntityOfPage: `${SITE_URL}${path}`,
     ...(uploadDate ? { uploadDate } : {}),
     publisher: {
       "@type": "Organization",
@@ -188,16 +198,21 @@ const PAGE_META: Record<string, PageMeta> = {
 for (const study of caseStudies) {
   const displayTitle = caseStudyDisplayTitle(study);
   const path = `/case-studies/${study.slug}`;
+  const thumbnailUrl = videoThumbnailUrl(study.vimeoId);
   PAGE_META[path] = meta(
     path,
     `${displayTitle} | Commercial Property Video Case Study | One Now Two`,
     study.metaDescription,
     {
+      // Keep social preview images aligned with VideoObject.thumbnailUrl so Google
+      // does not associate the film with the homepage hero poster.
+      ogImage: thumbnailUrl,
       schema: videoObjectSchema({
         name: displayTitle,
         description: study.metaDescription,
         vimeoId: study.vimeoId,
         uploadDate: study.uploadDate,
+        path,
       }),
     },
   );
